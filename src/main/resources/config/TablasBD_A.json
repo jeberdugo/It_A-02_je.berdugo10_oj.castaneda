@@ -1,0 +1,15 @@
+{
+	"title": "Nombres de las tablas de AlohAndes para la aplicacion",
+	"unidadPersistencia": "AlohAndes",
+	"tablas":
+	[
+		"Parranderos_sequence",
+		"USUARIO",
+		"OPERADOR",
+		"CLIENTE",
+		"RESERVA",
+		"OFERTA",
+		"ALOJAMIENTO"
+		
+	]
+}
