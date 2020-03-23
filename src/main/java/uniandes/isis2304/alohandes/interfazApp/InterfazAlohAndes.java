@@ -236,7 +236,55 @@ public class InterfazAlohAndes extends JFrame implements ActionListener
         }        
         setJMenuBar ( menuBar );	
     }
+    /* ****************************************************************
+	 * 			Requerimientos funcionales de modificacion
+	 *****************************************************************/
     
+    public void registrarOperador() {
+    	
+    }
+    
+ public void registrarAlojamiento() {
+    	
+    }
+    
+ public void registrarCliente() {
+ 	
+ }
+ 
+ public void registrarReserva() {
+ 	
+ }
+ public void cancelarReserva() {
+	 	
+ }
+ public void retirarAlojamiento() {
+	 
+	 
+ }
+ 
+ /* ****************************************************************
+	 * 			Requerimientos funcionales de consulta
+	 *****************************************************************/
+ 
+ public void dineroPorProveedor() {
+	 
+	 
+ }
+ public void ofertasPopulares() {
+	 
+	 
+ }
+ 
+ public void indiceOcupacion() {
+	 
+	 
+ }
+ 
+ public void alojamientosPorDotacion() {
+	 
+	 
+ }
 	/* ****************************************************************
 	 * 			Métodos administrativos
 	 *****************************************************************/
