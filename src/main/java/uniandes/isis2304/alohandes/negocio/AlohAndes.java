@@ -79,18 +79,17 @@ public class AlohAndes
 
 	public String adicionarCliente(String nombre, int rol, String nombreUsuario, String correo, String contrasena,
 			int numeroDocumento, int tipoDocumento) {
-		String respuesta = pp.adicionarUsuario(nombreUsuario, correo, contrasena, numeroDocumento, tipoDocumento)
-				.toString();
-		respuesta += pp.adicionarCliente(nombre, rol).toString();
+		Usuario usuario=pp.adicionarUsuario(nombreUsuario, correo, contrasena, numeroDocumento, tipoDocumento);
+		String respuesta = usuario.toString();
+		respuesta += pp.adicionarCliente(usuario.getId(), nombre, rol).toString();
 		return respuesta;
 	}
 
 	public String adicionarOperador(int tipo, String nombreUsuario, String correo, String contrasena,
 			int numeroDocumento, int tipoDocumento) {
-		String respuesta = pp.adicionarUsuario(nombreUsuario, correo, contrasena, numeroDocumento, tipoDocumento)
-				.toString();
-		System.out.println(respuesta);
-		respuesta += pp.adicionarOperador(tipo).toString();
+		Usuario usuario=pp.adicionarUsuario(nombreUsuario, correo, contrasena, numeroDocumento, tipoDocumento);
+		String respuesta = usuario.toString();
+		respuesta += pp.adicionarOperador(usuario.getId(), tipo).toString();
 		System.out.println(respuesta);
 		return respuesta;
 	}

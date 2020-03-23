@@ -338,12 +338,11 @@ public class PersistenciaAlohAndes {
 		}
 	}
 
-	public Cliente adicionarCliente(String nombre, int rol) {
+	public Cliente adicionarCliente(long idCliente, String nombre, int rol) {
 		PersistenceManager pm = pmf.getPersistenceManager();
 		Transaction tx = pm.currentTransaction();
 		try {
 			tx.begin();
-			long idCliente = nextval();
 			long tuplasInsertadas = sqlCliente.adicionarCliente(pm, idCliente, nombre, rol);
 			tx.commit();
 
@@ -361,12 +360,11 @@ public class PersistenciaAlohAndes {
 		}
 	}
 
-	public Operador adicionarOperador(int tipo) {
+	public Operador adicionarOperador(long idOperador, int tipo) {
 		PersistenceManager pm = pmf.getPersistenceManager();
 		Transaction tx = pm.currentTransaction();
 		try {
 			tx.begin();
-			long idOperador = nextval();
 			long tuplasInsertadas = sqlOperador.adicionarOperador(pm, idOperador, tipo);
 			tx.commit();
 
