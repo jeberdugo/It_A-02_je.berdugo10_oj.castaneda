@@ -8,13 +8,14 @@
 		{ "menuTitle": "Registro",
 		  "options":
 			[
-				{
-					"label": "Registrar Usuario",
-					"event": "registroUsuario"
-				},
+				
 				{
 					"label": "Login",
 					"event": "login"
+				},
+				{
+					"label": "Informacion usuario",
+					"event": "infoUsuario"
 				}
 			]
 		},
@@ -31,7 +32,7 @@
 				},
 				{
 					"label": "RF2 Registrar Oferta",
-					"event": "registrarCliente"
+					"event": "registrarOferta"
 				},
 				{
 					"label": "RF3 Registrar Cliente",

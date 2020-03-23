@@ -286,8 +286,22 @@ public class InterfazAlohAndes extends JFrame implements ActionListener
 			panelDatos.actualizarInterfaz(resultado);
 		}
 	}
-    
+	 public void registrarOferta() {
+		 if(usuarioActivo!=-1)
+		 {
+			 
+		 }
+		 else
+			 JOptionPane.showMessageDialog(this,"No esta logueado","Debe loguearse",JOptionPane.ERROR_MESSAGE);
+	    	
+	    }
  public void registrarAlojamiento() {
+	 if(usuarioActivo!=-1)
+	 {
+		 
+	 }
+	 else
+		 JOptionPane.showMessageDialog(this,"No esta logueado","Debe loguearse",JOptionPane.ERROR_MESSAGE);
     	
     }
     
@@ -332,19 +346,48 @@ public class InterfazAlohAndes extends JFrame implements ActionListener
  }
  
  public void registrarReserva() {
+	 if(usuarioActivo!=-1)
+	 {
+		 
+	 }
+	 else
+		 JOptionPane.showMessageDialog(this,"No esta logueado","Debe loguearse",JOptionPane.ERROR_MESSAGE);
+		 
  	
  }
  public void cancelarReserva() {
+	 if(usuarioActivo!=-1)
+	 {
+		 
+	 }
+	 else
+		 JOptionPane.showMessageDialog(this,"No esta logueado","Debe loguearse",JOptionPane.ERROR_MESSAGE);
 	 	
  }
  public void retirarAlojamiento() {
+	 if(usuarioActivo!=-1)
+	 {
+		 
+	 }
+	 else
+		 JOptionPane.showMessageDialog(this,"No esta logueado","Debe loguearse",JOptionPane.ERROR_MESSAGE);
 	 
 	 
  }
  
- public void registroUsuario() {
- 	
+ public void infoUsuario() {
+	 if(usuarioActivo!=-1)
+	 {
+		 
+	 }
+	 else
+		 JOptionPane.showMessageDialog(this,"No esta logueado","Debe loguearse",JOptionPane.ERROR_MESSAGE);
+	 
+	 
  }
+ 
+
+
  
  public void login() {
 	 
