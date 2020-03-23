@@ -26,6 +26,9 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.lang.reflect.Method;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import javax.jdo.JDODataStoreException;
@@ -556,6 +559,25 @@ public class InterfazAlohAndes extends JFrame implements ActionListener
 			e.printStackTrace();
 		} 
 	}
+    
+ private int diferenciaDias(String  fechaF, String fechaI) {
+	 SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+	 int dias=0;
+		
+		try {
+			Date fechaInicial = dateFormat.parse(fechaI);
+			Date fechaFinal=dateFormat.parse(fechaF);
+			 dias=(int) ((fechaFinal.getTime()-fechaInicial.getTime())/86400000);
+
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+
+
+		return dias;
+ }
     
 	/* ****************************************************************
 	 * 			Programa principal
