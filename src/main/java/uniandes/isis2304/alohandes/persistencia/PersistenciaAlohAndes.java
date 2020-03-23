@@ -311,6 +311,26 @@ public class PersistenciaAlohAndes {
 
 	}
 
+	public Usuario buscarUsuarioPorUsuario(String usuario) {
+		PersistenceManager pm = pmf.getPersistenceManager();
+		Transaction tx = pm.currentTransaction();
+		try {
+			tx.begin();
+			Usuario usuarioEncontrado = sqlUsuario.darUsuarioPorUsuario(pm, usuario);
+			tx.commit();
+			log.trace("Usuario encontrado: " + usuarioEncontrado.toString());
+			return usuarioEncontrado;
+		} catch (Exception e) {
+			log.error("Exception : " + e.getMessage() + "\n" + darDetalleException(e));
+			return null;
+		} finally {
+			if (tx.isActive()) {
+				tx.rollback();
+			}
+			pm.close();
+		}
+	}
+
 	public Usuario adicionarUsuario(String nombreUsuario, String correo, String contrasena, int numeroDocumento,
 			int tipoDocumento) {
 		PersistenceManager pm = pmf.getPersistenceManager();
@@ -318,14 +338,10 @@ public class PersistenciaAlohAndes {
 		try {
 			tx.begin();
 			long idUsuario = nextval();
-			
 			long tuplasInsertadas = sqlUsuario.adicionarUsuario(pm, idUsuario, nombreUsuario, correo, contrasena,
 					numeroDocumento, tipoDocumento);
-			System.out.println(tuplasInsertadas	);
 			tx.commit();
-
 			log.trace("Inserción de usuario: " + nombreUsuario + ": " + tuplasInsertadas + " tuplas insertadas");
-
 			return new Usuario(idUsuario, nombreUsuario, correo, contrasena, numeroDocumento, tipoDocumento);
 		} catch (Exception e) {
 			log.error("Exception : " + e.getMessage() + "\n" + darDetalleException(e));
@@ -345,9 +361,7 @@ public class PersistenciaAlohAndes {
 			tx.begin();
 			long tuplasInsertadas = sqlCliente.adicionarCliente(pm, idCliente, nombre, rol);
 			tx.commit();
-
 			log.trace("Inserción de cliente: " + nombre + ": " + tuplasInsertadas + " tuplas insertadas");
-
 			return new Cliente(idCliente, nombre, rol);
 		} catch (Exception e) {
 			log.error("Exception : " + e.getMessage() + "\n" + darDetalleException(e));
@@ -367,9 +381,7 @@ public class PersistenciaAlohAndes {
 			tx.begin();
 			long tuplasInsertadas = sqlOperador.adicionarOperador(pm, idOperador, tipo);
 			tx.commit();
-
 			log.trace("Inserción de operador: " + tipo + ": " + tuplasInsertadas + " tuplas insertadas");
-
 			return new Operador(idOperador, tipo);
 		} catch (Exception e) {
 			log.error("Exception : " + e.getMessage() + "\n" + darDetalleException(e));

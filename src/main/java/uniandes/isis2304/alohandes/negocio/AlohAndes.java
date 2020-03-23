@@ -77,20 +77,24 @@ public class AlohAndes
 		pp.cerrarUnidadPersistencia ();
 	}
 
-	public String adicionarCliente(String nombre, int rol, String nombreUsuario, String correo, String contrasena,
-			int numeroDocumento, int tipoDocumento) {
-		Usuario usuario=pp.adicionarUsuario(nombreUsuario, correo, contrasena, numeroDocumento, tipoDocumento);
+	public String adicionarCliente(String nombre, int rol, Usuario usuario) {
 		String respuesta = usuario.toString();
 		respuesta += pp.adicionarCliente(usuario.getId(), nombre, rol).toString();
 		return respuesta;
 	}
+	
+	public Usuario buscarUsuarioPorUsuario(String usuario) {
+		return pp.buscarUsuarioPorUsuario(usuario);
+	}
 
-	public String adicionarOperador(int tipo, String nombreUsuario, String correo, String contrasena,
+	public Usuario adicionarUsuario(String nombreUsuario, String correo, String contrasena,
 			int numeroDocumento, int tipoDocumento) {
-		Usuario usuario=pp.adicionarUsuario(nombreUsuario, correo, contrasena, numeroDocumento, tipoDocumento);
+		return pp.adicionarUsuario(nombreUsuario, correo, contrasena, numeroDocumento, tipoDocumento);
+	}
+	
+	public String adicionarOperador(int tipo, Usuario usuario) {
 		String respuesta = usuario.toString();
 		respuesta += pp.adicionarOperador(usuario.getId(), tipo).toString();
-		System.out.println(respuesta);
 		return respuesta;
 	}
 	

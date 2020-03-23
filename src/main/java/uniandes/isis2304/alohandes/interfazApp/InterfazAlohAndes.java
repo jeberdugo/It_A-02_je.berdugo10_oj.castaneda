@@ -50,6 +50,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.stream.JsonReader;
 
 import uniandes.isis2304.alohandes.negocio.AlohAndes;
+import uniandes.isis2304.alohandes.negocio.Usuario;
 
 
 
@@ -248,43 +249,86 @@ public class InterfazAlohAndes extends JFrame implements ActionListener
 	 * 			Requerimientos funcionales de modificacion
 	 *****************************************************************/
     
-    public void registrarOperador() {
-    	System.out.println("a");
-    	try 
-    	{
-    		String nombreTipo = JOptionPane.showInputDialog (this, "Nombre del tipo de bedida?", "Adicionar tipo de bebida", JOptionPane.QUESTION_MESSAGE);
-    		if (nombreTipo != null)
-    		{
-    				
-        		String tb = alohandes.adicionarOperador(0, nombreTipo, "", "", 0, 0);
-        		if (tb == null)
-        		{
-        			throw new Exception ("No se pudo crear un tipo de bebida con nombre: " + nombreTipo);
-        		}
-        		String resultado = "En adicionarTipoBebida\n\n";
-        		resultado += "Tipo de bebida adicionado exitosamente: " + tb;
-    			resultado += "\n Operación terminada";
-    			panelDatos.actualizarInterfaz(resultado);
-    		}
-    		else
-    		{
-    			panelDatos.actualizarInterfaz("Operación cancelada por el usuario");
-    		}
-		} 
-    	catch (Exception e) 
-    	{
-//			e.printStackTrace();
+	public void registrarOperador() {
+		try {
+			String nombreUsuario = JOptionPane.showInputDialog(this, "Nombre de usuario", "Siguiente",
+					JOptionPane.QUESTION_MESSAGE);
+			if (nombreUsuario != null) {
+				Usuario usuario = alohandes.buscarUsuarioPorUsuario(nombreUsuario);
+				if (usuario == null) {
+					String correo = JOptionPane.showInputDialog(this, "Correo", "Siguiente",
+							JOptionPane.QUESTION_MESSAGE);
+					String contrasena = JOptionPane.showInputDialog(this, "Contraseña", "Siguiente",
+							JOptionPane.QUESTION_MESSAGE);
+					String[] opciones = { "CC", "NIT", "CE" };
+					int tipoDocumento = JOptionPane.showOptionDialog(this, "Tipo de documento", "",
+							JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, opciones, opciones[0]);
+					int numeroDocumento = Integer.parseInt(JOptionPane.showInputDialog(this, "Numero de documento",
+							"Siguiente", JOptionPane.QUESTION_MESSAGE));
+					usuario=alohandes.adicionarUsuario(nombreUsuario, correo, contrasena, numeroDocumento, tipoDocumento);
+				}
+				String[] tipos= {"Empresa", "cliente"};
+				int tipo = JOptionPane.showOptionDialog(this, "Tipo de operador", "",
+						JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, tipos, tipos[0]);		
+				String tb = alohandes.adicionarOperador(tipo, usuario);
+				if (tb == null) {
+					throw new Exception("No se pudo crear un operador con nombre: " + nombreUsuario);
+				}
+				String resultado = "En adicionarTipoBebida\n\n";
+				resultado += "Tipo de bebida adicionado exitosamente: " + tb;
+				resultado += "\n Operación terminada";
+				panelDatos.actualizarInterfaz(resultado);
+			} else {
+				panelDatos.actualizarInterfaz("Operación cancelada por el usuario");
+			}
+		} catch (Exception e) {
 			String resultado = generarMensajeError(e);
 			panelDatos.actualizarInterfaz(resultado);
 		}
-    }
+	}
     
  public void registrarAlojamiento() {
     	
     }
     
  public void registrarCliente() {
- 	
+	 try {
+			String nombreUsuario = JOptionPane.showInputDialog(this, "Nombre de usuario", "Siguiente",
+					JOptionPane.QUESTION_MESSAGE);
+			if (nombreUsuario != null) {
+				Usuario usuario = alohandes.buscarUsuarioPorUsuario(nombreUsuario);
+				if (usuario == null) {
+					String correo = JOptionPane.showInputDialog(this, "Correo", "Siguiente",
+							JOptionPane.QUESTION_MESSAGE);
+					String contrasena = JOptionPane.showInputDialog(this, "Contraseña", "Siguiente",
+							JOptionPane.QUESTION_MESSAGE);
+					String[] opciones = { "CC", "NIT", "CE" };
+					int tipoDocumento = JOptionPane.showOptionDialog(this, "Tipo de documento", "",
+							JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, opciones, opciones[0]);
+					int numeroDocumento = Integer.parseInt(JOptionPane.showInputDialog(this, "Numero de documento",
+							"Siguiente", JOptionPane.QUESTION_MESSAGE));
+					usuario=alohandes.adicionarUsuario(nombreUsuario, correo, contrasena, numeroDocumento, tipoDocumento);
+				}
+				String nombre = JOptionPane.showInputDialog(this, "Nombre", "Siguiente",
+						JOptionPane.QUESTION_MESSAGE);
+				String[] roles= {"Profesor", "Empleado", "Egresado", "Estudiante", "Padre"};
+				int rol = JOptionPane.showOptionDialog(this, "Rol", "",
+						JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, roles, roles[0]);		
+				String tb = alohandes.adicionarCliente(nombre, rol, usuario);
+				if (tb == null) {
+					throw new Exception("No se pudo crear un cliente con nombre: " + nombreUsuario);
+				}
+				String resultado = "En adicionarTipoBebida\n\n";
+				resultado += "Tipo de bebida adicionado exitosamente: " + tb;
+				resultado += "\n Operación terminada";
+				panelDatos.actualizarInterfaz(resultado);						
+			} else {
+				panelDatos.actualizarInterfaz("Operación cancelada por el usuario");
+			}
+		} catch (Exception e) {
+			String resultado = generarMensajeError(e);
+			panelDatos.actualizarInterfaz(resultado);
+		}
  }
  
  public void registrarReserva() {

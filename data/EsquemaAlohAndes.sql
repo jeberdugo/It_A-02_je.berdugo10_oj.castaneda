@@ -1,4 +1,4 @@
---- Sentencias SQL para la creacion del esquema de AlohAndes
+	--- Sentencias SQL para la creacion del esquema de AlohAndes
 
 -- USO
 -- Copie el contenido de este archivo en una pesta SQL de SQL Developer
@@ -79,7 +79,7 @@ ENABLE;
 -- Restricciones de la tabla CLIENTE 
 ALTER TABLE CLIENTE
 	ADD CONSTRAINT CK_CLIENTE_ROL 
-	CHECK (ROL >-1 AND ROL<3)
+	CHECK (ROL >-1 AND ROL<5)
 ENABLE;
 ALTER TABLE CLIENTE
 ADD CONSTRAINT fk_idcliente
@@ -93,13 +93,6 @@ ALTER TABLE ALOJAMIENTO
 ADD CONSTRAINT fk_idoperador
     FOREIGN KEY (idoperador)
     REFERENCES operador(id)
-ENABLE;
-    
--- Restricciones de la tabla RESERVA    
-ALTER TABLE RESERVA
-ADD CONSTRAINT FK_IDOFERTA
-    FOREIGN KEY (OFERTAID)
-    REFERENCES OFERTA(ID)
 ENABLE;
 
 -- Restricciones de la tabla OFERTA 
