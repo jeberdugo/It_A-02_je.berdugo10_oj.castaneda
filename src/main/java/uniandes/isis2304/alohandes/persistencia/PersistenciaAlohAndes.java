@@ -383,5 +383,24 @@ public class PersistenciaAlohAndes {
 			pm.close();
 		}
 	}
+	
+	/**
+	 * Método que consulta todas las tuplas en la tabla TipoBebida con un identificador dado
+	 * @param idTipoBebida - El identificador del tipo de bebida
+	 * @return El objeto TipoBebida, construido con base en las tuplas de la tabla TIPOBEBIDA con el identificador dado
+	 */
+	public Usuario login (String idUsuario,String contra)
+	{
+		boolean exito=false;
+		PersistenceManager pm = pmf.getPersistenceManager();
+		Usuario user= sqlUsuario.darUsuarioPorUsuario(pm, idUsuario);
+		if (user!=null) {
+		if(user.getContrasena().equals(contra)) {
+			exito=true;
+		}
+		}
+		return user;
+		
+	}
 
 }

@@ -95,6 +95,22 @@ public class AlohAndes
 		return respuesta;
 	}
 	
+	/**
+	 * RF1 - Registra un rol en la plataforma
+	 */
+	public Usuario login(String idUsuario, String contra) 
+	{
+		
+		log.info("Intento de login de usuario: " + idUsuario);
+
+		Usuario exito=pp.login(idUsuario, contra);
+
+		
+		
+		
+
+		return exito;
+	}
 	/* ****************************************************************
 	 * 			Métodos para administración
 	 *****************************************************************/

@@ -15,12 +15,12 @@ public interface VOUsuario {
 	/**
 	 * @return El nombre de usuario del usuario
 	 */
-	public String getNombreUsuario();
+	public String getUsuario();
 
 	/**
 	 * @param nombreUsuario - El nuevo nombre de usuario del usuario
 	 */
-	public void setNombreUsuario(String nombreUsuario);
+	public void setUsuario(String usuario);
 
 	/**
 	 * @return El correo del usuario
@@ -45,22 +45,22 @@ public interface VOUsuario {
 	/**
 	 * @return El numero de documento del usuario
 	 */
-	public int getNumeroDocumento();
+	public int getNumero_Documento();
 
 	/**
 	 * @param numeroDocumento - El nuevo numero de documento del usuario
 	 */
-	public void setNumeroDocumento(int numeroDocumento);
+	public void setNumero_Documento(int numero_Documento);
 
 	/**
 	 * @return El tipo de documento del usuario
 	 */
-	public int getTipoDocumento();
+	public int getTipo_Documento();
 
 	/**
 	 * @param tipoDocumento - El nuevo tipo de documento del usuario
 	 */
-	public void setTipoDocumento(int tipoDocumento);
+	public void setTipo_Documento(int tipo_Documento);
 
 	@Override
 	/**

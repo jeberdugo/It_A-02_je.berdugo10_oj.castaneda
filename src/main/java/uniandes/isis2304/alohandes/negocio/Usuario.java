@@ -9,7 +9,7 @@ public class Usuario implements VOUsuario {
 	/**
 	 * El nombre de usuario del usuario
 	 */
-	private String nombreUsuario;
+	private String usuario;
 
 	/**
 	 * El correo del usuario
@@ -24,23 +24,23 @@ public class Usuario implements VOUsuario {
 	/**
 	 * El numero de documento del usuario
 	 */
-	private int numeroDocumento;
+	private int numero_Documento;
 
 	/**
 	 * El tipo de documento del usuario (0: CC, 1: NIT, 2: CE)
 	 */
-	private int tipoDocumento;
+	private int tipo_Documento;
 
 	/**
 	 * Constructor por defecto
 	 */
 	public Usuario() {
 		this.id = 0;
-		this.nombreUsuario = "";
+		this.setUsuario("");
 		this.correo = "";
 		this.contrasena = "";
-		this.numeroDocumento = 0;
-		this.tipoDocumento = 0;
+		this.setNumero_Documento(0);
+		this.setTipo_Documento(0);
 	}
 
 	/**
@@ -56,11 +56,11 @@ public class Usuario implements VOUsuario {
 	public Usuario(long id, String nombreUsuario, String correo, String contrasena, int numeroDocumento,
 			int tipoDocumento) {
 		this.id = id;
-		this.nombreUsuario = nombreUsuario;
+		this.setUsuario(nombreUsuario);
 		this.correo = correo;
 		this.contrasena = contrasena;
-		this.numeroDocumento = numeroDocumento;
-		this.tipoDocumento = tipoDocumento;
+		this.setNumero_Documento(numeroDocumento);
+		this.setTipo_Documento(tipoDocumento);
 	}
 
 	/**
@@ -77,19 +77,7 @@ public class Usuario implements VOUsuario {
 		this.id = id;
 	}
 
-	/**
-	 * @return El nombre de usuario del usuario
-	 */
-	public String getNombreUsuario() {
-		return nombreUsuario;
-	}
-
-	/**
-	 * @param nombreUsuario - El nuevo nombre de usuario del usuario
-	 */
-	public void setNombreUsuario(String nombreUsuario) {
-		this.nombreUsuario = nombreUsuario;
-	}
+	
 
 	/**
 	 * @return El correo del usuario
@@ -119,40 +107,38 @@ public class Usuario implements VOUsuario {
 		this.contrasena = contrasena;
 	}
 
-	/**
-	 * @return El numero de documento del usuario
-	 */
-	public int getNumeroDocumento() {
-		return numeroDocumento;
-	}
-
-	/**
-	 * @param numeroDocumento - El nuevo numero de documento del usuario
-	 */
-	public void setNumeroDocumento(int numeroDocumento) {
-		this.numeroDocumento = numeroDocumento;
-	}
-
-	/**
-	 * @return El tipo de documento del usuario
-	 */
-	public int getTipoDocumento() {
-		return tipoDocumento;
-	}
-
-	/**
-	 * @param tipoDocumento - El nuevo tipo de documento del usuario
-	 */
-	public void setTipoDocumento(int tipoDocumento) {
-		this.tipoDocumento = tipoDocumento;
-	}
+	
 
 	@Override
 	/**
 	 * @return Una cadena de caracteres con todos los atributos del usuario
 	 */
 	public String toString() {
-		return "Usuario [id=" + id + ", nombreUsuario=" + nombreUsuario + ", correo=" + correo + ", contrasena="
-				+ contrasena + ", numeroDocumento=" + numeroDocumento + ", tipoDocumento=" + tipoDocumento + "]";
+		return "Usuario [id=" + id + ", nombreUsuario=" + usuario + ", correo=" + correo + ", contrasena="
+				+ contrasena + ", numeroDocumento=" + numero_Documento + ", tipoDocumento=" + tipo_Documento + "]";
+	}
+
+	public String getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(String usuario) {
+		this.usuario = usuario;
+	}
+
+	public int getTipo_Documento() {
+		return tipo_Documento;
+	}
+
+	public void setTipo_Documento(int tipo_Documento) {
+		this.tipo_Documento = tipo_Documento;
+	}
+
+	public int getNumero_Documento() {
+		return numero_Documento;
+	}
+
+	public void setNumero_Documento(int numero_Documento) {
+		this.numero_Documento = numero_Documento;
 	}
 }

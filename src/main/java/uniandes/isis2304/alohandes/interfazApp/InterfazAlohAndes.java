@@ -243,13 +243,7 @@ public class InterfazAlohAndes extends JFrame implements ActionListener
         setJMenuBar ( menuBar );	
     }
     
-    private void registroUsuario() {
-    	
-    }
-    
-    private void login() {
-    	
-    }
+  
     /* ****************************************************************
 	 * 			Requerimientos funcionales de modificacion
 	 *****************************************************************/
@@ -302,6 +296,25 @@ public class InterfazAlohAndes extends JFrame implements ActionListener
  public void retirarAlojamiento() {
 	 
 	 
+ }
+ 
+ public void registroUsuario() {
+ 	
+ }
+ 
+ public void login() {
+	 
+	 String user = JOptionPane.showInputDialog (this, "Usuario", "Login", JOptionPane.QUESTION_MESSAGE);
+	 String contrasena = JOptionPane.showInputDialog (this, "Contraseña", "Login", JOptionPane.QUESTION_MESSAGE);
+	 
+	 
+	 String perro="";
+	 if(alohandes.login(user, contrasena)==null)
+		 perro="ds";
+	 String resultado=" Logueo"+user+" es "+perro;
+	 panelDatos.actualizarInterfaz(resultado);
+	 
+ 	
  }
  
  /* ****************************************************************
