@@ -31,6 +31,10 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
+import uniandes.isis2304.alohandes.negocio.Cliente;
+import uniandes.isis2304.alohandes.negocio.Operador;
+import uniandes.isis2304.alohandes.negocio.Usuario;
+
 /**
  * Clase para el manejador de persistencia del proyecto AlohAndes Traduce la
  * información entre objetos Java y tuplas de la base de datos, en ambos
@@ -82,6 +86,9 @@ public class PersistenciaAlohAndes {
 	 */
 	private SQLUtil sqlUtil;
 
+	private SQLOperador sqlOperador;
+	private SQLUsuario sqlUsuario;
+	private SQLCliente sqlCliente;
 	/*
 	 * **************************************************************** Métodos del
 	 * MANEJADOR DE PERSISTENCIA
@@ -103,7 +110,6 @@ public class PersistenciaAlohAndes {
 		tablas.add("RESERVA");
 		tablas.add("OFERTA");
 		tablas.add("ALOJAMIENTO");
-		tablas.add("UNIVERSIDAD");
 
 	}
 
@@ -238,14 +244,6 @@ public class PersistenciaAlohAndes {
 	}
 
 	/**
-	 * @return La cadena de caracteres con el nombre de la tabla de Universidad de
-	 *         AlohAndes
-	 */
-	public String darTablaUniversidad() {
-		return tablas.get(7);
-	}
-
-	/**
 	 * Transacción para el generador de secuencia de AlohAndes Adiciona entradas al
 	 * log de la aplicación
 	 * 
@@ -302,6 +300,79 @@ public class PersistenciaAlohAndes {
 			pm.close();
 		}
 
+	}
+
+	public Usuario adicionarUsuario(String nombreUsuario, String correo, String contrasena, int numeroDocumento,
+			int tipoDocumento) {
+		PersistenceManager pm = pmf.getPersistenceManager();
+		Transaction tx = pm.currentTransaction();
+		try {
+			tx.begin();
+			long idUsuario = nextval();
+			
+			long tuplasInsertadas = sqlUsuario.adicionarUsuario(pm, idUsuario, nombreUsuario, correo, contrasena,
+					numeroDocumento, tipoDocumento);
+			System.out.println(tuplasInsertadas	);
+			tx.commit();
+
+			log.trace("Inserción de usuario: " + nombreUsuario + ": " + tuplasInsertadas + " tuplas insertadas");
+
+			return new Usuario(idUsuario, nombreUsuario, correo, contrasena, numeroDocumento, tipoDocumento);
+		} catch (Exception e) {
+			log.error("Exception : " + e.getMessage() + "\n" + darDetalleException(e));
+			return null;
+		} finally {
+			if (tx.isActive()) {
+				tx.rollback();
+			}
+			pm.close();
+		}
+	}
+
+	public Cliente adicionarCliente(String nombre, int rol) {
+		PersistenceManager pm = pmf.getPersistenceManager();
+		Transaction tx = pm.currentTransaction();
+		try {
+			tx.begin();
+			long idCliente = nextval();
+			long tuplasInsertadas = sqlCliente.adicionarCliente(pm, idCliente, nombre, rol);
+			tx.commit();
+
+			log.trace("Inserción de cliente: " + nombre + ": " + tuplasInsertadas + " tuplas insertadas");
+
+			return new Cliente(idCliente, nombre, rol);
+		} catch (Exception e) {
+			log.error("Exception : " + e.getMessage() + "\n" + darDetalleException(e));
+			return null;
+		} finally {
+			if (tx.isActive()) {
+				tx.rollback();
+			}
+			pm.close();
+		}
+	}
+
+	public Operador adicionarOperador(int tipo) {
+		PersistenceManager pm = pmf.getPersistenceManager();
+		Transaction tx = pm.currentTransaction();
+		try {
+			tx.begin();
+			long idOperador = nextval();
+			long tuplasInsertadas = sqlOperador.adicionarOperador(pm, idOperador, tipo);
+			tx.commit();
+
+			log.trace("Inserción de operador: " + tipo + ": " + tuplasInsertadas + " tuplas insertadas");
+
+			return new Operador(idOperador, tipo);
+		} catch (Exception e) {
+			log.error("Exception : " + e.getMessage() + "\n" + darDetalleException(e));
+			return null;
+		} finally {
+			if (tx.isActive()) {
+				tx.rollback();
+			}
+			pm.close();
+		}
 	}
 
 }

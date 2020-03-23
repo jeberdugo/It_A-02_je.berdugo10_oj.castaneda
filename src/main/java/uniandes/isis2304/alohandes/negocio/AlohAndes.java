@@ -76,8 +76,24 @@ public class AlohAndes
 	{
 		pp.cerrarUnidadPersistencia ();
 	}
-	
-	
+
+	public String adicionarCliente(String nombre, int rol, String nombreUsuario, String correo, String contrasena,
+			int numeroDocumento, int tipoDocumento) {
+		String respuesta = pp.adicionarUsuario(nombreUsuario, correo, contrasena, numeroDocumento, tipoDocumento)
+				.toString();
+		respuesta += pp.adicionarCliente(nombre, rol).toString();
+		return respuesta;
+	}
+
+	public String adicionarOperador(int tipo, String nombreUsuario, String correo, String contrasena,
+			int numeroDocumento, int tipoDocumento) {
+		String respuesta = pp.adicionarUsuario(nombreUsuario, correo, contrasena, numeroDocumento, tipoDocumento)
+				.toString();
+		System.out.println(respuesta);
+		respuesta += pp.adicionarOperador(tipo).toString();
+		System.out.println(respuesta);
+		return respuesta;
+	}
 	
 	/* ****************************************************************
 	 * 			Métodos para administración

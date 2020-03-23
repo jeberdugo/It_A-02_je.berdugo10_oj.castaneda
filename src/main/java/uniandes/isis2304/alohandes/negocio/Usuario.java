@@ -1,6 +1,6 @@
 package uniandes.isis2304.alohandes.negocio;
 
-public class Usuario implements VOUsuario{
+public class Usuario implements VOUsuario {
 	/**
 	 * El identificador ÚNICO del usuario
 	 */
@@ -27,6 +27,11 @@ public class Usuario implements VOUsuario{
 	private int numeroDocumento;
 
 	/**
+	 * El tipo de documento del usuario (0: CC, 1: NIT, 2: CE)
+	 */
+	private int tipoDocumento;
+
+	/**
 	 * Constructor por defecto
 	 */
 	public Usuario() {
@@ -35,6 +40,7 @@ public class Usuario implements VOUsuario{
 		this.correo = "";
 		this.contrasena = "";
 		this.numeroDocumento = 0;
+		this.tipoDocumento = 0;
 	}
 
 	/**
@@ -44,14 +50,17 @@ public class Usuario implements VOUsuario{
 	 * @param nombreUsuario   - El nommbre de usuario del usuario
 	 * @param correo          - El correo del usuario
 	 * @param contrasena      - La contraseña del usuario
-	 * @param numeroDocumento - El numero de documento del usuario
+	 * @param numeroDocumento - El numero de documento del usuario}
+	 * @param tipoDocumento   - El tipo de documento del usuario
 	 */
-	public Usuario(long id, String nombreUsuario, String correo, String contrasena, int numeroDocumento) {
+	public Usuario(long id, String nombreUsuario, String correo, String contrasena, int numeroDocumento,
+			int tipoDocumento) {
 		this.id = id;
 		this.nombreUsuario = nombreUsuario;
 		this.correo = correo;
 		this.contrasena = contrasena;
 		this.numeroDocumento = numeroDocumento;
+		this.tipoDocumento = tipoDocumento;
 	}
 
 	/**
@@ -124,12 +133,26 @@ public class Usuario implements VOUsuario{
 		this.numeroDocumento = numeroDocumento;
 	}
 
+	/**
+	 * @return El tipo de documento del usuario
+	 */
+	public int getTipoDocumento() {
+		return tipoDocumento;
+	}
+
+	/**
+	 * @param tipoDocumento - El nuevo tipo de documento del usuario
+	 */
+	public void setTipoDocumento(int tipoDocumento) {
+		this.tipoDocumento = tipoDocumento;
+	}
+
 	@Override
 	/**
 	 * @return Una cadena de caracteres con todos los atributos del usuario
 	 */
 	public String toString() {
 		return "Usuario [id=" + id + ", nombreUsuario=" + nombreUsuario + ", correo=" + correo + ", contrasena="
-				+ contrasena + ", numeroDocumento=" + numeroDocumento + "]";
+				+ contrasena + ", numeroDocumento=" + numeroDocumento + ", tipoDocumento=" + tipoDocumento + "]";
 	}
 }

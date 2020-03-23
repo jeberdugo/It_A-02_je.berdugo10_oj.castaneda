@@ -22,16 +22,6 @@ public interface VOCliente {
 	public void setNombre(String nombre);
 
 	/**
-	 * @return La universidad del cliente
-	 */
-	public long getUniversidad();
-
-	/**
-	 * @param universidad - La nueva universidad del cliente
-	 */
-	public void setUniversidad(long universidad);
-
-	/**
 	 * @return El rol del cliente
 	 */
 	public int getRol();

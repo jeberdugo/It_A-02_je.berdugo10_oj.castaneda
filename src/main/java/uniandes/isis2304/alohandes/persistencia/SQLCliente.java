@@ -36,15 +36,14 @@ public class SQLCliente {
 	 * @param pm          - El manejador de persistencia
 	 * @param idCliente   - El id del cliente
 	 * @param nombre      - El nombre del cliente
-	 * @param universidad - La universidad del cliente
 	 * @param presupuesto - El rol del cliente (0: Profesor, 1: Empleado, 2:
 	 *                    Egresado, 3: Estudiante, 4: Padre)
 	 * @return El número de tuplas insertadas
 	 */
-	public long adicionarCliente(PersistenceManager pm, long idCliente, String nombre, long universidad, int rol) {
+	public long adicionarCliente(PersistenceManager pm, long idCliente, String nombre, int rol) {
 		Query q = pm.newQuery(SQL,
-				"INSERT INTO " + pa.darTablaCliente() + "(id, nombre, universidad, rol) values (?, ?, ?, ?)");
-		q.setParameters(idCliente, nombre, universidad, rol);
+				"INSERT INTO " + pa.darTablaCliente() + "(id, nombre, rol) values (?, ?, ?)");
+		q.setParameters(idCliente, nombre, rol);
 		return (long) q.executeUnique();
 	}
 

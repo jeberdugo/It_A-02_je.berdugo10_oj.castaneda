@@ -42,10 +42,10 @@ public class SQLUsuario {
 	 * @return El número de tuplas insertadas
 	 */
 	public long adicionarUsuario(PersistenceManager pm, long idUsuario, String usuario, String correo,
-			String contrasena, int numero_documento) {
+			String contrasena, int numeroDocumento, int tipoDocumento) {
 		Query q = pm.newQuery(SQL, "INSERT INTO " + pa.darTablaUsuario()
-				+ "(id, usuario, correo, contrasena, numero_documento) values (?, ?, ?, ?, ?)");
-		q.setParameters(idUsuario, usuario, correo, contrasena, numero_documento);
+				+ "(id, usuario, correo, contrasena, numero_documento, tipo_documento) values (?, ?, ?, ?, ?, ?)");
+		q.setParameters(idUsuario, usuario, correo, contrasena, numeroDocumento, tipoDocumento);
 		return (long) q.executeUnique();
 	}
 

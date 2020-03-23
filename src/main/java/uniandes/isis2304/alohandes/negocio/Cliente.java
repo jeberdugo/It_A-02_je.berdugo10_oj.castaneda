@@ -12,11 +12,6 @@ public class Cliente implements VOCliente{
 	private String nombre;
 
 	/**
-	 * La universidad del cliente
-	 */
-	private long universidad;
-
-	/**
 	 * El rol del cliente (0: Profesor, 1: Empleado, 2: Egresado, 3: Estudiante, 4:
 	 * Padre)
 	 */
@@ -28,7 +23,6 @@ public class Cliente implements VOCliente{
 	public Cliente() {
 		this.id = 0;
 		this.nombre = "";
-		this.universidad = 0;
 		this.rol = 0;
 	}
 
@@ -37,14 +31,12 @@ public class Cliente implements VOCliente{
 	 * 
 	 * @param id          - El id del cliente
 	 * @param nombre      - El nombre del cliente
-	 * @param universidad - La universidad del cliente
 	 * @param presupuesto - El rol del cliente (0: Profesor, 1: Empleado, 2:
 	 *                    Egresado, 3: Estudiante, 4: Padre)
 	 */
-	public Cliente(long id, String nombre, long universidad, int rol) {
+	public Cliente(long id, String nombre, int rol) {
 		this.id = id;
 		this.nombre = nombre;
-		this.universidad = universidad;
 		this.rol = rol;
 	}
 
@@ -77,20 +69,6 @@ public class Cliente implements VOCliente{
 	}
 
 	/**
-	 * @return La universidad del cliente
-	 */
-	public long getUniversidad() {
-		return universidad;
-	}
-
-	/**
-	 * @param universidad - La nueva universidad del cliente
-	 */
-	public void setUniversidad(long universidad) {
-		this.universidad = universidad;
-	}
-
-	/**
 	 * @return El rol del cliente
 	 */
 	public int getRol() {
@@ -109,6 +87,6 @@ public class Cliente implements VOCliente{
 	 * @return Una cadena de caracteres con todos los atributos del cliente
 	 */
 	public String toString() {
-		return "Cliente [id=" + id + ", nombre=" + nombre + ", universidad=" + universidad + ", rol=" + rol + "]";
+		return "Cliente [id=" + id + ", nombre=" + nombre + ", rol=" + rol + "]";
 	}
 }

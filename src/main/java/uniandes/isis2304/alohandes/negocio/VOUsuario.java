@@ -51,6 +51,16 @@ public interface VOUsuario {
 	 */
 	public void setNumeroDocumento(int numeroDocumento);
 
+	/**
+	 * @return El tipo de documento del usuario
+	 */
+	public int getTipoDocumento();
+
+	/**
+	 * @param tipoDocumento - El nuevo tipo de documento del usuario
+	 */
+	public void setTipoDocumento(int tipoDocumento);
+
 	@Override
 	/**
 	 * @return Una cadena de caracteres con todos los atributos del usuario

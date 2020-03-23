@@ -241,7 +241,33 @@ public class InterfazAlohAndes extends JFrame implements ActionListener
 	 *****************************************************************/
     
     public void registrarOperador() {
-    	
+    	try 
+    	{
+    		String nombreTipo = JOptionPane.showInputDialog (this, "Nombre del tipo de bedida?", "Adicionar tipo de bebida", JOptionPane.QUESTION_MESSAGE);
+    		if (nombreTipo != null)
+    		{
+    				
+        		String tb = alohandes.adicionarOperador(0, nombreTipo, "", "", 0, 0);
+        		if (tb == null)
+        		{
+        			throw new Exception ("No se pudo crear un tipo de bebida con nombre: " + nombreTipo);
+        		}
+        		String resultado = "En adicionarTipoBebida\n\n";
+        		resultado += "Tipo de bebida adicionado exitosamente: " + tb;
+    			resultado += "\n Operación terminada";
+    			panelDatos.actualizarInterfaz(resultado);
+    		}
+    		else
+    		{
+    			panelDatos.actualizarInterfaz("Operación cancelada por el usuario");
+    		}
+		} 
+    	catch (Exception e) 
+    	{
+//			e.printStackTrace();
+			String resultado = generarMensajeError(e);
+			panelDatos.actualizarInterfaz(resultado);
+		}
     }
     
  public void registrarAlojamiento() {
@@ -272,7 +298,6 @@ public class InterfazAlohAndes extends JFrame implements ActionListener
 	 
  }
  public void ofertasPopulares() {
-	 
 	 
  }
  
