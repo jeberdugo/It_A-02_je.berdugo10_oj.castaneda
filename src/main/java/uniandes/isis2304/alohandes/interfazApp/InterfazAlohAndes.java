@@ -109,6 +109,8 @@ public class InterfazAlohAndes extends JFrame implements ActionListener
      * Menú de la aplicación
      */
     private JMenuBar menuBar;
+    
+    private long usuarioActivo;
 
 	/* ****************************************************************
 	 * 			Métodos
@@ -137,7 +139,8 @@ public class InterfazAlohAndes extends JFrame implements ActionListener
 
         setLayout (new BorderLayout());
         add (new JLabel (new ImageIcon (path)), BorderLayout.NORTH );          
-        add( panelDatos, BorderLayout.CENTER );        
+        add( panelDatos, BorderLayout.CENTER );     
+        usuarioActivo=-1;
     }
     
 	/* ****************************************************************
@@ -238,6 +241,14 @@ public class InterfazAlohAndes extends JFrame implements ActionListener
         	menuBar.add( menu );
         }        
         setJMenuBar ( menuBar );	
+    }
+    
+    private void registroUsuario() {
+    	
+    }
+    
+    private void login() {
+    	
     }
     /* ****************************************************************
 	 * 			Requerimientos funcionales de modificacion

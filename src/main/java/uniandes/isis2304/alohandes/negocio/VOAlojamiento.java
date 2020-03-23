@@ -56,22 +56,22 @@ public interface VOAlojamiento {
 	/**
 	 * @return El numero de documento del usuario
 	 */
-	public long getRegistroCamara();
+	public long getRegistroCam();
 
 	/**
 	 * @param numeroDocumento - El nuevo numero de documento del usuario
 	 */
-	public void setRegistroCamara(long registroCamara);
+	public void setRegistroCam(long registroCam);
 	
 	/**
 	 * @return El numero de documento del usuario
 	 */
-	public long getRegistroSuperI();
+	public long getRegistroSup();
 
 	/**
 	 * @param numeroDocumento - El nuevo numero de documento del usuario
 	 */
-	public void setRegistroSuperI(long registroSuperI);
+	public void setRegistroSup(long registroSup);
 
 
 	@Override

@@ -89,6 +89,9 @@ public class PersistenciaAlohAndes {
 	private SQLOperador sqlOperador;
 	private SQLUsuario sqlUsuario;
 	private SQLCliente sqlCliente;
+	private SQLReserva sqlReserva;
+	private SQLOferta sqlOferta;
+	private SQLAlojamiento sqlAlojamiento;
 	/*
 	 * **************************************************************** Métodos del
 	 * MANEJADOR DE PERSISTENCIA
@@ -186,6 +189,12 @@ public class PersistenciaAlohAndes {
 	private void crearClasesSQL() {
 
 		sqlUtil = new SQLUtil(this);
+		sqlOperador = new SQLOperador(this);
+		 sqlUsuario = new SQLUsuario(this);
+		 sqlCliente = new SQLCliente(this);
+		 sqlReserva = new SQLReserva(this);
+		 sqlOferta = new SQLOferta(this);
+		 sqlAlojamiento = new SQLAlojamiento(this);
 	}
 
 	/**

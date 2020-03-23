@@ -5,6 +5,19 @@
 	"bannerPath": "./src/main/resources/config/logo.png",
 	"menuBar":
 	[
+		{ "menuTitle": "Registro",
+		  "options":
+			[
+				{
+					"label": "Registrar Usuario",
+					"event": "registroUsuario"
+				},
+				{
+					"label": "Login",
+					"event": "login"
+				}
+			]
+		},
 		{ "menuTitle": "Modificacion",
 		  "options":
 			[

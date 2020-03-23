@@ -12,9 +12,9 @@ public class Alojamiento implements VOAlojamiento {
 	
 	private int tipo;
 	
-	private long registroCamara;
+	private long registroCam;
 	
-	private long registroSuperI;
+	private long registroSup;
 	
 	private long idOperador;
 	
@@ -31,9 +31,9 @@ public class Alojamiento implements VOAlojamiento {
 		
 		 this.tipo=0;
 		
-		 this.registroCamara=0;
+		 this.registroCam=0;
 		
-		 this.registroSuperI=0;
+		 this.registroSup=0;
 		 
 		 this.setIdOperador(0);
 		 
@@ -51,9 +51,9 @@ public class Alojamiento implements VOAlojamiento {
 		
 		 this.tipo=tipo;
 		
-		 this.registroCamara=regC;
+		 this.registroCam=regC;
 		
-		 this.registroSuperI=regS;
+		 this.registroSup=regS;
 	}
 	
 	
@@ -119,34 +119,24 @@ public class Alojamiento implements VOAlojamiento {
 		this.tipo=tipo;
 	}
 
-	@Override
-	public long getRegistroCamara() {
-		// TODO Auto-generated method stub
-		return this.registroCamara;
-	}
-
-	@Override
-	public void setRegistroCamara(long registroCamara) {
-		// TODO Auto-generated method stub
-		this.registroCamara=registroCamara;
-	}
-
-	@Override
-	public long getRegistroSuperI() {
-		// TODO Auto-generated method stub
-		return this.registroSuperI;
-	}
-
-	@Override
-	public void setRegistroSuperI(long registroSuperI) {
-		// TODO Auto-generated method stub
-		this.registroSuperI=registroSuperI;
-	}
+	
 	public long getIdOperador() {
 		return idOperador;
 	}
 	public void setIdOperador(long idOperador) {
 		this.idOperador = idOperador;
+	}
+	public long getRegistroCam() {
+		return registroCam;
+	}
+	public void setRegistroCam(long registroCam) {
+		this.registroCam = registroCam;
+	}
+	public long getRegistroSup() {
+		return registroSup;
+	}
+	public void setRegistroSup(long registroSup) {
+		this.registroSup = registroSup;
 	}
 
 }
