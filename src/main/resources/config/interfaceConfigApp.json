@@ -17,9 +17,14 @@
 					"event": "registrarAlojamiento"
 				},
 				{
+					"label": "RF2 Registrar Oferta",
+					"event": "registrarCliente"
+				},
+				{
 					"label": "RF3 Registrar Cliente",
 					"event": "registrarCliente"
 				},
+				
 				{
 					"label": "RF4 Registrar Reserva",
 					"event": "registrarReserva"
