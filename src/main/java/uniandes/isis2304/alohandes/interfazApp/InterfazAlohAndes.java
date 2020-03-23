@@ -244,6 +244,7 @@ public class InterfazAlohAndes extends JFrame implements ActionListener
 	 *****************************************************************/
     
     public void registrarOperador() {
+    	System.out.println("a");
     	try 
     	{
     		String nombreTipo = JOptionPane.showInputDialog (this, "Nombre del tipo de bedida?", "Adicionar tipo de bebida", JOptionPane.QUESTION_MESSAGE);
