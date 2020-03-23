@@ -105,9 +105,12 @@ public class AlohAndes
 	{
 		
 		log.info("Intento de login de usuario: " + idUsuario);
-
-		Usuario exito=pp.login(idUsuario, contra);
-
+ 
+		Usuario exito=null;
+		Usuario user=pp.login(idUsuario, contra);
+		
+             if(user.getContrasena().equals(contra))
+            	 exito=user;
 		
 		
 		

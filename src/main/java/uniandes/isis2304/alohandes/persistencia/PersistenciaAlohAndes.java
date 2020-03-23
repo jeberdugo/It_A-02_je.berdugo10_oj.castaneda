@@ -404,11 +404,8 @@ public class PersistenciaAlohAndes {
 		boolean exito=false;
 		PersistenceManager pm = pmf.getPersistenceManager();
 		Usuario user= sqlUsuario.darUsuarioPorUsuario(pm, idUsuario);
-		if (user!=null) {
-		if(user.getContrasena().equals(contra)) {
-			exito=true;
-		}
-		}
+		
+		
 		return user;
 		
 	}

@@ -351,11 +351,17 @@ public class InterfazAlohAndes extends JFrame implements ActionListener
 	 String user = JOptionPane.showInputDialog (this, "Usuario", "Login", JOptionPane.QUESTION_MESSAGE);
 	 String contrasena = JOptionPane.showInputDialog (this, "Contraseña", "Login", JOptionPane.QUESTION_MESSAGE);
 	 
-	 
-	 String perro="";
-	 if(alohandes.login(user, contrasena)==null)
-		 perro="ds";
-	 String resultado=" Logueo"+user+" es "+perro;
+	 String invalido="";
+	 Usuario usuario = alohandes.login(user, contrasena);
+	 if(usuario==null)
+		 invalido=" No existe el usuario o la clave es incorrecta";
+	 else {
+		 usuarioActivo=usuario.getId();
+		 invalido= "correcto id:"+usuario.getId();
+	 }
+		 
+		 
+	 String resultado=" Logueo"+user+" es "+invalido;
 	 panelDatos.actualizarInterfaz(resultado);
 	 
  	
