@@ -447,8 +447,8 @@ public class InterfazAlohAndes extends JFrame implements ActionListener
 	 {
 		 if(tipoActivo==2) {
 		 List<String> lista=new ArrayList<String>();
-		 List<Oferta> of= alohandes.darOfertas();
-		 System.out.println(""+of.size());
+		 Oferta of= alohandes.darOferta();
+		 System.out.println(""+of.getId());
 		 
 		 
 		 

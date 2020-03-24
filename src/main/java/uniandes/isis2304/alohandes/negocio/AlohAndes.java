@@ -136,6 +136,10 @@ public class AlohAndes
 		return pp.darOfertas();
 	}
 	
+	public Oferta darOferta(){
+		return pp.darOferta();
+	}
+	
 	
 	public String adicionaAlojamiento(int capacidad, int  tipo, long idOperador, long registrocam, long registrosup, String ubicacion, String descripcion) {
 		String respuesta = "";

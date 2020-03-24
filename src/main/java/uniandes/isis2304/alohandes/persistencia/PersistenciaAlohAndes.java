@@ -416,6 +416,19 @@ public class PersistenciaAlohAndes {
 		
 	}
 	
+public Oferta darOferta(){
+		
+		PersistenceManager pm = pmf.getPersistenceManager();
+		long id=1;
+		
+			Oferta lista=sqlOferta.darOfertaPorId(pmf.getPersistenceManager(),id);
+			
+
+			return lista;
+		
+		
+	}
+	
 	public Reserva adicionarReserva( int estado, long clienteid, List<Oferta>ofertasid) {
 		PersistenceManager pm = pmf.getPersistenceManager();
 		Transaction tx = pm.currentTransaction();
