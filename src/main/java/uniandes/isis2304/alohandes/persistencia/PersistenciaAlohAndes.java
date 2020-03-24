@@ -17,6 +17,8 @@ package uniandes.isis2304.alohandes.persistencia;
 
 import java.math.BigDecimal;
 import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -33,7 +35,9 @@ import com.google.gson.JsonObject;
 
 import uniandes.isis2304.alohandes.negocio.Alojamiento;
 import uniandes.isis2304.alohandes.negocio.Cliente;
+import uniandes.isis2304.alohandes.negocio.Oferta;
 import uniandes.isis2304.alohandes.negocio.Operador;
+import uniandes.isis2304.alohandes.negocio.Reserva;
 import uniandes.isis2304.alohandes.negocio.Usuario;
 
 /**
@@ -364,6 +368,69 @@ public class PersistenciaAlohAndes {
 			tx.commit();
 			log.trace("Inserción de cliente: " + nombre + ": " + tuplasInsertadas + " tuplas insertadas");
 			return new Cliente(idCliente, nombre, rol);
+		} catch (Exception e) {
+			log.error("Exception : " + e.getMessage() + "\n" + darDetalleException(e));
+			return null;
+		} finally {
+			if (tx.isActive()) {
+				tx.rollback();
+			}
+			pm.close();
+		}
+	}
+	
+	public Oferta adicionarOferta(String dia, int precio, long alojamientoid) {
+		PersistenceManager pm = pmf.getPersistenceManager();
+		Transaction tx = pm.currentTransaction();
+		try {
+			tx.begin();
+			long idOferta = nextval();
+			SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+			Date fecha=sdf.parse(dia);
+			Timestamp fechasql=new Timestamp(fecha.getTime());;
+			long tuplasInsertadas = sqlOferta.adicionarOferta(pm, ""+idOferta, fechasql, precio,""+alojamientoid);
+			tx.commit();
+			
+			log.trace("Inserción de cliente: " + idOferta + ": " + tuplasInsertadas + " tuplas insertadas");
+			
+			return new Oferta(idOferta, fecha, precio,alojamientoid);
+		} catch (Exception e) {
+			log.error("Exception : " + e.getMessage() + "\n" + darDetalleException(e));
+			return null;
+		} finally {
+			if (tx.isActive()) {
+				tx.rollback();
+			}
+			pm.close();
+		}
+	}
+	public List<Oferta> darOfertas(){
+		return sqlOferta.darOfertas(pmf.getPersistenceManager());
+	}
+	
+	public Reserva adicionarReserva( int estado, long clienteid, List<Oferta>ofertasid) {
+		PersistenceManager pm = pmf.getPersistenceManager();
+		Transaction tx = pm.currentTransaction();
+		try {
+			tx.begin();
+			long idOferta = nextval();
+			int valorTotal=0;
+			for(Oferta o:ofertasid) {
+				valorTotal+=o.getPrecio();
+			}
+			
+			
+			long tuplasInsertadas = sqlReserva.adicionarReserva(pm, ""+idOferta, estado, valorTotal,clienteid);
+			
+			
+					for(Oferta o:ofertasid) {
+						tuplasInsertadas+=sqlOferta.actualizarReserva(pm, ""+o.getId(),""+ idOferta);
+					}
+			tx.commit();
+			
+			log.trace("Inserción de cliente: " + idOferta + ": " + tuplasInsertadas + " tuplas insertadas");
+			
+			return new Reserva(idOferta, estado, estado,clienteid);
 		} catch (Exception e) {
 			log.error("Exception : " + e.getMessage() + "\n" + darDetalleException(e));
 			return null;

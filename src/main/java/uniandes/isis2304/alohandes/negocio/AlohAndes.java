@@ -16,6 +16,7 @@
 package uniandes.isis2304.alohandes.negocio;
 
 import java.sql.Timestamp;
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -115,6 +116,31 @@ public class AlohAndes
 	public String adicionarOperador(int tipo, Usuario usuario) {
 		String respuesta = usuario.toString();
 		respuesta += pp.adicionarOperador(usuario.getId(), tipo).toString();
+		return respuesta;
+	}
+	
+	public String adicionarOferta(String dia, int precio, long alojamientoid) {
+		String respuesta = "";
+		respuesta += pp.adicionarOferta(dia, precio, alojamientoid);
+		return respuesta;
+	}
+	
+	
+	public String adicionarReserva( long clienteid, List<Oferta>ofertasid) {
+		String respuesta = "";
+		respuesta += pp.adicionarReserva(1, clienteid, ofertasid);
+		return respuesta;
+	}
+	
+	public List<Oferta> darOfertas(){
+		return pp.darOfertas();
+	}
+	
+	
+	public String adicionaAlojamiento(int capacidad, int  tipo, long idOperador, long registrocam, long registrosup, String ubicacion, String descripcion) {
+		String respuesta = "";
+		respuesta += "Capacidad: "+capacidad+"Tipo: " +  tipo+ "Idop: " + idOperador+ "RegCam: " + registrocam+ "RegSup: " + registrosup+ "Ubicacion: " +ubicacion+ "Descripcion: " +descripcion;
+		pp.adicionarAlojamiento(capacidad,   tipo, idOperador,  registrocam, registrosup, ubicacion, descripcion);
 		return respuesta;
 	}
 	

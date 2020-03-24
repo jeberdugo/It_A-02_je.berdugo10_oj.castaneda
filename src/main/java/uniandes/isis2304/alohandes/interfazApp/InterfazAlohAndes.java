@@ -28,13 +28,16 @@ import java.io.IOException;
 import java.lang.reflect.Method;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Properties;
 
 import javax.jdo.JDODataStoreException;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JList;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
@@ -42,6 +45,9 @@ import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 
 import org.apache.log4j.Logger;
+import org.jdatepicker.JDatePicker;
+import org.jdatepicker.impl.JDatePanelImpl;
+import org.jdatepicker.impl.UtilDateModel;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
@@ -49,8 +55,10 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.stream.JsonReader;
 
+
 import uniandes.isis2304.alohandes.negocio.AlohAndes;
 import uniandes.isis2304.alohandes.negocio.Alojamiento;
+import uniandes.isis2304.alohandes.negocio.Oferta;
 import uniandes.isis2304.alohandes.negocio.Usuario;
 import uniandes.isis2304.alohandes.persistencia.SQLAlojamiento;
 
@@ -293,7 +301,42 @@ public class InterfazAlohAndes extends JFrame implements ActionListener
 	 public void registrarOferta() {
 		 if(usuarioActivo!=-1)
 		 {
+			 if(tipoActivo==1) {
+			 List<Alojamiento> lista= alohandes.darAlojamientosPorUserId(""+usuarioActivo);
+			 List<String> listaId=new ArrayList<String>();
+			 for(Alojamiento a:lista) {
+				 listaId.add(""+a.getId());
+			 }
+				
+			 String alooid = (String) JOptionPane.showInputDialog(null,"Seleccione Un Alojamiento",
+					   "Alojamientos", JOptionPane.QUESTION_MESSAGE, null,
+					  listaId.toArray(),"Seleccione");
+			 long alojamientoId=Long.parseLong(alooid);
 			 
+			 Properties p = new Properties();
+			 p.put("text.today", "Today");
+			 p.put("text.month", "Month");
+			 p.put("text.year", "Year");
+			 UtilDateModel model = new UtilDateModel();
+			 JDatePanelImpl datePanel = new JDatePanelImpl(model, p);
+			 String message ="Choose start date:\n";
+			 Object[] params = {message,datePanel};
+			 JOptionPane.showInputDialog(this,params,"Start date", JOptionPane.PLAIN_MESSAGE);
+			 String fecha =model.getDay()+"-"+model.getMonth()+"-"+model.getYear();
+			 
+			 String precio = JOptionPane.showInputDialog(this, "Precio", "Final",
+						JOptionPane.QUESTION_MESSAGE);
+			 
+			 
+			 
+			 
+			 alohandes.adicionarOferta(fecha, Integer.parseInt(precio), alojamientoId);
+			 
+			 
+			 panelDatos.actualizarInterfaz("Alojamiento id: "+alojamientoId+"Fecha: "+fecha+ "precio"+ precio);
+
+			 }else
+				 JOptionPane.showMessageDialog(this,"Debe loguearse como operador","Debe loguearse",JOptionPane.ERROR_MESSAGE);
 		 }
 		 else
 			 JOptionPane.showMessageDialog(this,"No esta logueado","Debe loguearse",JOptionPane.ERROR_MESSAGE);
@@ -301,8 +344,58 @@ public class InterfazAlohAndes extends JFrame implements ActionListener
 	    }
  public void registrarAlojamiento() {
 	 if(usuarioActivo!=-1)
-	 {
+	 {  
+		 if(tipoActivo==1) {
+			 
+		 int capacidad=0;
+		 int tipo=0;
+		 long idOperador=0;
+		 long registrocam=0;
+		 long registrosup=0;
+		 String ubicacion="";
+		 String descripcion="";
 		 
+		 idOperador=usuarioActivo;
+		 
+		 String cap = JOptionPane.showInputDialog(this, "Capacidad", "Siguiente",
+					JOptionPane.QUESTION_MESSAGE);
+		 capacidad+=Integer.parseInt(cap);
+		 
+		 String tip = JOptionPane.showInputDialog(this, "Tipo", "Siguiente",
+					JOptionPane.QUESTION_MESSAGE);
+		 tipo+=Integer.parseInt(tip);
+		 
+		 if(tipo==0||tipo==1) {
+			 
+			 String registroc = JOptionPane.showInputDialog(this, "Registro de camara", "Siguiente",
+						JOptionPane.QUESTION_MESSAGE);
+			 registrocam+=Long.parseLong(registroc);
+			 
+			 String registros = JOptionPane.showInputDialog(this, "Registro de Super Intendencia", "Siguiente",
+						JOptionPane.QUESTION_MESSAGE);
+			 registrosup+=Long.parseLong(registros);
+			 
+		 }
+		 
+		 String ub = JOptionPane.showInputDialog(this, "Ubicacion", "Siguiente",
+					JOptionPane.QUESTION_MESSAGE);
+		 ubicacion+=ub;
+		 
+		 
+		 String des = JOptionPane.showInputDialog(this, "Descripcion", "Final",
+					JOptionPane.QUESTION_MESSAGE);
+		 descripcion+=des;
+		 
+		 
+		 
+		 
+		 String resultado="";
+		 resultado+=alohandes.adicionaAlojamiento(capacidad, tipo, idOperador, registrocam, registrosup, ubicacion, descripcion);
+		 
+		 panelDatos.actualizarInterfaz(resultado);
+		 }
+		 else
+			 JOptionPane.showMessageDialog(this,"Debe loguearse como operador","Debe loguearse",JOptionPane.ERROR_MESSAGE);
 	 }
 	 else
 		 JOptionPane.showMessageDialog(this,"No esta logueado","Debe loguearse",JOptionPane.ERROR_MESSAGE);
@@ -352,7 +445,16 @@ public class InterfazAlohAndes extends JFrame implements ActionListener
  public void registrarReserva() {
 	 if(usuarioActivo!=-1)
 	 {
-		 
+		 if(tipoActivo==2) {
+		 ArrayList<Oferta> lista=new ArrayList<Oferta>();
+		 String message ="Escoger ofertas para reservar";
+		 JList datePanel= new JList(alohandes.darOfertas().toArray()); 
+		 Object[] params = {message,datePanel};
+		 JOptionPane.showInputDialog(this,params,"Ofertas", JOptionPane.PLAIN_MESSAGE);
+		 alohandes.adicionarReserva(usuarioActivo, lista);
+		 }
+		 else
+			 JOptionPane.showMessageDialog(this,"Debe loguearse como cliente","Debe loguearse como cliente",JOptionPane.ERROR_MESSAGE);
 	 }
 	 else
 		 JOptionPane.showMessageDialog(this,"No esta logueado","Debe loguearse",JOptionPane.ERROR_MESSAGE);
@@ -398,7 +500,7 @@ public class InterfazAlohAndes extends JFrame implements ActionListener
 		if(lista!=null) {
 			
 			for(Alojamiento n:lista) {
-				alojamientos+="    ID: "+n.getId()+""+"\n";
+				alojamientos+="            ID: "+n.getId()+""+"\n";
 				
 			}
 		}
@@ -409,7 +511,7 @@ public class InterfazAlohAndes extends JFrame implements ActionListener
 		 JOptionPane.showMessageDialog(this,"ID: "+user.getId()+"\nUsuario: "+user.getUsuario()
 		 +"\nTipo: "+tipo
 		 +"\nCorreo: "+user.getCorreo()+"\nDocumento: "+user.getTipo_Documento()+" "+user.getNumero_Documento()
-		 +"\nAlojamientos: "+alojamientos,"Informacion Usuario",JOptionPane.INFORMATION_MESSAGE);
+		 +"\nAlojamientos: \n"+alojamientos,"Informacion Usuario",JOptionPane.INFORMATION_MESSAGE);
 		 
 	 }
 	 else

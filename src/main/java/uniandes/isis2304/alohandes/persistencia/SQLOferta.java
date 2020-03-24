@@ -1,5 +1,6 @@
 package uniandes.isis2304.alohandes.persistencia;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 import javax.jdo.PersistenceManager;
@@ -41,11 +42,13 @@ public class SQLOferta {
 	 *                    Egresado, 3: Estudiante, 4: Padre)
 	 * @return El número de tuplas insertadas
 	 */
-	public long adicionarOferta(PersistenceManager pm, String idOferta, String dia, String precio, String alojamientoid) {
+	public long adicionarOferta(PersistenceManager pm, String idOferta, Timestamp dia, int precio, String alojamientoid) {
 		Query q = pm.newQuery(SQL,
 				"INSERT INTO " + pa.darTablaOferta() + "(id, dia, precio, alojamientoid) values (?, ?, ?, ?)");
 		q.setParameters(idOferta, dia, precio, alojamientoid);
+		
 		return (long) q.executeUnique();
+		
 	}
 	
 	
@@ -53,6 +56,7 @@ public class SQLOferta {
 		Query q = pm.newQuery(SQL,
 				"UPDATE " + pa.darTablaOferta() + " SET reservaid = ? WHERE id LIKE ?");
 		q.setParameters(reservaid,idOferta);
+		
 		return (long) q.executeUnique();
 		
 	}

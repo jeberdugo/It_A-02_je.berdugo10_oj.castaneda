@@ -6,17 +6,20 @@ public class Reserva implements VOReserva{
 
 	private long id;
 	private int estado;
-	private double valorTotal;
+	private int valorTotal;
+	private long clienteId;
 	
 	public Reserva() {
 		this.id=0;
 		this.estado=0;
 		valorTotal=0;
+		clienteId=0;
 	}
-	public Reserva(long id, int estado, double valorTotal) {
+	public Reserva(long id, int estado, int valorTotal,long clienteid) {
 		this.id=id;
 		this.estado=estado;
 		this.valorTotal=valorTotal;
+		this.clienteId=clienteid;
 	}
 	
 	@Override
@@ -32,13 +35,13 @@ public class Reserva implements VOReserva{
 	}
 
 	@Override
-	public double getValorTotal() {
+	public int getValorTotal() {
 		// TODO Auto-generated method stub
 		return this.valorTotal;
 	}
 
 	@Override
-	public void setValorTotal(double valorTotal) {
+	public void setValorTotal(int valorTotal) {
 		// TODO Auto-generated method stub
 		this.valorTotal=valorTotal;
 	}
@@ -54,6 +57,12 @@ public class Reserva implements VOReserva{
 		// TODO Auto-generated method stub
 		this.estado=estado;
 		
+	}
+	public long getClienteId() {
+		return clienteId;
+	}
+	public void setClienteId(long clienteId) {
+		this.clienteId = clienteId;
 	}
 
 	

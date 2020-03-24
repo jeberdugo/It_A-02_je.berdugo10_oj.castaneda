@@ -5,19 +5,20 @@ import java.util.Date;
 public class Oferta implements VOOferta {
 	private long id;
 	private Date dia;
-	private double precio;
+	private int precio;
 	private long idReserva;
-	private long idAlojamiento;
+	private long alojamientoid;
 	
 	public Oferta() {
 		this.id=0;
 		this.dia=null;
 		precio=0;
 	}
-	public Oferta(long id, Date dia, double precio) {
+	public Oferta(long id, Date dia, int precio,long alojamientoid) {
 		this.id=id;
 		this.dia=dia;
 		this.precio=precio;
+		this.alojamientoid=alojamientoid;
 	}
 	
 	@Override
@@ -33,13 +34,13 @@ public class Oferta implements VOOferta {
 	}
 
 	@Override
-	public double getPrecio() {
+	public int getPrecio() {
 		// TODO Auto-generated method stub
 		return this.precio;
 	}
 
 	@Override
-	public void setPrecio(double precio) {
+	public void setPrecio(int precio) {
 		// TODO Auto-generated method stub
 		this.precio=precio;
 	}
@@ -56,17 +57,19 @@ public class Oferta implements VOOferta {
 		this.dia=dia;
 		
 	}
-	public long getIdAlojamiento() {
-		return idAlojamiento;
-	}
-	public void setIdAlojamiento(long idAlojamiento) {
-		this.idAlojamiento = idAlojamiento;
-	}
+
+	
 	public long getIdReserva() {
 		return idReserva;
 	}
 	public void setIdReserva(long idReserva) {
 		this.idReserva = idReserva;
+	}
+	public long getAlojamientoid() {
+		return alojamientoid;
+	}
+	public void setAlojamientoid(long alojamientoid) {
+		this.alojamientoid = alojamientoid;
 	}
 
 }

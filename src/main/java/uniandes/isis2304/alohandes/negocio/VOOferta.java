@@ -17,12 +17,12 @@ public interface VOOferta {
 	/**
 	 * @return El numero de documento del usuario
 	 */
-	public double getPrecio();
+	public int getPrecio();
 
 	/**
 	 * @param numeroDocumento - El nuevo numero de documento del usuario
 	 */
-	public void setPrecio(double precio);
+	public void setPrecio(int precio);
 
 
 	/**

@@ -14,12 +14,12 @@ public interface VOReserva {
 	/**
 	 * @return El numero de documento del usuario
 	 */
-	public double getValorTotal();
+	public int getValorTotal();
 
 	/**
 	 * @param numeroDocumento - El nuevo numero de documento del usuario
 	 */
-	public void setValorTotal(double valorTotal);
+	public void setValorTotal(int valorTotal);
 
 
 	/**

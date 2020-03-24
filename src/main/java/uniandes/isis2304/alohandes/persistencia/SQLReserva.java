@@ -42,7 +42,7 @@ public class SQLReserva {
 	 *                    Egresado, 3: Estudiante, 4: Padre)
 	 * @return El número de tuplas insertadas
 	 */
-	public long adicionarReserva(PersistenceManager pm, String idReserva, int estado, double valorTotal, long clienteid) {
+	public long adicionarReserva(PersistenceManager pm, String idReserva, int estado, int valorTotal, long clienteid) {
 		Query q = pm.newQuery(SQL,
 				"INSERT INTO " + pa.darTablaReserva() + "(id, estado, valortotal, clienteid) values (?, ?, ?, ?)");
 		q.setParameters(idReserva, estado, valorTotal, clienteid);
