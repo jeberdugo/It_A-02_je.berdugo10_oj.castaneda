@@ -43,7 +43,7 @@ public class SQLAlojamiento {
 	 */
 	public long adicionarAlojamiento(PersistenceManager pm, String idAlojamiento, String capacidad, String  tipo, String idoperador, String registrocam, String registrosup, String ubicacion, String descripcion) {
 		Query q = pm.newQuery(SQL,
-				"INSERT INTO " + pa.darTablaAlojamiento() + "(id, capacidad, tipo, idoperador, registrocam, registrosup, ubicacion, descripcion) values (?, ?, ?, ?, ?, ?, ?, ?)");
+				"INSERT INTO " + pa.darTablaAlojamiento() + "(id, capacidad, tipo, operador_id, registro_cam, registro_sup, ubicacion, descripcion) values (?, ?, ?, ?, ?, ?, ?, ?)");
 		q.setParameters(idAlojamiento, capacidad, tipo, idoperador, registrocam, registrosup, ubicacion, descripcion);
 		return (long) q.executeUnique();
 	}
@@ -70,7 +70,7 @@ public class SQLAlojamiento {
 	 * @return Una lista de objetos CLIENTE
 	 */
 	public List<Alojamiento> darAlojamientosPorUserId(PersistenceManager pm, String idUsuario) {
-		Query q = pm.newQuery(SQL, "SELECT * FROM " + pa.darTablaAlojamiento()+ " WHERE idoperador = ?");
+		Query q = pm.newQuery(SQL, "SELECT * FROM " + pa.darTablaAlojamiento()+ " WHERE operador_id = ?");
 		q.setParameters(idUsuario);
 		q.setResultClass(Alojamiento.class);
 		return (List<Alojamiento>) q.executeList();

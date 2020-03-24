@@ -44,7 +44,7 @@ public class SQLReserva {
 	 */
 	public long adicionarReserva(PersistenceManager pm, String idReserva, int estado, int valorTotal, long clienteid) {
 		Query q = pm.newQuery(SQL,
-				"INSERT INTO " + pa.darTablaReserva() + "(id, estado, valortotal, clienteid) values (?, ?, ?, ?)");
+				"INSERT INTO " + pa.darTablaReserva() + "(id, estado, valor_total, cliente_id) values (?, ?, ?, ?)");
 		q.setParameters(idReserva, estado, valorTotal, clienteid);
 		return (long) q.executeUnique();
 	}
