@@ -44,7 +44,7 @@ public class SQLOferta {
 	 */
 	public long adicionarOferta(PersistenceManager pm, String idOferta, Timestamp dia, int precio, String alojamientoid) {
 		Query q = pm.newQuery(SQL,
-				"INSERT INTO " + pa.darTablaOferta() + "(id, dia, precio, alojamientoid,reservaid) values (?, ?, ?, ?,NULL)");
+				"INSERT INTO " + pa.darTablaOferta() + "(id, dia, precio, alojamiento_id,reserva_id) values (?, ?, ?, ?,NULL)");
 		q.setParameters(idOferta, dia, precio, alojamientoid);
 		
 		return (long) q.executeUnique();
@@ -54,7 +54,7 @@ public class SQLOferta {
 	
 	public long actualizarReserva(PersistenceManager pm, String idOferta, String reservaid) {
 		Query q = pm.newQuery(SQL,
-				"UPDATE " + pa.darTablaOferta() + " SET reservaid = ? WHERE id = ?");
+				"UPDATE " + pa.darTablaOferta() + " SET reserva_id = ? WHERE id = ?");
 		q.setParameters(reservaid,idOferta);
 		
 		return (long) q.executeUnique();
