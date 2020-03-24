@@ -97,3 +97,7 @@ ORA-02291: restricción de integridad (ISIS2304A022010.FK_IDRESERVA) violada - c
 09:16:38,051 (AWT-EventQueue-0) ERROR [uniandes.isis2304.alohandes.persistencia.PersistenciaAlohAndes] - Exception : Error con la ejecucion de Query de SQL "INSERT INTO ALOJAMIENTO(id, capacidad, tipo, idoperador, registrocam, registrosup, ubicacion, descripcion) values (?, ?, ?, ?, ?, ?, ?, ?)".
 ORA-00904: "REGISTROSUP": identificador no válido
 
+10:09:36,462 (main) INFO  [uniandes.isis2304.alohandes.interfazApp.InterfazAlohAndes] - Se encontró un archivo de configuración válido: Interfaz
+10:09:36,463 (main) INFO  [uniandes.isis2304.alohandes.interfazApp.InterfazAlohAndes] - Se aplica configuración indicada en el archivo de configuración
+10:09:36,499 (main) INFO  [uniandes.isis2304.alohandes.interfazApp.InterfazAlohAndes] - Se encontró un archivo de configuración válido: Tablas BD
+10:09:36,505 (main) INFO  [uniandes.isis2304.alohandes.persistencia.PersistenciaAlohAndes] - Accediendo unidad de persistencia: AlohAndes
