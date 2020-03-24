@@ -1,5 +1,7 @@
 package uniandes.isis2304.alohandes.negocio;
 
+import java.util.List;
+
 public interface VOOperador {
 	/**
 	 * @return El id del operador
@@ -21,7 +23,16 @@ public interface VOOperador {
 	 */
 	public void setTipo(int tipo);
 
-	@Override
+	/**
+	 * @return Los alojamientos pertenecientes al operador
+	 */
+	public List<Alojamiento> getAlojamientos();
+	
+	/**
+	 * @param alojamientos - Los nuevos alojamientos pertenecientes al operador
+	 */
+	public void setAlojamientos(List<Alojamiento> alojamientos);
+
 	/**
 	 * @return Una cadena de caracteres con todos los atributos del operador
 	 */

@@ -1,70 +1,136 @@
 package uniandes.isis2304.alohandes.negocio;
 
-import java.util.Date;
+import java.util.List;
 
-public class Reserva implements VOReserva{
-
+public class Reserva implements VOReserva {
+	/**
+	 * El identificador ÚNICO de las reservas
+	 */
 	private long id;
-	private int estado;
+	
+	/**
+	 * El estado de la reserva
+	 */
+	private boolean estado;
+	
+	/**
+	 * El valor total de la reserva
+	 */
 	private int valorTotal;
-	private long clienteId;
 	
+	/**
+	 * El cliente propietario de la reserva
+	 */
+	private Cliente cliente;
+	
+	/**
+	 * Las ofertas que componen la reserva
+	 */
+	private List<Oferta> ofertas;
+	
+	/**
+	 * Constructor por defecto
+	 */
 	public Reserva() {
-		this.id=0;
-		this.estado=0;
-		valorTotal=0;
-		clienteId=0;
+		this.id = 0;
+		this.estado = false;
+		this.valorTotal = 0;
+		this.cliente = null;
+		this.ofertas=null;
 	}
-	public Reserva(long id, int estado, int valorTotal,long clienteid) {
-		this.id=id;
-		this.estado=estado;
-		this.valorTotal=valorTotal;
-		this.clienteId=clienteid;
+	/**
+	 * Constructor con valores
+	 * 
+	 * @param id          - El id de la reserva
+	 * @param estado      - El estado de la reserva
+	 * @param valorTotal - El valor total de la reserva
+	 * @param cliente    - El cliente propietario de la reserva
+	 * @param ofertas - Las ofertas que componen la reserva
+	 */
+	public Reserva(long id, boolean estado, int valorTotal, Cliente cliente, List<Oferta> ofertas) {
+		this.id = id;
+		this.estado = estado;
+		this.valorTotal = valorTotal;
+		this.cliente = cliente;
+		this.ofertas=ofertas;
 	}
-	
-	@Override
+
+	/**
+	 * @return El id del horario
+	 */
 	public long getId() {
-		// TODO Auto-generated method stub
-		return this.id;
+		return id;
 	}
 
-	@Override
+	/**
+	 * @param id - El nuevo id de la reserva
+	 */
 	public void setId(long id) {
-		// TODO Auto-generated method stub
-		this.id=id;
+		this.id = id;
 	}
 
-	@Override
+	/**
+	 * @return El estado de la reserva
+	 */
+	public boolean isEstado() {
+		return estado;
+	}
+
+	/**
+	 * @param estado - El nuevo estado de la reserva
+	 */
+	public void setEstado(boolean estado) {
+		this.estado = estado;
+	}
+
+	/**
+	 * @return El valor total de la reserva
+	 */
 	public int getValorTotal() {
-		// TODO Auto-generated method stub
-		return this.valorTotal;
+		return valorTotal;
 	}
 
-	@Override
+	/**
+	 * @param valorTotal - El nuevo valor total de la reserva
+	 */
 	public void setValorTotal(int valorTotal) {
-		// TODO Auto-generated method stub
-		this.valorTotal=valorTotal;
+		this.valorTotal = valorTotal;
 	}
 
-	@Override
-	public int getEstado() {
-		// TODO Auto-generated method stub
-		return this.estado;
+	/**
+	 * @return El cliente propietario de la reserva
+	 */
+	public Cliente getCliente() {
+		return cliente;
 	}
 
-	@Override
-	public void setEstado(int estado) {
-		// TODO Auto-generated method stub
-		this.estado=estado;
-		
+	/**
+	 * @param cliente - El nuevo cliente propietario de la reserva
+	 */
+	public void setCliente(Cliente cliente) {
+		this.cliente = cliente;
 	}
-	public long getClienteId() {
-		return clienteId;
-	}
-	public void setClienteId(long clienteId) {
-		this.clienteId = clienteId;
-	}
-
 	
+	/**
+	 * @return Las ofertas que componen la reserva
+	 */
+	public List<Oferta> getOfertas() {
+		return ofertas;
+	}
+	
+	/**
+	 * @param ofertas - Las nuevas ofertas que componen la reserva
+	 */
+	public void setOfertas(List<Oferta> ofertas) {
+		this.ofertas = ofertas;
+	}
 
+	/**
+	 * @return Una cadena de caracteres con todos los atributos de la reserva
+	 */
+	public String toString() {
+		return "Reserva [id=" + id + ", estado=" + estado + ", valorTotal=" + valorTotal + ", cliente=" + cliente
+				+ ", ofertas=" + ofertas + "]";
+	}
+	
 }
