@@ -77,8 +77,6 @@ public class Usuario implements VOUsuario {
 		this.id = id;
 	}
 
-	
-
 	/**
 	 * @return El correo del usuario
 	 */
@@ -106,39 +104,54 @@ public class Usuario implements VOUsuario {
 	public void setContrasena(String contrasena) {
 		this.contrasena = contrasena;
 	}
-
 	
-
-	@Override
+	/**
+	 * @return El nombre de usuario del usuario
+	 */
+	public String getUsuario() {
+		return usuario;
+	}
+	
+	/**
+	 * @param usuario - El nuevo nombre de usuario del usuario
+	 */
+	public void setUsuario(String usuario) {
+		this.usuario = usuario;
+	}
+	
+	/**
+	 * @return El tipo de documento del usuario (0: CC, 1: NIT, 2: CE)
+	 */
+	public int getTipo_Documento() {
+		return tipo_Documento;
+	}
+	
+	/**
+	 * @param tipo_Documento - El nuevo tipo de documento del usuario (0: CC, 1: NIT, 2: CE)
+	 */
+	public void setTipo_Documento(int tipo_Documento) {
+		this.tipo_Documento = tipo_Documento;
+	}
+	
+	/**
+	 * @return El numero de documento del usuario
+	 */
+	public int getNumero_Documento() {
+		return numero_Documento;
+	}
+	
+	/**
+	 * @param numero_Documento - El nuevo numero de documento del usuario
+	 */
+	public void setNumero_Documento(int numero_Documento) {
+		this.numero_Documento = numero_Documento;
+	}
+	
 	/**
 	 * @return Una cadena de caracteres con todos los atributos del usuario
 	 */
 	public String toString() {
 		return "Usuario [id=" + id + ", nombreUsuario=" + usuario + ", correo=" + correo + ", contrasena="
 				+ contrasena + ", numeroDocumento=" + numero_Documento + ", tipoDocumento=" + tipo_Documento + "]";
-	}
-
-	public String getUsuario() {
-		return usuario;
-	}
-
-	public void setUsuario(String usuario) {
-		this.usuario = usuario;
-	}
-
-	public int getTipo_Documento() {
-		return tipo_Documento;
-	}
-
-	public void setTipo_Documento(int tipo_Documento) {
-		this.tipo_Documento = tipo_Documento;
-	}
-
-	public int getNumero_Documento() {
-		return numero_Documento;
-	}
-
-	public void setNumero_Documento(int numero_Documento) {
-		this.numero_Documento = numero_Documento;
 	}
 }

@@ -3,9 +3,8 @@ package uniandes.isis2304.alohandes.negocio;
 import java.util.Date;
 
 public interface VOOferta {
-	
 	/**
-	 * @return El id de la Oferta
+	 * @return El id de la oferta
 	 */
 	public long getId();
 
@@ -13,26 +12,50 @@ public interface VOOferta {
 	 * @param id - El nuevo id de la oferta
 	 */
 	public void setId(long id);
-	
+
 	/**
-	 * @return El numero de documento del usuario
+	 * @return El precio de la oferta
 	 */
 	public int getPrecio();
 
 	/**
-	 * @param numeroDocumento - El nuevo numero de documento del usuario
+	 * @param precio - El nuevo precio de la oferta
 	 */
 	public void setPrecio(int precio);
 
-
 	/**
-	 * @return El nombre de usuario del usuario
+	 * @return El dia de la oferta
 	 */
 	public Date getDia();
 
 	/**
-	 * @param nombreUsuario - El nuevo nombre de usuario del usuario
+	 * @param dia - El nuevo dia de la oferta
 	 */
 	public void setDia(Date dia);
+
+	/**
+	 * @return La reserva hecha para la oferta
+	 */
+	public Reserva getReserva();
+
+	/**
+	 * @param reserva - La nueva reserva hecha para la oferta
+	 */
+	public void setReserva(Reserva reserva);
+
+	/**
+	 * @return El alojamiento al que pertenece la oferta
+	 */
+	public Alojamiento getAlojamiento();
+
+	/**
+	 * @param alojamiento - El nuevo alojamiento al que pertenece la oferta
+	 */
+	public void setAlojamiento(Alojamiento alojamiento);
+
+	/**
+	 * @return Una cadena de caracteres con todos los atributos de la oferta
+	 */
+	public String toString();
 
 }
