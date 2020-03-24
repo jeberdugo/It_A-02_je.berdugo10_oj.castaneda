@@ -393,7 +393,7 @@ public class PersistenciaAlohAndes {
 			
 			log.trace("Inserción de cliente: " + idOferta + ": " + tuplasInsertadas + " tuplas insertadas");
 			
-			return new Oferta(idOferta, fecha, precio,alojamientoid);
+			return new Oferta(idOferta, fecha, precio,alojamientoid,0);
 		} catch (Exception e) {
 			log.error("Exception : " + e.getMessage() + "\n" + darDetalleException(e));
 			return null;
@@ -405,7 +405,15 @@ public class PersistenciaAlohAndes {
 		}
 	}
 	public List<Oferta> darOfertas(){
-		return sqlOferta.darOfertas(pmf.getPersistenceManager());
+		
+		PersistenceManager pm = pmf.getPersistenceManager();
+		
+			List<Oferta> lista=sqlOferta.darOfertas(pmf.getPersistenceManager());
+			
+
+			return lista;
+		
+		
 	}
 	
 	public Reserva adicionarReserva( int estado, long clienteid, List<Oferta>ofertasid) {

@@ -6,19 +6,21 @@ public class Oferta implements VOOferta {
 	private long id;
 	private Date dia;
 	private int precio;
-	private long idReserva;
+	private long reservaid;
 	private long alojamientoid;
 	
 	public Oferta() {
 		this.id=0;
 		this.dia=null;
 		precio=0;
+		reservaid=0;
 	}
-	public Oferta(long id, Date dia, int precio,long alojamientoid) {
+	public Oferta(long id, Date dia, int precio,long alojamientoid,long reservaid) {
 		this.id=id;
 		this.dia=dia;
 		this.precio=precio;
 		this.alojamientoid=alojamientoid;
+		this.reservaid=reservaid;
 	}
 	
 	@Override
@@ -59,17 +61,18 @@ public class Oferta implements VOOferta {
 	}
 
 	
-	public long getIdReserva() {
-		return idReserva;
-	}
-	public void setIdReserva(long idReserva) {
-		this.idReserva = idReserva;
-	}
+
 	public long getAlojamientoid() {
 		return alojamientoid;
 	}
 	public void setAlojamientoid(long alojamientoid) {
 		this.alojamientoid = alojamientoid;
+	}
+	public long getReservaid() {
+		return reservaid;
+	}
+	public void setReservaid(long reservaid) {
+		this.reservaid = reservaid;
 	}
 
 }

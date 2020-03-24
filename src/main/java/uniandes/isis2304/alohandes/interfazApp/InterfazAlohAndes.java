@@ -446,12 +446,14 @@ public class InterfazAlohAndes extends JFrame implements ActionListener
 	 if(usuarioActivo!=-1)
 	 {
 		 if(tipoActivo==2) {
-		 ArrayList<Oferta> lista=new ArrayList<Oferta>();
-		 String message ="Escoger ofertas para reservar";
-		 JList datePanel= new JList(alohandes.darOfertas().toArray()); 
-		 Object[] params = {message,datePanel};
-		 JOptionPane.showInputDialog(this,params,"Ofertas", JOptionPane.PLAIN_MESSAGE);
-		 alohandes.adicionarReserva(usuarioActivo, lista);
+		 List<String> lista=new ArrayList<String>();
+		 List<Oferta> of= alohandes.darOfertas();
+		 System.out.println(""+of.size());
+		 
+		 
+		 
+		 
+		 //alohandes.adicionarReserva(usuarioActivo, lista);
 		 }
 		 else
 			 JOptionPane.showMessageDialog(this,"Debe loguearse como cliente","Debe loguearse como cliente",JOptionPane.ERROR_MESSAGE);
