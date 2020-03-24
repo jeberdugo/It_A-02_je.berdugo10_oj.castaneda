@@ -41,7 +41,7 @@ public class SQLAlojamiento {
 	 *                    Egresado, 3: Estudiante, 4: Padre)
 	 * @return El número de tuplas insertadas
 	 */
-	public long adicionarAlojamiento(PersistenceManager pm, long idAlojamiento, int capacidad, int  tipo, long idoperador, long registrocam, long registrosup, String ubicacion, String descripcion) {
+	public long adicionarAlojamiento(PersistenceManager pm, String idAlojamiento, String capacidad, String  tipo, String idoperador, String registrocam, String registrosup, String ubicacion, String descripcion) {
 		Query q = pm.newQuery(SQL,
 				"INSERT INTO " + pa.darTablaAlojamiento() + "(id, capacidad, tipo, idoperador, registrocam, registrosup, ubicacion, descripcion) values (?, ?, ?, ?, ?, ?, ?, ?)");
 		q.setParameters(idAlojamiento, capacidad, tipo, idoperador, registrocam, registrosup, ubicacion, descripcion);
@@ -60,6 +60,20 @@ public class SQLAlojamiento {
 		Query q = pm.newQuery(SQL, "DELETE FROM " + pa.darTablaAlojamiento() + " WHERE id = ?");
 		q.setParameters(idAlojamiento);
 		return (long) q.executeUnique();
+	}
+	
+	/**
+	 * Crea y ejecuta la sentencia SQL para encontrar la información de LOS CLIENTES
+	 * de la base de datos de AlohAndes
+	 * 
+	 * @param pm - El manejador de persistencia
+	 * @return Una lista de objetos CLIENTE
+	 */
+	public List<Alojamiento> darAlojamientosPorUserId(PersistenceManager pm, String idUsuario) {
+		Query q = pm.newQuery(SQL, "SELECT * FROM " + pa.darTablaAlojamiento()+ " WHERE idoperador = ?");
+		q.setParameters(idUsuario);
+		q.setResultClass(Alojamiento.class);
+		return (List<Alojamiento>) q.executeList();
 	}
 
 	/**

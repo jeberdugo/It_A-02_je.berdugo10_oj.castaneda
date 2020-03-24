@@ -6,6 +6,7 @@ import javax.jdo.PersistenceManager;
 import javax.jdo.Query;
 
 import uniandes.isis2304.alohandes.negocio.Cliente;
+import uniandes.isis2304.alohandes.negocio.Usuario;
 
 public class SQLCliente {
 	/**
@@ -72,5 +73,13 @@ public class SQLCliente {
 		Query q = pm.newQuery(SQL, "SELECT * FROM " + pa.darTablaCliente());
 		q.setResultClass(Cliente.class);
 		return (List<Cliente>) q.executeList();
+	}
+	
+	public Cliente darClientePorId (PersistenceManager pm, String idUsuario) 
+	{
+		Query q = pm.newQuery(SQL, "SELECT * FROM " + pa.darTablaCliente() + " WHERE ID = ?");
+		q.setResultClass(Cliente.class);
+		q.setParameters(idUsuario);
+		return (Cliente) q.executeUnique();
 	}
 }

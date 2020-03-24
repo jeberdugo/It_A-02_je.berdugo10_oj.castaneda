@@ -16,6 +16,10 @@
 				{
 					"label": "Informacion usuario",
 					"event": "infoUsuario"
+				},
+				{
+					"label": "Logout",
+					"event": "logout"
 				}
 			]
 		},

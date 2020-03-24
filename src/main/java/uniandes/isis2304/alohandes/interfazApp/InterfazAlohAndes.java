@@ -50,7 +50,9 @@ import com.google.gson.JsonObject;
 import com.google.gson.stream.JsonReader;
 
 import uniandes.isis2304.alohandes.negocio.AlohAndes;
+import uniandes.isis2304.alohandes.negocio.Alojamiento;
 import uniandes.isis2304.alohandes.negocio.Usuario;
+import uniandes.isis2304.alohandes.persistencia.SQLAlojamiento;
 
 
 
@@ -112,6 +114,7 @@ public class InterfazAlohAndes extends JFrame implements ActionListener
     private JMenuBar menuBar;
     
     private long usuarioActivo;
+    private int tipoActivo;
 
 	/* ****************************************************************
 	 * 			Métodos
@@ -142,6 +145,7 @@ public class InterfazAlohAndes extends JFrame implements ActionListener
         add (new JLabel (new ImageIcon (path)), BorderLayout.NORTH );          
         add( panelDatos, BorderLayout.CENTER );     
         usuarioActivo=-1;
+        tipoActivo=-1;
     }
     
 	/* ****************************************************************
@@ -375,9 +379,37 @@ public class InterfazAlohAndes extends JFrame implements ActionListener
 	 
  }
  
+ 
  public void infoUsuario() {
 	 if(usuarioActivo!=-1)
 	 {
+		List<Alojamiento> lista= alohandes.darAlojamientosPorUserId(""+usuarioActivo);
+		String alojamientos="";
+		String tipo="";
+		if(tipoActivo==1)
+		{
+			tipo="OPERADOR";
+		}
+		if(tipoActivo==2)
+		{
+			tipo="CLIENTE";
+		}
+		
+		if(lista!=null) {
+			
+			for(Alojamiento n:lista) {
+				alojamientos+="    ID: "+n.getId()+""+"\n";
+				
+			}
+		}
+		else alojamientos="no hay";
+		
+		 Usuario user= alohandes.buscarUsuarioPorId(""+usuarioActivo);
+		 if(user!=null)
+		 JOptionPane.showMessageDialog(this,"ID: "+user.getId()+"\nUsuario: "+user.getUsuario()
+		 +"\nTipo: "+tipo
+		 +"\nCorreo: "+user.getCorreo()+"\nDocumento: "+user.getTipo_Documento()+" "+user.getNumero_Documento()
+		 +"\nAlojamientos: "+alojamientos,"Informacion Usuario",JOptionPane.INFORMATION_MESSAGE);
 		 
 	 }
 	 else
@@ -388,12 +420,24 @@ public class InterfazAlohAndes extends JFrame implements ActionListener
  
 
 
- 
+ public void logout() {
+	 if(usuarioActivo!=-1)
+	 {
+		 usuarioActivo=-1;
+		 tipoActivo=-1;
+		 
+		 panelDatos.actualizarInterfaz("Se ha cerrado sesion");
+	 }
+	 else
+		 JOptionPane.showMessageDialog(this,"No esta logueado","Debe loguearse",JOptionPane.ERROR_MESSAGE);
+	
+ }
  public void login() {
 	 
 	 String user = JOptionPane.showInputDialog (this, "Usuario", "Login", JOptionPane.QUESTION_MESSAGE);
 	 String contrasena = JOptionPane.showInputDialog (this, "Contraseña", "Login", JOptionPane.QUESTION_MESSAGE);
-	 
+	 if(user!=null) {
+		 if(contrasena!=null) {
 	 String invalido="";
 	 Usuario usuario = alohandes.login(user, contrasena);
 	 if(usuario==null)
@@ -401,11 +445,25 @@ public class InterfazAlohAndes extends JFrame implements ActionListener
 	 else {
 		 usuarioActivo=usuario.getId();
 		 invalido= "correcto id:"+usuario.getId();
+		 if(alohandes.buscarOperadorPorId(""+usuarioActivo)!=null)
+			{
+				tipoActivo=1;
+			}
+			if(alohandes.buscarClientePorId(""+usuarioActivo)!=null)
+			{
+				tipoActivo=2;
+			}
 	 }
 		 
 		 
 	 String resultado=" Logueo"+user+" es "+invalido;
 	 panelDatos.actualizarInterfaz(resultado);
+		 }
+		 else
+			 panelDatos.actualizarInterfaz("Operación cancelada por el usuario");
+	 }
+	 else
+		 panelDatos.actualizarInterfaz("Operación cancelada por el usuario");
 	 
  	
  }

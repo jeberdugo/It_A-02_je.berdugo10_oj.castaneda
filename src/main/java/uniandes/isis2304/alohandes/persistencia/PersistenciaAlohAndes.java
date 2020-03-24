@@ -31,6 +31,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
+import uniandes.isis2304.alohandes.negocio.Alojamiento;
 import uniandes.isis2304.alohandes.negocio.Cliente;
 import uniandes.isis2304.alohandes.negocio.Operador;
 import uniandes.isis2304.alohandes.negocio.Usuario;
@@ -373,6 +374,27 @@ public class PersistenciaAlohAndes {
 			pm.close();
 		}
 	}
+	
+	public Alojamiento adicionarAlojamiento(int capacidad, int  tipo, long idOperador, long registrocam, long registrosup, String ubicacion, String descripcion) {
+		PersistenceManager pm = pmf.getPersistenceManager();
+		Transaction tx = pm.currentTransaction();
+		try {
+			tx.begin();
+			long idAlojamiento = nextval();
+			long tuplasInsertadas = sqlAlojamiento.adicionarAlojamiento(pm, ""+idAlojamiento, ""+capacidad, ""+tipo, ""+idOperador, ""+registrocam, ""+registrosup, ubicacion, descripcion);
+			tx.commit();
+			log.trace("Inserción de alojamiento: " + idAlojamiento + ": " + tuplasInsertadas + " tuplas insertadas");
+			return new Alojamiento(idAlojamiento, capacidad,  ubicacion,  descripcion,  tipo, registrocam,  registrosup,  idOperador);
+		} catch (Exception e) {
+			log.error("Exception : " + e.getMessage() + "\n" + darDetalleException(e));
+			return null;
+		} finally {
+			if (tx.isActive()) {
+				tx.rollback();
+			}
+			pm.close();
+		}
+	}
 
 	public Operador adicionarOperador(long idOperador, int tipo) {
 		PersistenceManager pm = pmf.getPersistenceManager();
@@ -404,6 +426,64 @@ public class PersistenciaAlohAndes {
 		boolean exito=false;
 		PersistenceManager pm = pmf.getPersistenceManager();
 		Usuario user= sqlUsuario.darUsuarioPorUsuario(pm, idUsuario);
+		
+		
+		return user;
+		
+	}
+	
+	
+	
+	/**
+	 * Método que consulta todas las tuplas en la tabla TipoBebida
+	 * @return La lista de objetos TipoBebida, construidos con base en las tuplas de la tabla TIPOBEBIDA
+	 */
+	public List<Alojamiento> darAlojamientosPorUserId (String idUsuario)
+	{
+		return sqlAlojamiento.darAlojamientosPorUserId(pmf.getPersistenceManager(), idUsuario);
+	}
+	/**
+	 * Método que consulta todas las tuplas en la tabla TipoBebida con un identificador dado
+	 * @param idTipoBebida - El identificador del tipo de bebida
+	 * @return El objeto TipoBebida, construido con base en las tuplas de la tabla TIPOBEBIDA con el identificador dado
+	 */
+	public Usuario darUsuarioPorId (String idUsuario)
+	{
+		
+		PersistenceManager pm = pmf.getPersistenceManager();
+		Usuario user= sqlUsuario.darUsuarioPorId(pm, idUsuario);
+		
+		
+		return user;
+		
+	}
+	
+	/**
+	 * Método que consulta todas las tuplas en la tabla TipoBebida con un identificador dado
+	 * @param idTipoBebida - El identificador del tipo de bebida
+	 * @return El objeto TipoBebida, construido con base en las tuplas de la tabla TIPOBEBIDA con el identificador dado
+	 */
+	public Cliente darClientePorId (String idUsuario)
+	{
+		
+		PersistenceManager pm = pmf.getPersistenceManager();
+		Cliente user= sqlCliente.darClientePorId(pm, idUsuario);
+		
+		
+		return user;
+		
+	}
+	
+	/**
+	 * Método que consulta todas las tuplas en la tabla TipoBebida con un identificador dado
+	 * @param idTipoBebida - El identificador del tipo de bebida
+	 * @return El objeto TipoBebida, construido con base en las tuplas de la tabla TIPOBEBIDA con el identificador dado
+	 */
+	public Operador darOperadorPorId (String idUsuario)
+	{
+		
+		PersistenceManager pm = pmf.getPersistenceManager();
+		Operador user= sqlOperador.darOperadorPorId(pm, idUsuario);
 		
 		
 		return user;

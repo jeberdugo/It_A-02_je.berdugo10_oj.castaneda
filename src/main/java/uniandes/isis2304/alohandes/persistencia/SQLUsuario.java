@@ -86,5 +86,12 @@ public class SQLUsuario {
 		q.setParameters(idUsuario);
 		return (Usuario) q.executeUnique();
 	}
+	public Usuario darUsuarioPorId (PersistenceManager pm, String idUsuario) 
+	{
+		Query q = pm.newQuery(SQL, "SELECT * FROM " + pa.darTablaUsuario() + " WHERE ID = ?");
+		q.setResultClass(Usuario.class);
+		q.setParameters(idUsuario);
+		return (Usuario) q.executeUnique();
+	}
 
 }

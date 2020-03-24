@@ -86,6 +86,26 @@ public class AlohAndes
 	public Usuario buscarUsuarioPorUsuario(String usuario) {
 		return pp.buscarUsuarioPorUsuario(usuario);
 	}
+	public Usuario buscarUsuarioPorId(String idUsuario) {
+		return pp.darUsuarioPorId(idUsuario);
+	}
+	
+	public Cliente buscarClientePorId(String idUsuario) {
+		return pp.darClientePorId(idUsuario);
+	}
+	
+	public Operador buscarOperadorPorId(String idUsuario) {
+		return pp.darOperadorPorId(idUsuario);
+	}
+	
+	/**
+	 * Método que consulta todas las tuplas en la tabla TipoBebida
+	 * @return La lista de objetos TipoBebida, construidos con base en las tuplas de la tabla TIPOBEBIDA
+	 */
+	public List<Alojamiento> darAlojamientosPorUserId (String idUsuario)
+	{
+		return pp.darAlojamientosPorUserId( idUsuario);
+	}
 
 	public Usuario adicionarUsuario(String nombreUsuario, String correo, String contrasena,
 			int numeroDocumento, int tipoDocumento) {
@@ -117,6 +137,7 @@ public class AlohAndes
 
 		return exito;
 	}
+	
 	/* ****************************************************************
 	 * 			Métodos para administración
 	 *****************************************************************/
