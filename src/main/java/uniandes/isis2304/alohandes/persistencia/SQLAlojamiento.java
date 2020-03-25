@@ -6,6 +6,7 @@ import javax.jdo.PersistenceManager;
 import javax.jdo.Query;
 
 import uniandes.isis2304.alohandes.negocio.Alojamiento;
+import uniandes.isis2304.alohandes.negocio.Oferta;
 
 public class SQLAlojamiento {
 	
@@ -62,6 +63,13 @@ public class SQLAlojamiento {
 		return (long) q.executeUnique();
 	}
 	
+	public Alojamiento buscarAlojamientoPorId (PersistenceManager pm, String idReserva) 
+	{
+		Query q = pm.newQuery(SQL, "SELECT * FROM " + pa.darTablaAlojamiento() + " WHERE id = ?");
+		q.setResultClass(Alojamiento.class);
+		q.setParameters(idReserva);
+		return (Alojamiento) q.executeUnique();
+	}
 	/**
 	 * Crea y ejecuta la sentencia SQL para encontrar la información de LOS CLIENTES
 	 * de la base de datos de AlohAndes

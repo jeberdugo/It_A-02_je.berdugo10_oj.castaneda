@@ -18,6 +18,7 @@ package uniandes.isis2304.alohandes.persistencia;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
@@ -35,9 +36,14 @@ import com.google.gson.JsonObject;
 
 import uniandes.isis2304.alohandes.negocio.Alojamiento;
 import uniandes.isis2304.alohandes.negocio.Cliente;
+import uniandes.isis2304.alohandes.negocio.Habitacion;
+import uniandes.isis2304.alohandes.negocio.Menaje;
 import uniandes.isis2304.alohandes.negocio.Oferta;
 import uniandes.isis2304.alohandes.negocio.Operador;
+import uniandes.isis2304.alohandes.negocio.Regla;
 import uniandes.isis2304.alohandes.negocio.Reserva;
+import uniandes.isis2304.alohandes.negocio.Seguro;
+import uniandes.isis2304.alohandes.negocio.Servicio;
 import uniandes.isis2304.alohandes.negocio.Usuario;
 
 /**
@@ -367,7 +373,7 @@ public class PersistenciaAlohAndes {
 			long tuplasInsertadas = sqlCliente.adicionarCliente(pm, idCliente, nombre, rol);
 			tx.commit();
 			log.trace("Inserción de cliente: " + nombre + ": " + tuplasInsertadas + " tuplas insertadas");
-			return new Cliente(idCliente, nombre, rol);
+			return new Cliente(idCliente, nombre, rol,null);
 		} catch (Exception e) {
 			log.error("Exception : " + e.getMessage() + "\n" + darDetalleException(e));
 			return null;
@@ -393,7 +399,7 @@ public class PersistenciaAlohAndes {
 			
 			log.trace("Inserción de cliente: " + idOferta + ": " + tuplasInsertadas + " tuplas insertadas");
 			
-			return new Oferta(idOferta, fecha, precio,alojamientoid,0);
+			return new Oferta(idOferta, fecha, precio,null,darAlojamientoPorId(""+alojamientoid));
 		} catch (Exception e) {
 			log.error("Exception : " + e.getMessage() + "\n" + darDetalleException(e));
 			return null;
@@ -429,7 +435,7 @@ public Oferta darOferta(){
 		
 	}
 	
-	public Reserva adicionarReserva( int estado, long clienteid, List<Oferta>ofertasid) {
+	public Reserva adicionarReserva( boolean estado, long clienteid, List<Oferta>ofertasid) {
 		PersistenceManager pm = pmf.getPersistenceManager();
 		Transaction tx = pm.currentTransaction();
 		try {
@@ -439,9 +445,12 @@ public Oferta darOferta(){
 			for(Oferta o:ofertasid) {
 				valorTotal+=o.getPrecio();
 			}
-			
-			
-			long tuplasInsertadas = sqlReserva.adicionarReserva(pm, ""+idOferta, estado, valorTotal,clienteid);
+			int estado2=1;
+			if(estado==true) {
+				estado2=0;
+			}
+				
+			long tuplasInsertadas = sqlReserva.adicionarReserva(pm, ""+idOferta, estado2, valorTotal,clienteid);
 			
 			
 					for(Oferta o:ofertasid) {
@@ -451,7 +460,7 @@ public Oferta darOferta(){
 			
 			log.trace("Inserción de cliente: " + idOferta + ": " + tuplasInsertadas + " tuplas insertadas");
 			
-			return new Reserva(idOferta, estado, estado,clienteid);
+			return new Reserva(idOferta, estado,valorTotal,darClientePorId(""+clienteid),ofertasid);
 		} catch (Exception e) {
 			log.error("Exception : " + e.getMessage() + "\n" + darDetalleException(e));
 			return null;
@@ -472,7 +481,15 @@ public Oferta darOferta(){
 			long tuplasInsertadas = sqlAlojamiento.adicionarAlojamiento(pm, ""+idAlojamiento, ""+capacidad, ""+tipo, ""+idOperador, ""+registrocam, ""+registrosup, ubicacion, descripcion);
 			tx.commit();
 			log.trace("Inserción de alojamiento: " + idAlojamiento + ": " + tuplasInsertadas + " tuplas insertadas");
-			return new Alojamiento(idAlojamiento, capacidad,  ubicacion,  descripcion,  tipo, registrocam,  registrosup,  idOperador);
+			List<Habitacion> habitaciones= new ArrayList<Habitacion>();
+			Seguro seguro=new Seguro();
+			List<Servicio> servicios= new ArrayList<Servicio>();
+			List<Regla> reglas= new ArrayList<Regla>();
+			List<Menaje> menaje= new ArrayList<Menaje>();
+			List<Oferta> ofertas= new ArrayList<Oferta>();
+			
+			return new Alojamiento(idAlojamiento, capacidad,  ubicacion,  descripcion,  tipo, ""+registrocam, ""+ registrosup,  darOperadorPorId(""+idOperador), seguro,  servicios,
+					habitaciones,  reglas,  menaje, ofertas);
 		} catch (Exception e) {
 			log.error("Exception : " + e.getMessage() + "\n" + darDetalleException(e));
 			return null;
@@ -492,7 +509,8 @@ public Oferta darOferta(){
 			long tuplasInsertadas = sqlOperador.adicionarOperador(pm, idOperador, tipo);
 			tx.commit();
 			log.trace("Inserción de operador: " + tipo + ": " + tuplasInsertadas + " tuplas insertadas");
-			return new Operador(idOperador, tipo);
+			List<Alojamiento> lista=new ArrayList<Alojamiento>();
+			return new Operador(idOperador, tipo,lista);
 		} catch (Exception e) {
 			log.error("Exception : " + e.getMessage() + "\n" + darDetalleException(e));
 			return null;
@@ -529,6 +547,15 @@ public Oferta darOferta(){
 	public List<Alojamiento> darAlojamientosPorUserId (String idUsuario)
 	{
 		return sqlAlojamiento.darAlojamientosPorUserId(pmf.getPersistenceManager(), idUsuario);
+	}
+	
+	/**
+	 * Método que consulta todas las tuplas en la tabla TipoBebida
+	 * @return La lista de objetos TipoBebida, construidos con base en las tuplas de la tabla TIPOBEBIDA
+	 */
+	public Alojamiento darAlojamientoPorId (String idUsuario)
+	{
+		return sqlAlojamiento.buscarAlojamientoPorId(pmf.getPersistenceManager(), idUsuario);
 	}
 	/**
 	 * Método que consulta todas las tuplas en la tabla TipoBebida con un identificador dado

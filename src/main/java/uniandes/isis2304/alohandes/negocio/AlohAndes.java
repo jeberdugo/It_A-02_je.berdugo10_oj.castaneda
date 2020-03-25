@@ -128,7 +128,7 @@ public class AlohAndes
 	
 	public String adicionarReserva( long clienteid, List<Oferta>ofertasid) {
 		String respuesta = "";
-		respuesta += pp.adicionarReserva(1, clienteid, ofertasid);
+		respuesta += pp.adicionarReserva(false, clienteid, ofertasid);
 		return respuesta;
 	}
 	
