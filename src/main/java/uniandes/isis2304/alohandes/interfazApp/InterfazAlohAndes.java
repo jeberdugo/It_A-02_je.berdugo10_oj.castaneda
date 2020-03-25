@@ -304,6 +304,7 @@ public class InterfazAlohAndes extends JFrame implements ActionListener
 			 if(tipoActivo==1) {
 			 List<Alojamiento> lista= alohandes.darAlojamientosPorUserId(""+usuarioActivo);
 			 List<String> listaId=new ArrayList<String>();
+			 if(lista!=null||!lista.isEmpty()) {
 			 for(Alojamiento a:lista) {
 				 listaId.add(""+a.getId());
 			 }
@@ -333,7 +334,7 @@ public class InterfazAlohAndes extends JFrame implements ActionListener
 			 alohandes.adicionarOferta(fecha, Integer.parseInt(precio), alojamientoId);
 			 
 			 
-			 panelDatos.actualizarInterfaz("Alojamiento id: "+alojamientoId+"Fecha: "+fecha+ "precio"+ precio);
+			 panelDatos.actualizarInterfaz("Alojamiento id: "+alojamientoId+"Fecha: "+fecha+ "precio"+ precio);}
 
 			 }else
 				 JOptionPane.showMessageDialog(this,"Debe loguearse como operador","Debe loguearse",JOptionPane.ERROR_MESSAGE);
@@ -475,6 +476,24 @@ public class InterfazAlohAndes extends JFrame implements ActionListener
  public void retirarAlojamiento() {
 	 if(usuarioActivo!=-1)
 	 {
+		 List<Alojamiento> lista= alohandes.darAlojamientosPorUserId(""+usuarioActivo);
+		 List<String> listaId=new ArrayList<String>();
+		 if(lista!=null) {
+		 for(Alojamiento a:lista) {
+			 listaId.add(""+a.getId());
+		 }
+			
+		 String alooid = (String) JOptionPane.showInputDialog(null,"Seleccione Un Alojamiento",
+				   "Alojamientos", JOptionPane.QUESTION_MESSAGE, null,
+				  listaId.toArray(),"Seleccione");
+		 long alojamientoId=Long.parseLong(alooid);
+		 
+		if(alohandes.eliminarAlojamientoPorId(alojamientoId)!=-1) {
+			panelDatos.actualizarInterfaz("Eliminado alojamiento con id "+alojamientoId);
+		}
+		else
+			JOptionPane.showMessageDialog(this,"Error","Error",JOptionPane.ERROR_MESSAGE);
+		 }
 		 
 	 }
 	 else
@@ -501,8 +520,8 @@ public class InterfazAlohAndes extends JFrame implements ActionListener
 		
 		if(lista!=null) {
 			
-			for(Alojamiento n:lista) {
-				alojamientos+="            ID: "+n.getId()+""+"\n";
+			for(int i=0;lista.size()<i;i++) {
+				alojamientos+="            ID: 12"+""+"\n";
 				
 			}
 		}

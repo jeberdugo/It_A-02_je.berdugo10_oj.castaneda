@@ -488,8 +488,7 @@ public Oferta darOferta(){
 			List<Menaje> menaje= new ArrayList<Menaje>();
 			List<Oferta> ofertas= new ArrayList<Oferta>();
 			
-			return new Alojamiento(idAlojamiento, capacidad,  ubicacion,  descripcion,  tipo, ""+registrocam, ""+ registrosup,  darOperadorPorId(""+idOperador), seguro,  servicios,
-					habitaciones,  reglas,  menaje, ofertas);
+			return new Alojamiento(idAlojamiento, capacidad,  ubicacion,  descripcion,  tipo, ""+registrocam, ""+ registrosup,  darOperadorPorId(""+idOperador));
 		} catch (Exception e) {
 			log.error("Exception : " + e.getMessage() + "\n" + darDetalleException(e));
 			return null;
@@ -521,6 +520,73 @@ public Oferta darOferta(){
 			pm.close();
 		}
 	}
+	
+	/**
+	 * Método que elimina, de manera transaccional, una tupla en la tabla BEBEDOR, dado el identificador del bebedor
+	 * Adiciona entradas al log de la aplicación
+	 * @param idBebedor - El identificador del bebedor
+	 * @return El número de tuplas eliminadas. -1 si ocurre alguna Excepción
+	 */
+	public long eliminarAlojamientoPorId (long Alojamiento) 
+	{
+		PersistenceManager pm = pmf.getPersistenceManager();
+        Transaction tx=pm.currentTransaction();
+        try
+        {
+            tx.begin();
+            long resp = sqlAlojamiento.eliminarAlojamientoPorId(pm, Alojamiento);
+            tx.commit();
+            return resp;
+        }
+        catch (Exception e)
+        {
+//        	e.printStackTrace();
+        	log.error ("Exception : " + e.getMessage() + "\n" + darDetalleException(e));
+            return -1;
+        }
+        finally
+        {
+            if (tx.isActive())
+            {
+                tx.rollback();
+            }
+            pm.close();
+        }
+	}
+	
+	/**
+	 * Método que elimina, de manera transaccional, una tupla en la tabla BEBEDOR, dado el identificador del bebedor
+	 * Adiciona entradas al log de la aplicación
+	 * @param idBebedor - El identificador del bebedor
+	 * @return El número de tuplas eliminadas. -1 si ocurre alguna Excepción
+	 */
+	public long eliminarReservaPorId (long idBebedor) 
+	{
+		PersistenceManager pm = pmf.getPersistenceManager();
+        Transaction tx=pm.currentTransaction();
+        try
+        {
+            tx.begin();
+            long resp = sqlReserva.eliminarReservaPorId(pm, idBebedor);
+            tx.commit();
+            return resp;
+        }
+        catch (Exception e)
+        {
+//        	e.printStackTrace();
+        	log.error ("Exception : " + e.getMessage() + "\n" + darDetalleException(e));
+            return -1;
+        }
+        finally
+        {
+            if (tx.isActive())
+            {
+                tx.rollback();
+            }
+            pm.close();
+        }
+	}
+	
 	
 	/**
 	 * Método que consulta todas las tuplas en la tabla TipoBebida con un identificador dado

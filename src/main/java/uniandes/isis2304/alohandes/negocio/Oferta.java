@@ -21,12 +21,12 @@ public class Oferta implements VOOferta {
 	/**
 	 * La reserva hecha para la oferta
 	 */
-	private Reserva reserva;
+	private Reserva reserva_Id;
 
 	/**
 	 * El alojamiento al que pertenece la oferta
 	 */
-	private Alojamiento alojamiento;
+	private Alojamiento alojamiento_Id;
 
 	/**
 	 * Constructor por defecto
@@ -35,8 +35,8 @@ public class Oferta implements VOOferta {
 		this.id = 0;
 		this.dia = null;
 		this.precio = 0;
-		this.reserva = null;
-		this.alojamiento = null;
+		this.setReserva_Id(null);
+		this.setAlojamiento_Id(null);
 	}
 
 	/**
@@ -53,8 +53,8 @@ public class Oferta implements VOOferta {
 		this.id = id;
 		this.dia = dia;
 		this.precio = precio;
-		this.reserva = reserva;
-		this.alojamiento = alojamiento;
+		this.setReserva_Id(reserva);
+		this.setAlojamiento_Id(alojamiento);
 	}
 
 	/**
@@ -100,40 +100,30 @@ public class Oferta implements VOOferta {
 
 	}
 
-	/**
-	 * @return La reserva hecha para la oferta
-	 */
-	public Reserva getReserva() {
-		return reserva;
-	}
-
-	/**
-	 * @param reserva - La nueva reserva hecha para la oferta
-	 */
-	public void setReserva(Reserva reserva) {
-		this.reserva = reserva;
-	}
-
-	/**
-	 * @return El alojamiento al que pertenece la oferta
-	 */
-	public Alojamiento getAlojamiento() {
-		return alojamiento;
-	}
-
-	/**
-	 * @param alojamiento - El nuevo alojamiento al que pertenece la oferta
-	 */
-	public void setAlojamiento(Alojamiento alojamiento) {
-		this.alojamiento = alojamiento;
-	}
+	
 
 	/**
 	 * @return Una cadena de caracteres con todos los atributos de la oferta
 	 */
 	public String toString() {
-		return "Oferta [id=" + id + ", dia=" + dia + ", precio=" + precio + ", reserva=" + reserva + ", alojamiento="
-				+ alojamiento + "]";
+		return "Oferta [id=" + id + ", dia=" + dia + ", precio=" + precio + ", reserva=" + reserva_Id.toString() + ", alojamiento="
+				+ alojamiento_Id.toString() + "]";
+	}
+
+	public Reserva getReserva_Id() {
+		return reserva_Id;
+	}
+
+	public void setReserva_Id(Reserva reserva_Id) {
+		this.reserva_Id = reserva_Id;
+	}
+
+	public Alojamiento getAlojamiento_Id() {
+		return alojamiento_Id;
+	}
+
+	public void setAlojamiento_Id(Alojamiento alojamiento_Id) {
+		this.alojamiento_Id = alojamiento_Id;
 	}
 
 }

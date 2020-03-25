@@ -131,7 +131,9 @@ public class AlohAndes
 		respuesta += pp.adicionarReserva(false, clienteid, ofertasid);
 		return respuesta;
 	}
-	
+	public long eliminarAlojamientoPorId(long idAlojamiento) {
+	 return pp.eliminarAlojamientoPorId(idAlojamiento);
+	}
 	public List<Oferta> darOfertas(){
 		return pp.darOfertas();
 	}

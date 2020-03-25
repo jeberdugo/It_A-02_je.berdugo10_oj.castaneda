@@ -36,22 +36,22 @@ public interface VOOferta {
 	/**
 	 * @return La reserva hecha para la oferta
 	 */
-	public Reserva getReserva();
+	public Reserva getReserva_Id();
 
 	/**
 	 * @param reserva - La nueva reserva hecha para la oferta
 	 */
-	public void setReserva(Reserva reserva);
+	public void setReserva_Id(Reserva reserva);
 
 	/**
 	 * @return El alojamiento al que pertenece la oferta
 	 */
-	public Alojamiento getAlojamiento();
+	public Alojamiento getAlojamiento_Id();
 
 	/**
 	 * @param alojamiento - El nuevo alojamiento al que pertenece la oferta
 	 */
-	public void setAlojamiento(Alojamiento alojamiento);
+	public void setAlojamiento_Id(Alojamiento alojamiento);
 
 	/**
 	 * @return Una cadena de caracteres con todos los atributos de la oferta

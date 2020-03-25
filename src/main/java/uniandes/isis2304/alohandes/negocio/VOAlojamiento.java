@@ -57,94 +57,35 @@ public interface VOAlojamiento {
 	/**
 	 * @return El registro de camara de comercio del alojamiento
 	 */
-	public String getRegistroCam();
+	public String getRegistro_Cam();
 
 	/**
 	 * @param registroCam - El nuevo registro de camara de comercio del alojamiento
 	 */
-	public void setRegistroCam(String registroCam);
+	public void setRegistro_Cam(String registroCam);
 
 	/**
 	 * @return El registro de la Super Intendencia del alojamiento
 	 */
-	public String getRegistroSup();
+	public String getRegistro_Sup();
 
 	/**
 	 * @param registroSup - El nuevo registro de la Super Intendencia del
 	 *                    alojamiento
 	 */
-	public void setRegistroSup(String registroSup);
+	public void setRegistro_Sup(String registroSup);
 
 	/**
 	 * @return El operador propetario del alojamiento
 	 */
-	public Operador getOperador();
+	public Operador getOperador_Id();
 
 	/**
 	 * @param operador - El nuevo operador propetario del alojamiento
 	 */
-	public void setOperador(Operador operador);
+	public void setOperador_Id(Operador operador);
 
-	/**
-	 * @return El seguro del alojamiento
-	 */
-	public Seguro getSeguro();
-
-	/**
-	 * @param seguro - El nuevo seguro del alojamiento
-	 */
-	public void setSeguro(Seguro seguro);
-
-	/**
-	 * @return Los servicios del alojamiento
-	 */
-	public List<Servicio> getServicios();
-
-	/**
-	 * @param servicios - Los nuevos servicios del alojamiento
-	 */
-	public void setServicios(List<Servicio> servicios);
-
-	/**
-	 * @return Las habitaciones del alojamiento
-	 */
-	public List<Habitacion> getHabitaciones();
-
-	/**
-	 * @param habitaciones - Las nuevas habitaciones del alojamiento
-	 */
-	public void setHabitaciones(List<Habitacion> habitaciones);
-
-	/**
-	 * @return Las reglas del alojamiento
-	 */
-	public List<Regla> getReglas();
-
-	/**
-	 * @param reglas - Las nuevas reglas del alojamiento
-	 */
-	public void setReglas(List<Regla> reglas);
-
-	/**
-	 * @return El menaje del alojamiento
-	 */
-	public List<Menaje> getMenaje();
-
-	/**
-	 * @param menaje - El nuevo menaje del alojamiento
-	 */
-	public void setMenaje(List<Menaje> menaje);
-
-	/**
-	 * @return Las ofertas del alojamiento
-	 */
-	public List<Oferta> getOfertas();
-
-	/**
-	 * @param ofertas - Las nuevas ofertas del alojamiento
-	 */
-	public void setOfertas(List<Oferta> ofertas);
-
+	
 	/**
 	 * @return Una cadena de caracteres con todos los atributos del alojamiento
 	 */
