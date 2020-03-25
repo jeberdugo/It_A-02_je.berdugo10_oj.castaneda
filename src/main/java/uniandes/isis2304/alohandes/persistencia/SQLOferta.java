@@ -42,9 +42,9 @@ public class SQLOferta {
 	 *                    Egresado, 3: Estudiante, 4: Padre)
 	 * @return El número de tuplas insertadas
 	 */
-	public long adicionarOferta(PersistenceManager pm, String idOferta, Timestamp dia, int precio, String alojamientoid) {
+	public long adicionarOferta(PersistenceManager pm, String idOferta, Timestamp dia, int precio, long alojamientoid) {
 		Query q = pm.newQuery(SQL,
-				"INSERT INTO " + pa.darTablaOferta() + "(id, dia, precio, alojamiento_id,reserva_id) values (?, ?, ?, ?,NULL)");
+				"INSERT INTO " + pa.darTablaOferta() + "(id, dia, precio, alojamiento_id) values (?, ?, ?, ?)");
 		q.setParameters(idOferta, dia, precio, alojamientoid);
 		
 		return (long) q.executeUnique();
@@ -95,5 +95,39 @@ public class SQLOferta {
 		q.setParameters(idReserva);
 		return (Oferta) q.executeUnique();
 	}
+	
+	public String dar20AlojamientosMasPopulares(PersistenceManager pm){
+		String veinte="";
+		Query q = pm.newQuery(SQL, "SELECT * FROM (select CONCAT(alojamiento_id,CONCAT('-', count(*))) from oferta where Reserva_id is not null group by alojamiento_id order by Count(*) DESC) WHERE rownum <= 20");
+		
+		
+		List tipoServicio=(List) q.executeList();
+		
+		for(int i=0;i<tipoServicio.size();i++) {
+			String temp="";
+			temp+=""+tipoServicio.get(i);
+			String[] datos=temp.split("-");
+			veinte+="ID Alojamiento: "+datos[0]+" Numero de reservas: "+datos[1]+"\n";
+		}
+		
+		return veinte;
+		
+	}
+	
+	/**
+	 * Crea y ejecuta la sentencia SQL para encontrar la información de LOS OFERTAS
+	 * de la base de datos de AlohAndes
+	 * 
+	 * @param pm - El manejador de persistencia
+	 * @return Una lista de objetos OFERTA
+	 */
+	public List<Oferta> darOfertasPorAlojamiento(PersistenceManager pm, long idAlojamiento) {
+		Query q = pm.newQuery(SQL, "SELECT * FROM " + pa.darTablaOferta()+ " WHERE alojamiento_id = ?");
+		q.setResultClass(Oferta.class);
+		q.setParameters(idAlojamiento);
+		return (List<Oferta>) q.executeList();
+	}
+	
+	
 
 }

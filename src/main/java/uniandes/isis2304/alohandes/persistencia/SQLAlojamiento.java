@@ -65,7 +65,7 @@ public class SQLAlojamiento {
 	
 	public Alojamiento buscarAlojamientoPorId (PersistenceManager pm, String idReserva) 
 	{
-		Query q = pm.newQuery(SQL, "SELECT * FROM " + pa.darTablaAlojamiento() + " WHERE id = ?");
+		Query q = pm.newQuery(SQL, "SELECT * FROM " + pa.darTablaAlojamiento() + " WHERE id Like ?");
 		q.setResultClass(Alojamiento.class);
 		q.setParameters(idReserva);
 		return (Alojamiento) q.executeUnique();

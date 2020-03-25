@@ -16,17 +16,14 @@ public class Reserva implements VOReserva {
 	/**
 	 * El valor total de la reserva
 	 */
-	private int valorTotal;
+	private int valor_Total;
 	
 	/**
 	 * El cliente propietario de la reserva
 	 */
-	private Cliente cliente;
+	private Cliente cliente_Id;
 	
-	/**
-	 * Las ofertas que componen la reserva
-	 */
-	private List<Oferta> ofertas;
+	
 	
 	/**
 	 * Constructor por defecto
@@ -34,9 +31,9 @@ public class Reserva implements VOReserva {
 	public Reserva() {
 		this.id = 0;
 		this.estado = false;
-		this.valorTotal = 0;
-		this.cliente = null;
-		this.ofertas=null;
+		this.setValor_Total(0);
+		this.setCliente_Id(null);
+		
 	}
 	/**
 	 * Constructor con valores
@@ -47,12 +44,12 @@ public class Reserva implements VOReserva {
 	 * @param cliente    - El cliente propietario de la reserva
 	 * @param ofertas - Las ofertas que componen la reserva
 	 */
-	public Reserva(long id, boolean estado, int valorTotal, Cliente cliente, List<Oferta> ofertas) {
+	public Reserva(long id, boolean estado, int valorTotal, Cliente cliente) {
 		this.id = id;
 		this.estado = estado;
-		this.valorTotal = valorTotal;
-		this.cliente = cliente;
-		this.ofertas=ofertas;
+		this.setValor_Total(valorTotal);
+		this.setCliente_Id(cliente);
+		
 	}
 
 	/**
@@ -83,54 +80,26 @@ public class Reserva implements VOReserva {
 		this.estado = estado;
 	}
 
-	/**
-	 * @return El valor total de la reserva
-	 */
-	public int getValorTotal() {
-		return valorTotal;
-	}
-
-	/**
-	 * @param valorTotal - El nuevo valor total de la reserva
-	 */
-	public void setValorTotal(int valorTotal) {
-		this.valorTotal = valorTotal;
-	}
-
-	/**
-	 * @return El cliente propietario de la reserva
-	 */
-	public Cliente getCliente() {
-		return cliente;
-	}
-
-	/**
-	 * @param cliente - El nuevo cliente propietario de la reserva
-	 */
-	public void setCliente(Cliente cliente) {
-		this.cliente = cliente;
-	}
 	
-	/**
-	 * @return Las ofertas que componen la reserva
-	 */
-	public List<Oferta> getOfertas() {
-		return ofertas;
-	}
-	
-	/**
-	 * @param ofertas - Las nuevas ofertas que componen la reserva
-	 */
-	public void setOfertas(List<Oferta> ofertas) {
-		this.ofertas = ofertas;
-	}
 
 	/**
 	 * @return Una cadena de caracteres con todos los atributos de la reserva
 	 */
 	public String toString() {
-		return "Reserva [id=" + id + ", estado=" + estado + ", valorTotal=" + valorTotal + ", cliente=" + cliente
-				+ ", ofertas=" + ofertas + "]";
+		return "Reserva [id=" + id + ", estado=" + estado + ", valorTotal=" + valor_Total + ", cliente=" 
+				+ ", ofertas="  + "]";
+	}
+	public int getValor_Total() {
+		return valor_Total;
+	}
+	public void setValor_Total(int valor_Total) {
+		this.valor_Total = valor_Total;
+	}
+	public Cliente getCliente_Id() {
+		return cliente_Id;
+	}
+	public void setCliente_Id(Cliente cliente_Id) {
+		this.cliente_Id = cliente_Id;
 	}
 	
 }

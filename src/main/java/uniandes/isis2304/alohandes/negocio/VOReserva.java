@@ -26,32 +26,27 @@ public interface VOReserva {
 	/**
 	 * @return El valor total de la reserva
 	 */
-	public int getValorTotal();
+	public int getValor_Total();
 
 	/**
 	 * @param valorTotal - El nuevo valor total de la reserva
 	 */
-	public void setValorTotal(int valorTotal);
+	public void setValor_Total(int valorTotal);
 
 	/**
 	 * @return El cliente propietario de la reserva
 	 */
-	public Cliente getCliente();
+	public Cliente getCliente_Id();
 
 	/**
 	 * @param cliente - El nuevo cliente propietario de la reserva
 	 */
-	public void setCliente(Cliente cliente);
+	public void setCliente_Id(Cliente cliente);
 	
 	/**
 	 * @return Las ofertas que componen la reserva
 	 */
-	public List<Oferta> getOfertas();
 	
-	/**
-	 * @param ofertas - Las nuevas ofertas que componen la reserva
-	 */
-	public void setOfertas(List<Oferta> ofertas);
 
 	/**
 	 * @return Una cadena de caracteres con todos los atributos de la reserva

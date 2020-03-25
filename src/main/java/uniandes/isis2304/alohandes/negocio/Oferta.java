@@ -106,8 +106,8 @@ public class Oferta implements VOOferta {
 	 * @return Una cadena de caracteres con todos los atributos de la oferta
 	 */
 	public String toString() {
-		return "Oferta [id=" + id + ", dia=" + dia + ", precio=" + precio + ", reserva=" + reserva_Id.toString() + ", alojamiento="
-				+ alojamiento_Id.toString() + "]";
+		return "Oferta [id=" + id + ", dia=" + dia + ", precio=" + precio + ", reserva=" + 
+				  "]";
 	}
 
 	public Reserva getReserva_Id() {

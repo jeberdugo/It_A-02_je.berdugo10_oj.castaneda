@@ -138,8 +138,24 @@ public class AlohAndes
 		return pp.darOfertas();
 	}
 	
-	public Oferta darOferta(){
-		return pp.darOferta();
+	public List<Alojamiento> darAlojamientos(){
+		return pp.darAlojamientos();
+	}
+	
+	public List<Oferta> darOfertasPorAlojamiento(long idUsuario){
+		return pp.darOfertasPorAlojamiento(idUsuario);
+	}
+	
+	public List<Reserva> darReservasPorCliente(long idUsuario){
+		return pp.darReservasPorCliente(idUsuario);
+	}
+	
+	public Oferta darOferta(long idOferta){
+		return pp.darOferta(idOferta);
+	}
+	
+	public long eliminarReserva(long idReserva) {
+		return pp.eliminarReservaPorId(idReserva);
 	}
 	
 	
@@ -168,6 +184,10 @@ public class AlohAndes
 		
 
 		return exito;
+	}
+	
+	public String dar20() {
+		return pp.dar20mas();
 	}
 	
 	/* ****************************************************************

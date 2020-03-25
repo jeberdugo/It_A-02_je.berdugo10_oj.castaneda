@@ -391,12 +391,15 @@ public class PersistenciaAlohAndes {
 		try {
 			tx.begin();
 			long idOferta = nextval();
+			System.out.print("Empieza");
 			SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
 			Date fecha=sdf.parse(dia);
 			Timestamp fechasql=new Timestamp(fecha.getTime());;
-			long tuplasInsertadas = sqlOferta.adicionarOferta(pm, ""+idOferta, fechasql, precio,""+alojamientoid);
+			System.out.print("Tiempo");
+			long tuplasInsertadas = sqlOferta.adicionarOferta(pm, ""+idOferta, fechasql, precio,alojamientoid);
+			System.out.print("Ejecuta");
 			tx.commit();
-			
+			System.out.print("Commit");
 			log.trace("Inserción de cliente: " + idOferta + ": " + tuplasInsertadas + " tuplas insertadas");
 			
 			return new Oferta(idOferta, fecha, precio,null,darAlojamientoPorId(""+alojamientoid));
@@ -422,12 +425,24 @@ public class PersistenciaAlohAndes {
 		
 	}
 	
-public Oferta darOferta(){
+public List<Oferta> darOfertasPorAlojamiento(long idUsuario){
 		
 		PersistenceManager pm = pmf.getPersistenceManager();
-		long id=1;
 		
-			Oferta lista=sqlOferta.darOfertaPorId(pmf.getPersistenceManager(),id);
+			List<Oferta> lista=sqlOferta.darOfertasPorAlojamiento(pmf.getPersistenceManager(),idUsuario);
+			
+
+			return lista;
+		
+		
+	}
+	
+public Oferta darOferta(long idOferta){
+		
+		PersistenceManager pm = pmf.getPersistenceManager();
+		
+		
+			Oferta lista=sqlOferta.darOfertaPorId(pmf.getPersistenceManager(),idOferta);
 			
 
 			return lista;
@@ -446,7 +461,7 @@ public Oferta darOferta(){
 				valorTotal+=o.getPrecio();
 			}
 			int estado2=1;
-			if(estado==true) {
+			if(estado==false) {
 				estado2=0;
 			}
 				
@@ -460,7 +475,7 @@ public Oferta darOferta(){
 			
 			log.trace("Inserción de cliente: " + idOferta + ": " + tuplasInsertadas + " tuplas insertadas");
 			
-			return new Reserva(idOferta, estado,valorTotal,darClientePorId(""+clienteid),ofertasid);
+			return new Reserva(idOferta, estado,valorTotal,darClientePorId(""+clienteid));
 		} catch (Exception e) {
 			log.error("Exception : " + e.getMessage() + "\n" + darDetalleException(e));
 			return null;
@@ -470,6 +485,18 @@ public Oferta darOferta(){
 			}
 			pm.close();
 		}
+	}
+	
+	public String dar20mas() {
+		String veinti="";
+		veinti+=sqlOferta.dar20AlojamientosMasPopulares(pmf.getPersistenceManager());
+		
+			System.out.println(""+veinti);
+		
+		
+		
+		
+		return veinti;
 	}
 	
 	public Alojamiento adicionarAlojamiento(int capacidad, int  tipo, long idOperador, long registrocam, long registrosup, String ubicacion, String descripcion) {
@@ -619,9 +646,22 @@ public Oferta darOferta(){
 	 * Método que consulta todas las tuplas en la tabla TipoBebida
 	 * @return La lista de objetos TipoBebida, construidos con base en las tuplas de la tabla TIPOBEBIDA
 	 */
+	public List<Reserva> darReservasPorCliente (long idUsuario)
+	{
+		return sqlReserva.darReservasPorCliente(pmf.getPersistenceManager(), idUsuario);
+	}
+	
+	/**
+	 * Método que consulta todas las tuplas en la tabla TipoBebida
+	 * @return La lista de objetos TipoBebida, construidos con base en las tuplas de la tabla TIPOBEBIDA
+	 */
 	public Alojamiento darAlojamientoPorId (String idUsuario)
 	{
 		return sqlAlojamiento.buscarAlojamientoPorId(pmf.getPersistenceManager(), idUsuario);
+	}
+	
+	public List<Alojamiento> darAlojamientos(){
+		return sqlAlojamiento.darAlojamientos(pmf.getPersistenceManager());
 	}
 	/**
 	 * Método que consulta todas las tuplas en la tabla TipoBebida con un identificador dado

@@ -59,6 +59,7 @@ import com.google.gson.stream.JsonReader;
 import uniandes.isis2304.alohandes.negocio.AlohAndes;
 import uniandes.isis2304.alohandes.negocio.Alojamiento;
 import uniandes.isis2304.alohandes.negocio.Oferta;
+import uniandes.isis2304.alohandes.negocio.Reserva;
 import uniandes.isis2304.alohandes.negocio.Usuario;
 import uniandes.isis2304.alohandes.persistencia.SQLAlojamiento;
 
@@ -304,7 +305,7 @@ public class InterfazAlohAndes extends JFrame implements ActionListener
 			 if(tipoActivo==1) {
 			 List<Alojamiento> lista= alohandes.darAlojamientosPorUserId(""+usuarioActivo);
 			 List<String> listaId=new ArrayList<String>();
-			 if(lista!=null||!lista.isEmpty()) {
+			 if(lista!=null) {
 			 for(Alojamiento a:lista) {
 				 listaId.add(""+a.getId());
 			 }
@@ -313,6 +314,7 @@ public class InterfazAlohAndes extends JFrame implements ActionListener
 					   "Alojamientos", JOptionPane.QUESTION_MESSAGE, null,
 					  listaId.toArray(),"Seleccione");
 			 long alojamientoId=Long.parseLong(alooid);
+			 System.out.println(""+alojamientoId);
 			 
 			 Properties p = new Properties();
 			 p.put("text.today", "Today");
@@ -324,17 +326,17 @@ public class InterfazAlohAndes extends JFrame implements ActionListener
 			 Object[] params = {message,datePanel};
 			 JOptionPane.showInputDialog(this,params,"Start date", JOptionPane.PLAIN_MESSAGE);
 			 String fecha =model.getDay()+"-"+model.getMonth()+"-"+model.getYear();
-			 
+			 System.out.print(fecha);
 			 String precio = JOptionPane.showInputDialog(this, "Precio", "Final",
 						JOptionPane.QUESTION_MESSAGE);
 			 
+			 System.out.print(precio);
+			
+			 
+			System.out.print(alohandes.adicionarOferta(fecha, Integer.parseInt(precio), alojamientoId));
 			 
 			 
-			 
-			 alohandes.adicionarOferta(fecha, Integer.parseInt(precio), alojamientoId);
-			 
-			 
-			 panelDatos.actualizarInterfaz("Alojamiento id: "+alojamientoId+"Fecha: "+fecha+ "precio"+ precio);}
+			 }
 
 			 }else
 				 JOptionPane.showMessageDialog(this,"Debe loguearse como operador","Debe loguearse",JOptionPane.ERROR_MESSAGE);
@@ -447,14 +449,51 @@ public class InterfazAlohAndes extends JFrame implements ActionListener
 	 if(usuarioActivo!=-1)
 	 {
 		 if(tipoActivo==2) {
-		 List<String> lista=new ArrayList<String>();
-		 Oferta of= alohandes.darOferta();
-		 System.out.println(""+of.getId());
-		 
-		 
-		 
-		 
-		 //alohandes.adicionarReserva(usuarioActivo, lista);
+			 List<Alojamiento> listaA= alohandes.darAlojamientos();
+			 List<String> listaAlojamientos=new ArrayList<String>();
+			 List<Oferta> listaOfertasFinal=new ArrayList<Oferta>();
+			 
+			 if(listaA!=null) {
+			 for(Alojamiento a:listaA) {
+				 listaAlojamientos.add(""+a.getId());
+			 }}
+			 
+			 String alooid = (String) JOptionPane.showInputDialog(null,"Seleccione Un Alojamiento",
+					   "Alojamientos", JOptionPane.QUESTION_MESSAGE, null,
+					  listaAlojamientos.toArray(),"Seleccione");
+			 long alojamientoId=Long.parseLong(alooid);
+			 
+			 String nDias = JOptionPane.showInputDialog(this, "Dias a reservar", "Siguiente",
+						JOptionPane.QUESTION_MESSAGE);
+			 int dias=Integer.parseInt(nDias);
+			 
+			 List<Oferta> listaO= alohandes.darOfertasPorAlojamiento(alojamientoId);
+			 List<String> listaOfertas=new ArrayList<String>();
+			 
+			 
+			 if(listaO!=null) {
+				 for(Oferta a:listaO) {
+					 listaOfertas.add(""+a.getId());
+				 }}
+			 
+			 
+			 
+			 
+			 for(int i=1;i<=dias;i++) {
+				 
+				 String ofid = (String) JOptionPane.showInputDialog(null,"Seleccione Oferta Dia"+i,
+						   "Ofertas", JOptionPane.QUESTION_MESSAGE, null,
+						  listaOfertas.toArray(),"Seleccione");
+				 long ofertaId=Long.parseLong(ofid);
+				 
+				 Oferta of=alohandes.darOferta(ofertaId);
+			   listaOfertasFinal.add(of);
+				 listaOfertas.remove(ofid);
+				 
+			 }
+			 
+			 
+			   alohandes.adicionarReserva(usuarioActivo, listaOfertasFinal);
 		 }
 		 else
 			 JOptionPane.showMessageDialog(this,"Debe loguearse como cliente","Debe loguearse como cliente",JOptionPane.ERROR_MESSAGE);
@@ -467,7 +506,25 @@ public class InterfazAlohAndes extends JFrame implements ActionListener
  public void cancelarReserva() {
 	 if(usuarioActivo!=-1)
 	 {
-		 
+		 if(tipoActivo==2) {
+			 List<Reserva> listaA= alohandes.darReservasPorCliente(usuarioActivo);
+			 List<String> listaAlojamientos=new ArrayList<String>();
+			 
+			 
+			 if(listaA!=null) {
+			 for(Reserva a:listaA) {
+				 listaAlojamientos.add(""+a.getId());
+			 }}
+			 
+			 String alooid = (String) JOptionPane.showInputDialog(null,"Seleccione una Reserva",
+					   "Eliminar Reserva", JOptionPane.QUESTION_MESSAGE, null,
+					  listaAlojamientos.toArray(),"Seleccione");
+			 long resId=Long.parseLong(alooid);
+			 
+			 panelDatos.actualizarInterfaz("Se elimino la reserva con id: "+resId);
+		 }
+		 else
+			 JOptionPane.showMessageDialog(this,"Debe loguearse como cliente","Debe loguearse como cliente",JOptionPane.ERROR_MESSAGE);
 	 }
 	 else
 		 JOptionPane.showMessageDialog(this,"No esta logueado","Debe loguearse",JOptionPane.ERROR_MESSAGE);
@@ -520,8 +577,8 @@ public class InterfazAlohAndes extends JFrame implements ActionListener
 		
 		if(lista!=null) {
 			
-			for(int i=0;lista.size()<i;i++) {
-				alojamientos+="            ID: 12"+""+"\n";
+			for(Alojamiento a:lista) {
+				alojamientos+="            ID: "+a.getId()+"\n";
 				
 			}
 		}
@@ -600,7 +657,7 @@ public class InterfazAlohAndes extends JFrame implements ActionListener
 	 
  }
  public void ofertasPopulares() {
-	 
+	 panelDatos.actualizarInterfaz(alohandes.dar20());
  }
  
  public void indiceOcupacion() {

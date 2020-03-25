@@ -75,5 +75,19 @@ public class SQLReserva {
 		q.setResultClass(Reserva.class);
 		return (List<Reserva>) q.executeList();
 	}
+	
+	/**
+	 * Crea y ejecuta la sentencia SQL para encontrar la información de LOS RESERVAS
+	 * de la base de datos de AlohAndes
+	 * 
+	 * @param pm - El manejador de persistencia
+	 * @return Una lista de objetos RESERVA
+	 */
+	public List<Reserva> darReservasPorCliente(PersistenceManager pm, long idUsuario) {
+		Query q = pm.newQuery(SQL, "SELECT * FROM " + pa.darTablaReserva()+" WHERE cliente_id = ?");
+		q.setResultClass(Reserva.class);
+		q.setParameters(idUsuario);
+		return (List<Reserva>) q.executeList();
+	}
 
 }

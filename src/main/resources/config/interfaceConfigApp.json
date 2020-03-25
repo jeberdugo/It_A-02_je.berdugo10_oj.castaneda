@@ -86,7 +86,7 @@
 					"event": "mostrarLogAlohAndes"
 				},
 				{
-					"label": "Mostrar log AlohAndes",
+					"label": "Mostrar log datanuecleus",
 					"event": "mostrarLogDatanuecleus"
 				},
 				{
