@@ -11,7 +11,7 @@ public class Reserva implements VOReserva {
 	/**
 	 * El estado de la reserva
 	 */
-	private boolean estado;
+	private Boolean estado;
 	
 	/**
 	 * El valor total de la reserva

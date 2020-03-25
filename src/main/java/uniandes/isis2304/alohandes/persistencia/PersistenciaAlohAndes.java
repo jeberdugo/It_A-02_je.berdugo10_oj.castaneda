@@ -499,6 +499,30 @@ public Oferta darOferta(long idOferta){
 		return veinti;
 	}
 	
+	public String indiceOcupacion() {
+		String veinti="";
+		veinti+=sqlOferta.indiceOcupacion(pmf.getPersistenceManager());
+		
+			System.out.println(""+veinti);
+		
+		
+		
+		
+		return veinti;
+	}
+	
+	public String ingresosPorOperador() {
+		String veinti="";
+		veinti+=sqlOferta.ingresosPorOperador(pmf.getPersistenceManager());
+		
+			System.out.println(""+veinti);
+		
+		
+		
+		
+		return veinti;
+	}
+	
 	public Alojamiento adicionarAlojamiento(int capacidad, int  tipo, long idOperador, long registrocam, long registrosup, String ubicacion, String descripcion) {
 		PersistenceManager pm = pmf.getPersistenceManager();
 		Transaction tx = pm.currentTransaction();

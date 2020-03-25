@@ -654,7 +654,7 @@ public class InterfazAlohAndes extends JFrame implements ActionListener
  
  public void dineroPorProveedor() {
 	 
-	 
+	 panelDatos.actualizarInterfaz(alohandes.darIngresosPorOperador());
  }
  public void ofertasPopulares() {
 	 panelDatos.actualizarInterfaz(alohandes.dar20());
@@ -662,7 +662,7 @@ public class InterfazAlohAndes extends JFrame implements ActionListener
  
  public void indiceOcupacion() {
 	 
-	 
+	 panelDatos.actualizarInterfaz(alohandes.darIndiceOcupacion());
  }
  
  public void alojamientosPorDotacion() {

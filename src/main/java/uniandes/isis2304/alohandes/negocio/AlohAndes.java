@@ -190,6 +190,14 @@ public class AlohAndes
 		return pp.dar20mas();
 	}
 	
+	public String darIndiceOcupacion() {
+		return pp.indiceOcupacion();
+	}
+	
+	public String darIngresosPorOperador() {
+		return pp.ingresosPorOperador();
+	}
+	
 	/* ****************************************************************
 	 * 			Métodos para administración
 	 *****************************************************************/

@@ -114,6 +114,51 @@ public class SQLOferta {
 		
 	}
 	
+	public String ingresosPorOperador(PersistenceManager pm) {
+		String peticion="SELECT CONCAT(operador_id,CONCAT('-',suma)) FROM(SELECT "
+				+ "Operador_ID,SUM(valor_total)AS SUMA FROM reserva ofe JOIN (SELECT reserva_id,alojamiento_id  "
+				+ "FROM oferta where reserva_id is not null group by reserva_id, alojamiento_id) temp on temp.reserva_id=ofe.id "
+				+ "JOIN alojamiento on temp.alojamiento_id=alojamiento.id GROUP BY operador_id)";
+		String respuesta="";
+		
+        Query q = pm.newQuery(SQL, peticion);
+		
+		
+		List tipoServicio=(List) q.executeList();
+		
+		for(int i=0;i<tipoServicio.size();i++) {
+			String temp="";
+			temp+=""+tipoServicio.get(i);
+			String[] datos=temp.split("-");
+			respuesta+="ID Operador: "+datos[0]+" Ingresos totales: "+datos[1]+"\n";
+		}
+		return respuesta;
+		
+	}
+	
+	public String indiceOcupacion(PersistenceManager pm) {
+		String peticion="SELECT CONCAT(alojamiento_id,CONCAT('-',CONCAT(numOfertas,CONCAT('-',numOcupacion)))) "
+				+ "from( Select alojamiento_id,count(alojamiento_id) AS numOfertas from oferta "
+				+ "group by alojamiento_id) natural join( SELECT alojamiento_id,count(alojamiento_id) AS numOcupacion "
+				+ "FROM oferta where reserva_id is not null group by alojamiento_id)";
+		String respuesta="";
+		
+        Query q = pm.newQuery(SQL, peticion);
+		
+		
+		List tipoServicio=(List) q.executeList();
+		
+		for(int i=0;i<tipoServicio.size();i++) {
+			String temp="";
+			temp+=""+tipoServicio.get(i);
+			String[] datos=temp.split("-");
+			double indice=Integer.parseInt(datos[1])/Integer.parseInt(datos[2]);
+			respuesta+="ID Alojamiento: "+datos[0]+" Idice de ocupacion: "+indice+"\n";
+		}
+		return respuesta;
+		
+	}
+	
 	/**
 	 * Crea y ejecuta la sentencia SQL para encontrar la información de LOS OFERTAS
 	 * de la base de datos de AlohAndes
