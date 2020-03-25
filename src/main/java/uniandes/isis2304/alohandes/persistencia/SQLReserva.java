@@ -83,11 +83,13 @@ public class SQLReserva {
 	 * @param pm - El manejador de persistencia
 	 * @return Una lista de objetos RESERVA
 	 */
-	public List<Reserva> darReservasPorCliente(PersistenceManager pm, long idUsuario) {
-		Query q = pm.newQuery(SQL, "SELECT * FROM " + pa.darTablaReserva()+" WHERE cliente_id = ?");
-		q.setResultClass(Reserva.class);
+	public List darReservasPorCliente(PersistenceManager pm, long idUsuario) {
+		Query q = pm.newQuery(SQL, "SELECT id FROM " + pa.darTablaReserva()+" WHERE cliente_id = ?");
+		
 		q.setParameters(idUsuario);
-		return (List<Reserva>) q.executeList();
+		
+		List tipoServicio=(List) q.executeList();
+		return tipoServicio;
 	}
 	 
 

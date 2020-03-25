@@ -475,7 +475,7 @@ public Oferta darOferta(long idOferta){
 			
 			log.trace("Inserción de cliente: " + idOferta + ": " + tuplasInsertadas + " tuplas insertadas");
 			
-			return new Reserva(idOferta, estado,valorTotal,darClientePorId(""+clienteid));
+			return new Reserva(idOferta, estado2,valorTotal,darClientePorId(""+clienteid));
 		} catch (Exception e) {
 			log.error("Exception : " + e.getMessage() + "\n" + darDetalleException(e));
 			return null;
@@ -670,9 +670,9 @@ public Oferta darOferta(long idOferta){
 	 * Método que consulta todas las tuplas en la tabla TipoBebida
 	 * @return La lista de objetos TipoBebida, construidos con base en las tuplas de la tabla TIPOBEBIDA
 	 */
-	public List<Reserva> darReservasPorCliente (long idUsuario)
+	public List darReservasPorCliente (long idUsuario)
 	{
-		return sqlReserva.darReservasPorCliente(pmf.getPersistenceManager(), idUsuario);
+		return sqlReserva.darReservasPorCliente(pmf.getPersistenceManager(),idUsuario);
 	}
 	
 	/**

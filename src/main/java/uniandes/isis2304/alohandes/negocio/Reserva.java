@@ -11,7 +11,7 @@ public class Reserva implements VOReserva {
 	/**
 	 * El estado de la reserva
 	 */
-	private Boolean estado;
+	private int estado;
 	
 	/**
 	 * El valor total de la reserva
@@ -30,7 +30,7 @@ public class Reserva implements VOReserva {
 	 */
 	public Reserva() {
 		this.id = 0;
-		this.estado = false;
+		this.estado = 0;
 		this.setValor_Total(0);
 		this.setCliente_Id(null);
 		
@@ -44,7 +44,7 @@ public class Reserva implements VOReserva {
 	 * @param cliente    - El cliente propietario de la reserva
 	 * @param ofertas - Las ofertas que componen la reserva
 	 */
-	public Reserva(long id, boolean estado, int valorTotal, Cliente cliente) {
+	public Reserva(long id, int estado, int valorTotal, Cliente cliente) {
 		this.id = id;
 		this.estado = estado;
 		this.setValor_Total(valorTotal);
@@ -66,19 +66,9 @@ public class Reserva implements VOReserva {
 		this.id = id;
 	}
 
-	/**
-	 * @return El estado de la reserva
-	 */
-	public boolean isEstado() {
-		return estado;
-	}
+	
 
-	/**
-	 * @param estado - El nuevo estado de la reserva
-	 */
-	public void setEstado(boolean estado) {
-		this.estado = estado;
-	}
+	
 
 	
 
@@ -100,6 +90,16 @@ public class Reserva implements VOReserva {
 	}
 	public void setCliente_Id(Cliente cliente_Id) {
 		this.cliente_Id = cliente_Id;
+	}
+	@Override
+	public int getEstado() {
+		// TODO Auto-generated method stub
+		return estado;
+	}
+	@Override
+	public void setEstado(int estado) {
+		// TODO Auto-generated method stub
+		this.estado=estado;
 	}
 	
 }

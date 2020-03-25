@@ -146,7 +146,7 @@ public class AlohAndes
 		return pp.darOfertasPorAlojamiento(idUsuario);
 	}
 	
-	public List<Reserva> darReservasPorCliente(long idUsuario){
+	public List darReservasPorCliente(long idUsuario){
 		return pp.darReservasPorCliente(idUsuario);
 	}
 	

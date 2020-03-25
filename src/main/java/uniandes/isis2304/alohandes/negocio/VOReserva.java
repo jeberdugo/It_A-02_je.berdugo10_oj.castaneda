@@ -16,12 +16,12 @@ public interface VOReserva {
 	/**
 	 * @return El estado de la reserva
 	 */
-	public boolean isEstado();
+	public int getEstado();
 
 	/**
 	 * @param estado - El nuevo estado de la reserva
 	 */
-	public void setEstado(boolean estado);
+	public void setEstado(int estado);
 
 	/**
 	 * @return El valor total de la reserva

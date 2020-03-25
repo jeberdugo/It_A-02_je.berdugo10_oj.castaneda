@@ -507,18 +507,20 @@ public class InterfazAlohAndes extends JFrame implements ActionListener
 	 if(usuarioActivo!=-1)
 	 {
 		 if(tipoActivo==2) {
-			 List<Reserva> listaA= alohandes.darReservasPorCliente(usuarioActivo);
+			 List listaA= alohandes.darReservasPorCliente(usuarioActivo);
 			 List<String> listaAlojamientos=new ArrayList<String>();
 			 
 			 
 			 if(listaA!=null) {
-			 for(Reserva a:listaA) {
-				 listaAlojamientos.add(""+a.getId());
+			 for(int i=0;i<listaA.size();i++) {
+				 String tmp="";
+				 tmp+=listaA.get(i);
+				 listaAlojamientos.add(""+tmp);
 			 }}
 			 
 			 String alooid = (String) JOptionPane.showInputDialog(null,"Seleccione una Reserva",
 					   "Eliminar Reserva", JOptionPane.QUESTION_MESSAGE, null,
-					  listaAlojamientos.toArray(),"Seleccione");
+					  listaA.toArray(),"Seleccione");
 			 long resId=Long.parseLong(alooid);
 			 
 			 panelDatos.actualizarInterfaz("Se elimino la reserva con id: "+resId);
