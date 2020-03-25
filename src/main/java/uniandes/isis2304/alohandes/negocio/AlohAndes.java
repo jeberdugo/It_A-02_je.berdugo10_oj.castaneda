@@ -107,6 +107,9 @@ public class AlohAndes
 	{
 		return pp.darAlojamientosPorUserId( idUsuario);
 	}
+	public List<Alojamiento> darAlojamientosPorDotacion(List<String> dotacion, String inicio, String fin, int size){
+		return pp.darAlojamientosPorDotacion(dotacion, inicio, fin, size);
+	}
 
 	public Usuario adicionarUsuario(String nombreUsuario, String correo, String contrasena,
 			int numeroDocumento, int tipoDocumento) {
