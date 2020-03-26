@@ -676,7 +676,20 @@ public class InterfazAlohAndes extends JFrame implements ActionListener
  }
  
  public void alojamientosPorDotacion() {
-	 
+	 String ai = JOptionPane.showInputDialog (this, "Ingrese el año YYYY de la fecha inicial", "Ok", JOptionPane.QUESTION_MESSAGE);
+	 String mi = JOptionPane.showInputDialog (this, "Ingrese el mes MM de la fecha inicial", "Ok", JOptionPane.QUESTION_MESSAGE);
+	 String di = JOptionPane.showInputDialog (this, "Ingrese el dia DD de la fecha inicial", "Ok", JOptionPane.QUESTION_MESSAGE);
+	 String inicio= ai+"-"+mi+"-"+di;
+	 String af = JOptionPane.showInputDialog (this, "Ingrese el año YYYY de la fecha final", "Ok", JOptionPane.QUESTION_MESSAGE);
+	 String mf = JOptionPane.showInputDialog (this, "Ingrese el mes MM fecha final", "Ok", JOptionPane.QUESTION_MESSAGE);
+	 String df = JOptionPane.showInputDialog (this, "Ingrese el dia DD fecha final", "Ok", JOptionPane.QUESTION_MESSAGE);
+	 String fin= af+"-"+mf+"-"+df;
+	 int limite	= Integer.parseInt(JOptionPane.showInputDialog (this, "Ingrese la cantidad de elementos para dotacion", "Ok", JOptionPane.QUESTION_MESSAGE));
+	 List<String> dotacion = new ArrayList<String>();
+	 for(int i=0;i<limite;i++) {
+		 dotacion.add(JOptionPane.showInputDialog (this, "Ingrese la descripcion de la dotacion", "Ok", JOptionPane.QUESTION_MESSAGE));
+	 }
+	 panelDatos.actualizarInterfaz(alohandes.darAlojamientosPorDotacion(dotacion, inicio, fin, limite).toString());
 	 
  }
 	/* ****************************************************************

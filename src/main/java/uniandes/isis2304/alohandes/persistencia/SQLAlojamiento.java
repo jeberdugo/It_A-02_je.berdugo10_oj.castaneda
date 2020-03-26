@@ -96,5 +96,23 @@ public class SQLAlojamiento {
 		q.setResultClass(Alojamiento.class);
 		return (List<Alojamiento>) q.executeList();
 	}
+	public List<Alojamiento> darAlojamientoPorDotacion(PersistenceManager pm, List<String> dotacion, String inicio,
+			String fin, int size) {
+		String peticion = "SELECT AL.* FROM OFERTA OFE JOIN ALOJAMIENTO AL ON OFE.ALOJAMIENTO_ID=AL.ID JOIN (  SELECT AL.ID	FROM ALOJAMIENTO AL JOIN SERVICIOS_ALOJAMIENTOS SA ON AL.ID= sa.alojamiento_id JOIN SERVICIO SER ON 		sa.servicio_id=SER.ID ";
+		if (dotacion.size() > 0) {
+			peticion += "WHERE SER.DESCRIPCION LIKE \'" + dotacion.get(0) + "\'";
+			if (dotacion.size() != 1) {
+				for (int i = 1; i < dotacion.size(); i++) {
+					peticion += " OR SER.DESCRIPCION LIKE \'" + dotacion.get(i) + "\'";
+				}
+			}
+			peticion += "GROUP BY AL.ID HAVING COUNT(*) =" + size + ") INFO ON INFO.ID=AL.ID WHERE OFE.DIA<TO_DATE(\'"
+					+ fin + "\',\'YYYY-MM-DD\') AND OFE.DIA>TO_DATE(\'" + inicio + "\','YYYY-MM-DD') ";
+		}
+		System.out.println(peticion);
+		Query q = pm.newQuery(SQL, peticion);
+		q.setResultClass(Alojamiento.class);
+		return (List<Alojamiento>) q.executeList();
 
+	}
 }

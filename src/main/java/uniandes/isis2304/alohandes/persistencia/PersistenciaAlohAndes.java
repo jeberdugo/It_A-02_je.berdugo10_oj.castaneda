@@ -523,6 +523,11 @@ public Oferta darOferta(long idOferta){
 		return veinti;
 	}
 	
+	public List<Alojamiento> darAlojamientosPorDotacion(List<String> dotacion, String inicio, String fin, int size)
+	{
+		return sqlAlojamiento.darAlojamientoPorDotacion(pmf.getPersistenceManager(), dotacion, inicio, fin, size);
+	}
+	
 	public Alojamiento adicionarAlojamiento(int capacidad, int  tipo, long idOperador, long registrocam, long registrosup, String ubicacion, String descripcion) {
 		PersistenceManager pm = pmf.getPersistenceManager();
 		Transaction tx = pm.currentTransaction();
