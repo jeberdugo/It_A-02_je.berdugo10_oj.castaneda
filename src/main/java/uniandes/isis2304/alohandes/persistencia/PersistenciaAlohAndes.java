@@ -343,7 +343,7 @@ public class PersistenciaAlohAndes {
 	}
 
 	public Usuario adicionarUsuario(String nombreUsuario, String correo, String contrasena, int numeroDocumento,
-			int tipoDocumento) {
+			int tipoDocumento) throws Exception {
 		PersistenceManager pm = pmf.getPersistenceManager();
 		Transaction tx = pm.currentTransaction();
 		try {
@@ -356,7 +356,7 @@ public class PersistenciaAlohAndes {
 			return new Usuario(idUsuario, nombreUsuario, correo, contrasena, numeroDocumento, tipoDocumento);
 		} catch (Exception e) {
 			log.error("Exception : " + e.getMessage() + "\n" + darDetalleException(e));
-			return null;
+			throw new Exception(darDetalleException(e));
 		} finally {
 			if (tx.isActive()) {
 				tx.rollback();
@@ -365,7 +365,7 @@ public class PersistenciaAlohAndes {
 		}
 	}
 
-	public Cliente adicionarCliente(long idCliente, String nombre, int rol) {
+	public Cliente adicionarCliente(long idCliente, String nombre, int rol) throws Exception {
 		PersistenceManager pm = pmf.getPersistenceManager();
 		Transaction tx = pm.currentTransaction();
 		try {
@@ -376,7 +376,7 @@ public class PersistenciaAlohAndes {
 			return new Cliente(idCliente, nombre, rol,null);
 		} catch (Exception e) {
 			log.error("Exception : " + e.getMessage() + "\n" + darDetalleException(e));
-			return null;
+			throw new Exception(darDetalleException(e));
 		} finally {
 			if (tx.isActive()) {
 				tx.rollback();
@@ -385,7 +385,7 @@ public class PersistenciaAlohAndes {
 		}
 	}
 	
-	public Oferta adicionarOferta(String dia, int precio, long alojamientoid) {
+	public Oferta adicionarOferta(String dia, int precio, long alojamientoid) throws Exception {
 		PersistenceManager pm = pmf.getPersistenceManager();
 		Transaction tx = pm.currentTransaction();
 		try {
@@ -405,7 +405,7 @@ public class PersistenciaAlohAndes {
 			return new Oferta(idOferta, fecha, precio,null,darAlojamientoPorId(""+alojamientoid));
 		} catch (Exception e) {
 			log.error("Exception : " + e.getMessage() + "\n" + darDetalleException(e));
-			return null;
+			throw new Exception(darDetalleException(e));
 		} finally {
 			if (tx.isActive()) {
 				tx.rollback();
@@ -450,7 +450,7 @@ public Oferta darOferta(long idOferta){
 		
 	}
 	
-	public Reserva adicionarReserva( boolean estado, long clienteid, List<Oferta>ofertasid) {
+	public Reserva adicionarReserva( boolean estado, long clienteid, List<Oferta>ofertasid) throws Exception {
 		PersistenceManager pm = pmf.getPersistenceManager();
 		Transaction tx = pm.currentTransaction();
 		try {
@@ -478,7 +478,7 @@ public Oferta darOferta(long idOferta){
 			return new Reserva(idOferta, estado2,valorTotal,darClientePorId(""+clienteid));
 		} catch (Exception e) {
 			log.error("Exception : " + e.getMessage() + "\n" + darDetalleException(e));
-			return null;
+			throw new Exception(darDetalleException(e));
 		} finally {
 			if (tx.isActive()) {
 				tx.rollback();
@@ -491,7 +491,7 @@ public Oferta darOferta(long idOferta){
 		String veinti="";
 		veinti+=sqlOferta.dar20AlojamientosMasPopulares(pmf.getPersistenceManager());
 		
-			System.out.println(""+veinti);
+			
 		
 		
 		
@@ -503,7 +503,7 @@ public Oferta darOferta(long idOferta){
 		String veinti="";
 		veinti+=sqlOferta.indiceOcupacion(pmf.getPersistenceManager());
 		
-			System.out.println(""+veinti);
+			
 		
 		
 		
@@ -514,11 +514,7 @@ public Oferta darOferta(long idOferta){
 	public String ingresosPorOperador() {
 		String veinti="";
 		veinti+=sqlOferta.ingresosPorOperador(pmf.getPersistenceManager());
-		
-			System.out.println(""+veinti);
-		
-		
-		
+	
 		
 		return veinti;
 	}
@@ -528,7 +524,7 @@ public Oferta darOferta(long idOferta){
 		return sqlAlojamiento.darAlojamientoPorDotacion(pmf.getPersistenceManager(), dotacion, inicio, fin, size);
 	}
 	
-	public Alojamiento adicionarAlojamiento(int capacidad, int  tipo, long idOperador, long registrocam, long registrosup, String ubicacion, String descripcion) {
+	public Alojamiento adicionarAlojamiento(int capacidad, int  tipo, long idOperador, long registrocam, long registrosup, String ubicacion, String descripcion) throws Exception {
 		PersistenceManager pm = pmf.getPersistenceManager();
 		Transaction tx = pm.currentTransaction();
 		try {
@@ -547,7 +543,7 @@ public Oferta darOferta(long idOferta){
 			return new Alojamiento(idAlojamiento, capacidad,  ubicacion,  descripcion,  tipo, ""+registrocam, ""+ registrosup,  darOperadorPorId(""+idOperador));
 		} catch (Exception e) {
 			log.error("Exception : " + e.getMessage() + "\n" + darDetalleException(e));
-			return null;
+			throw new Exception(darDetalleException(e));
 		} finally {
 			if (tx.isActive()) {
 				tx.rollback();
@@ -556,7 +552,7 @@ public Oferta darOferta(long idOferta){
 		}
 	}
 
-	public Operador adicionarOperador(long idOperador, int tipo) {
+	public Operador adicionarOperador(long idOperador, int tipo) throws Exception {
 		PersistenceManager pm = pmf.getPersistenceManager();
 		Transaction tx = pm.currentTransaction();
 		try {
@@ -568,7 +564,8 @@ public Oferta darOferta(long idOferta){
 			return new Operador(idOperador, tipo,lista);
 		} catch (Exception e) {
 			log.error("Exception : " + e.getMessage() + "\n" + darDetalleException(e));
-			return null;
+			throw new Exception(darDetalleException(e));
+			
 		} finally {
 			if (tx.isActive()) {
 				tx.rollback();
@@ -582,8 +579,9 @@ public Oferta darOferta(long idOferta){
 	 * Adiciona entradas al log de la aplicación
 	 * @param idBebedor - El identificador del bebedor
 	 * @return El número de tuplas eliminadas. -1 si ocurre alguna Excepción
+	 * @throws Exception 
 	 */
-	public long eliminarAlojamientoPorId (long Alojamiento) 
+	public long eliminarAlojamientoPorId (long Alojamiento) throws Exception 
 	{
 		PersistenceManager pm = pmf.getPersistenceManager();
         Transaction tx=pm.currentTransaction();
@@ -598,7 +596,7 @@ public Oferta darOferta(long idOferta){
         {
 //        	e.printStackTrace();
         	log.error ("Exception : " + e.getMessage() + "\n" + darDetalleException(e));
-            return -1;
+        	throw new Exception(darDetalleException(e));
         }
         finally
         {

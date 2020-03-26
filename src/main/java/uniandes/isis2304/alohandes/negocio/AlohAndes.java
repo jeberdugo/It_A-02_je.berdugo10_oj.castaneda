@@ -78,7 +78,7 @@ public class AlohAndes
 		pp.cerrarUnidadPersistencia ();
 	}
 
-	public String adicionarCliente(String nombre, int rol, Usuario usuario) {
+	public String adicionarCliente(String nombre, int rol, Usuario usuario) throws Exception {
 		String respuesta = usuario.toString();
 		respuesta += pp.adicionarCliente(usuario.getId(), nombre, rol).toString();
 		return respuesta;
@@ -112,29 +112,29 @@ public class AlohAndes
 	}
 
 	public Usuario adicionarUsuario(String nombreUsuario, String correo, String contrasena,
-			int numeroDocumento, int tipoDocumento) {
+			int numeroDocumento, int tipoDocumento) throws Exception {
 		return pp.adicionarUsuario(nombreUsuario, correo, contrasena, numeroDocumento, tipoDocumento);
 	}
 	
-	public String adicionarOperador(int tipo, Usuario usuario) {
+	public String adicionarOperador(int tipo, Usuario usuario) throws Exception {
 		String respuesta = usuario.toString();
 		respuesta += pp.adicionarOperador(usuario.getId(), tipo).toString();
 		return respuesta;
 	}
 	
-	public String adicionarOferta(String dia, int precio, long alojamientoid) {
+	public String adicionarOferta(String dia, int precio, long alojamientoid) throws Exception {
 		String respuesta = "";
 		respuesta += pp.adicionarOferta(dia, precio, alojamientoid);
 		return respuesta;
 	}
 	
 	
-	public String adicionarReserva( long clienteid, List<Oferta>ofertasid) {
+	public String adicionarReserva( long clienteid, List<Oferta>ofertasid) throws Exception {
 		String respuesta = "";
 		respuesta += pp.adicionarReserva(false, clienteid, ofertasid);
 		return respuesta;
 	}
-	public long eliminarAlojamientoPorId(long idAlojamiento) {
+	public long eliminarAlojamientoPorId(long idAlojamiento) throws Exception {
 	 return pp.eliminarAlojamientoPorId(idAlojamiento);
 	}
 	public List<Oferta> darOfertas(){
@@ -162,7 +162,7 @@ public class AlohAndes
 	}
 	
 	
-	public String adicionaAlojamiento(int capacidad, int  tipo, long idOperador, long registrocam, long registrosup, String ubicacion, String descripcion) {
+	public String adicionaAlojamiento(int capacidad, int  tipo, long idOperador, long registrocam, long registrosup, String ubicacion, String descripcion) throws Exception {
 		String respuesta = "";
 		respuesta += "Capacidad: "+capacidad+"Tipo: " +  tipo+ "Idop: " + idOperador+ "RegCam: " + registrocam+ "RegSup: " + registrosup+ "Ubicacion: " +ubicacion+ "Descripcion: " +descripcion;
 		pp.adicionarAlojamiento(capacidad,   tipo, idOperador,  registrocam, registrosup, ubicacion, descripcion);
@@ -179,10 +179,10 @@ public class AlohAndes
  
 		Usuario exito=null;
 		Usuario user=pp.login(idUsuario, contra);
-		
+		if(user!=null) {
              if(user.getContrasena().equals(contra))
             	 exito=user;
-		
+		}
 		
 		
 

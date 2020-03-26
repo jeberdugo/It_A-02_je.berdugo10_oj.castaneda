@@ -18,6 +18,7 @@ package uniandes.isis2304.alohandes.interfazApp;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Desktop;
+import java.awt.HeadlessException;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.BufferedWriter;
@@ -43,6 +44,7 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
+import javax.swing.JPasswordField;
 import javax.swing.UIManager;
 
 import org.apache.log4j.Logger;
@@ -301,6 +303,7 @@ public class InterfazAlohAndes extends JFrame implements ActionListener
 		}
 	}
 	 public void registrarOferta() {
+		 try {
 		 if(usuarioActivo!=-1)
 		 {
 			 if(tipoActivo==1) {
@@ -334,19 +337,31 @@ public class InterfazAlohAndes extends JFrame implements ActionListener
 			 System.out.print(precio);
 			
 			 
-			System.out.print(alohandes.adicionarOferta(fecha, Integer.parseInt(precio), alojamientoId));
-			 
-			 
-			 }
+			
+				System.out.print(alohandes.adicionarOferta(fecha, Integer.parseInt(precio), alojamientoId));
+			}
 
 			 }else
 				 JOptionPane.showMessageDialog(this,"Debe loguearse como operador","Debe loguearse",JOptionPane.ERROR_MESSAGE);
 		 }
 		 else
 			 JOptionPane.showMessageDialog(this,"No esta logueado","Debe loguearse",JOptionPane.ERROR_MESSAGE);
+			} catch (NumberFormatException e) {
+				// TODO Auto-generated catch block
+				String resultado = generarMensajeError(e);
+				panelDatos.actualizarInterfaz(resultado);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				String resultado = generarMensajeError(e);
+				panelDatos.actualizarInterfaz(resultado);
+			}
+			 
+			 
+			 
 	    	
 	    }
  public void registrarAlojamiento() {
+	 try {
 	 if(usuarioActivo!=-1)
 	 {  
 		 if(tipoActivo==1) {
@@ -394,15 +409,21 @@ public class InterfazAlohAndes extends JFrame implements ActionListener
 		 
 		 
 		 String resultado="";
-		 resultado+=alohandes.adicionaAlojamiento(capacidad, tipo, idOperador, registrocam, registrosup, ubicacion, descripcion);
 		 
-		 panelDatos.actualizarInterfaz(resultado);
+			resultado+=alohandes.adicionaAlojamiento(capacidad, tipo, idOperador, registrocam, registrosup, ubicacion, descripcion);
+			panelDatos.actualizarInterfaz(resultado);
 		 }
 		 else
 			 JOptionPane.showMessageDialog(this,"Debe loguearse como operador","Debe loguearse",JOptionPane.ERROR_MESSAGE);
 	 }
 	 else
 		 JOptionPane.showMessageDialog(this,"No esta logueado","Debe loguearse",JOptionPane.ERROR_MESSAGE);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		 
+		 
     	
     }
     
@@ -447,6 +468,7 @@ public class InterfazAlohAndes extends JFrame implements ActionListener
  }
  
  public void registrarReserva() {
+	 try {
 	 if(usuarioActivo!=-1)
 	 {
 		 if(tipoActivo==2) {
@@ -494,13 +516,20 @@ public class InterfazAlohAndes extends JFrame implements ActionListener
 			 }
 			 
 			 
-			   alohandes.adicionarReserva(usuarioActivo, listaOfertasFinal);
-		 }
-		 else
-			 JOptionPane.showMessageDialog(this,"Debe loguearse como cliente","Debe loguearse como cliente",JOptionPane.ERROR_MESSAGE);
-	 }
-	 else
-		 JOptionPane.showMessageDialog(this,"No esta logueado","Debe loguearse",JOptionPane.ERROR_MESSAGE);
+			  
+				alohandes.adicionarReserva(usuarioActivo, listaOfertasFinal);
+				
+			   }
+				 else
+					 JOptionPane.showMessageDialog(this,"Debe loguearse como cliente","Debe loguearse como cliente",JOptionPane.ERROR_MESSAGE);
+			 }
+			 else
+				 JOptionPane.showMessageDialog(this,"No esta logueado","Debe loguearse",JOptionPane.ERROR_MESSAGE);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				JOptionPane.showMessageDialog(this,e.getMessage(),"Error",JOptionPane.ERROR_MESSAGE);
+			}
+		 
 		 
  	
  }
@@ -541,6 +570,7 @@ public class InterfazAlohAndes extends JFrame implements ActionListener
 	 	
  }
  public void retirarAlojamiento() {
+	 try {
 	 if(usuarioActivo!=-1)
 	 {
 		 List<Alojamiento> lista= alohandes.darAlojamientosPorUserId(""+usuarioActivo);
@@ -555,16 +585,27 @@ public class InterfazAlohAndes extends JFrame implements ActionListener
 				  listaId.toArray(),"Seleccione");
 		 long alojamientoId=Long.parseLong(alooid);
 		 
-		if(alohandes.eliminarAlojamientoPorId(alojamientoId)!=-1) {
-			panelDatos.actualizarInterfaz("Eliminado alojamiento con id "+alojamientoId);
+		
+			if(alohandes.eliminarAlojamientoPorId(alojamientoId)!=-1) {
+				panelDatos.actualizarInterfaz("Eliminado alojamiento con id "+alojamientoId);
+			}
+			else
+				JOptionPane.showMessageDialog(this,"Error","Error",JOptionPane.ERROR_MESSAGE);
 		}
-		else
-			JOptionPane.showMessageDialog(this,"Error","Error",JOptionPane.ERROR_MESSAGE);
-		 }
 		 
-	 }
-	 else
-		 JOptionPane.showMessageDialog(this,"No esta logueado","Debe loguearse",JOptionPane.ERROR_MESSAGE);
+		 }
+		 else
+			 JOptionPane.showMessageDialog(this,"No esta logueado","Debe loguearse",JOptionPane.ERROR_MESSAGE);
+		} catch (HeadlessException e) {
+			// TODO Auto-generated catch block
+			String resultado = generarMensajeError(e);
+			panelDatos.actualizarInterfaz(resultado);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			String resultado = generarMensajeError(e);
+			panelDatos.actualizarInterfaz(resultado);
+		}
+		 
 	 
 	 
  }
@@ -573,33 +614,48 @@ public class InterfazAlohAndes extends JFrame implements ActionListener
  public void infoUsuario() {
 	 if(usuarioActivo!=-1)
 	 {
-		List<Alojamiento> lista= alohandes.darAlojamientosPorUserId(""+usuarioActivo);
+		
 		String alojamientos="";
 		String tipo="";
 		if(tipoActivo==1)
 		{
 			tipo="OPERADOR";
+			
 		}
 		if(tipoActivo==2)
 		{
 			tipo="CLIENTE";
+			List listaA= alohandes.darReservasPorCliente(usuarioActivo);
+			 List<String> listaAlojamientos=new ArrayList<String>();
+			 
+			 
+			 if(listaA!=null) {
+			 for(int i=0;i<listaA.size();i++) {
+				 String tmp="";
+				 alojamientos+=listaA.get(i)+"\n";
+				 
+			 }}
 		}
 		
-		if(lista!=null) {
-			
-			for(Alojamiento a:lista) {
-				alojamientos+="            ID: "+a.getId()+"\n";
-				
-			}
-		}
+		
 		else alojamientos="no hay";
 		
 		 Usuario user= alohandes.buscarUsuarioPorId(""+usuarioActivo);
-		 if(user!=null)
+		 if(user!=null) {
+			 if(tipoActivo==1) {
 		 JOptionPane.showMessageDialog(this,"ID: "+user.getId()+"\nUsuario: "+user.getUsuario()
 		 +"\nTipo: "+tipo
 		 +"\nCorreo: "+user.getCorreo()+"\nDocumento: "+user.getTipo_Documento()+" "+user.getNumero_Documento()
-		 +"\nAlojamientos: \n"+alojamientos,"Informacion Usuario",JOptionPane.INFORMATION_MESSAGE);
+		 ,"Informacion Usuario",JOptionPane.INFORMATION_MESSAGE);
+			 }
+			 else
+				 JOptionPane.showMessageDialog(this,"ID: "+user.getId()+"\nUsuario: "+user.getUsuario()
+				 +"\nTipo: "+tipo
+				 +"\nCorreo: "+user.getCorreo()+"\nDocumento: "+user.getTipo_Documento()+" "+user.getNumero_Documento()
+				 +"\nReservas: \n"+alojamientos,"Informacion Usuario",JOptionPane.INFORMATION_MESSAGE);
+				 
+			 }
+		 
 		 
 	 }
 	 else
@@ -623,15 +679,16 @@ public class InterfazAlohAndes extends JFrame implements ActionListener
 	
  }
  public void login() {
-	 
-	 String user = JOptionPane.showInputDialog (this, "Usuario", "Login", JOptionPane.QUESTION_MESSAGE);
-	 String contrasena = JOptionPane.showInputDialog (this, "Contraseña", "Login", JOptionPane.QUESTION_MESSAGE);
+	 JPasswordField pf = new JPasswordField();
+	 String user = JOptionPane.showInputDialog (this, "Ingresa el usuario", "Login", JOptionPane.QUESTION_MESSAGE);
+	 JOptionPane.showConfirmDialog(this, pf, "Enter Password", JOptionPane.CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
 	 if(user!=null) {
-		 if(contrasena!=null) {
+		 if(pf.getPassword()!=null) {
 	 String invalido="";
-	 Usuario usuario = alohandes.login(user, contrasena);
+	 String password = new String(pf.getPassword());
+	 Usuario usuario = alohandes.login(user,password);
 	 if(usuario==null)
-		 invalido=" No existe el usuario o la clave es incorrecta";
+		 invalido=" No es posible porque no existe el usuario o la clave es incorrecta";
 	 else {
 		 usuarioActivo=usuario.getId();
 		 invalido= "correcto id:"+usuario.getId();
@@ -646,7 +703,7 @@ public class InterfazAlohAndes extends JFrame implements ActionListener
 	 }
 		 
 		 
-	 String resultado=" Logueo"+user+" es "+invalido;
+	 String resultado=" Login de usuario: "+user+" es "+invalido;
 	 panelDatos.actualizarInterfaz(resultado);
 		 }
 		 else

@@ -161,8 +161,15 @@ public class SQLOferta {
 			String temp="";
 			temp+=""+tipoServicio.get(i);
 			String[] datos=temp.split("-");
-			double indice=Integer.parseInt(datos[1])/Integer.parseInt(datos[2]);
-			respuesta+="ID Alojamiento: "+datos[0]+" Idice de ocupacion: "+indice+"\n";
+			double d1=Double.valueOf(""+Integer.parseInt(datos[2]));
+					double d2=Double.valueOf(""+Integer.parseInt(datos[1]));
+			double indice=d1/d2;
+			
+			
+
+			String ind=String.format("%.2f", indice);
+			
+			respuesta+="ID Alojamiento: "+datos[0]+" Idice de ocupacion: "+ind+"\n";
 		}
 		return respuesta;
 		
