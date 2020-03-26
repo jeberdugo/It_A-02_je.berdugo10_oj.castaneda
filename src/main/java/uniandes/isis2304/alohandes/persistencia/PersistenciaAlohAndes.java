@@ -618,7 +618,9 @@ public Oferta darOferta(long idOferta){
         try
         {
             tx.begin();
-            long resp = sqlReserva.eliminarReservaPorId(pm, idBebedor);
+            long resp=0;
+             resp += sqlOferta.actualizarReservaNull(pm,""+ idBebedor);
+            resp += sqlReserva.eliminarReservaPorId(pm, idBebedor);
             tx.commit();
             return resp;
         }

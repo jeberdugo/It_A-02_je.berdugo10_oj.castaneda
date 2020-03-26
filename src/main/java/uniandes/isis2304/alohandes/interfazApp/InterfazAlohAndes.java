@@ -26,6 +26,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.lang.reflect.Method;
+import java.math.BigDecimal;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -518,12 +519,19 @@ public class InterfazAlohAndes extends JFrame implements ActionListener
 				 listaAlojamientos.add(""+tmp);
 			 }}
 			 
-			 String alooid = (String) JOptionPane.showInputDialog(null,"Seleccione una Reserva",
+			 BigDecimal alooid = (BigDecimal) JOptionPane.showInputDialog(null,"Seleccione una Reserva",
 					   "Eliminar Reserva", JOptionPane.QUESTION_MESSAGE, null,
 					  listaA.toArray(),"Seleccione");
-			 long resId=Long.parseLong(alooid);
+			 if(alooid!=null) {
+			 long resId=alooid.longValue();
+			 
+			 
+			 alohandes.eliminarReserva(resId);
 			 
 			 panelDatos.actualizarInterfaz("Se elimino la reserva con id: "+resId);
+			 }
+			 else
+				 panelDatos.actualizarInterfaz("No se pudo cancelar la reserva");
 		 }
 		 else
 			 JOptionPane.showMessageDialog(this,"Debe loguearse como cliente","Debe loguearse como cliente",JOptionPane.ERROR_MESSAGE);

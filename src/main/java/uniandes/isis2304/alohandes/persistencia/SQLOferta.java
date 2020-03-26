@@ -60,6 +60,15 @@ public class SQLOferta {
 		return (long) q.executeUnique();
 		
 	}
+	
+	public long actualizarReservaNull(PersistenceManager pm,  String reservaid) {
+		
+		Query q = pm.newQuery(SQL,
+				"UPDATE " + pa.darTablaOferta() + " SET reserva_id = null WHERE reserva_id = ?");
+		q.setParameters(reservaid);
+		
+		return (long) q.executeUnique();
+	}
 
 	/**
 	 * Crea y ejecuta la sentencia SQL para eliminar OFERTAS de la base de datos de
