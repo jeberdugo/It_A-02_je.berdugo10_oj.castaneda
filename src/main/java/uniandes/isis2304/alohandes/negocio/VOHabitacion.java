@@ -34,12 +34,12 @@ public interface VOHabitacion {
 	/**
 	 * @return El alojamiento al que pertenece la habitacion
 	 */
-	public Alojamiento getAlojamiento();
+	public long getAlojamiento_id();
 
 	/**
 	 * @param alojamiento - El nuevo alojamiento al que pertenece la habitacion
 	 */
-	public void setAlojamiento(Alojamiento alojamiento);
+	public void setAlojamiento_id(long alojamiento_id);
 
 	/**
 	 * @return Una cadena de caracteres con todos los atributos de la habitacion

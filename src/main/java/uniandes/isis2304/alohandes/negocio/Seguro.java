@@ -26,7 +26,7 @@ public class Seguro implements VOSeguro {
 	/**
 	 * El alojamiento al que pertenece el seguro
 	 */
-	private Alojamiento alojamiento;
+	private long alojamiento_id;
 
 	/**
 	 * Constructor por defecto
@@ -36,7 +36,7 @@ public class Seguro implements VOSeguro {
 		this.caracteristicas = "";
 		this.costo = 0;
 		this.vigencia = null;
-		this.alojamiento = null;
+		this.alojamiento_id = 0;
 	}
 
 	/**
@@ -48,12 +48,12 @@ public class Seguro implements VOSeguro {
 	 * @param diasSemana    - La vigencia del seguro
 	 * @param servicio - El alojamiento al que pertenece el seguro
 	 */
-	public Seguro(long id, String caracteristicas, double costo, Date vigencia, Alojamiento alojamiento) {
+	public Seguro(long id, String caracteristicas, double costo, Date vigencia, long alojamiento_id) {
 		this.id = id;
 		this.caracteristicas = caracteristicas;
 		this.costo = costo;
 		this.vigencia = vigencia;
-		this.alojamiento = alojamiento;
+		this.alojamiento_id = alojamiento_id;
 	}
 
 	/**
@@ -115,15 +115,15 @@ public class Seguro implements VOSeguro {
 	/**
 	 * @return El alojamiento al que pertenece el seguro
 	 */
-	public Alojamiento getAlojamiento() {
-		return alojamiento;
+	public long getAlojamiento_id() {
+		return alojamiento_id;
 	}
 
 	/**
 	 * @param alojamiento - El nuevo alojamiento al que pertenece el seguro
 	 */
-	public void setAlojamiento(Alojamiento alojamiento) {
-		this.alojamiento = alojamiento;
+	public void setAlojamiento_id(long alojamiento_id) {
+		this.alojamiento_id = alojamiento_id;
 	}
 
 	/**
@@ -131,6 +131,6 @@ public class Seguro implements VOSeguro {
 	 */
 	public String toString() {
 		return "Seguro [id=" + id + ", caracteristicas=" + caracteristicas + ", costo=" + costo + ", vigencia="
-				+ vigencia + ", alojamiento=" + alojamiento + "]";
+				+ vigencia + ", alojamiento_id=" + alojamiento_id + "]";
 	}
 }

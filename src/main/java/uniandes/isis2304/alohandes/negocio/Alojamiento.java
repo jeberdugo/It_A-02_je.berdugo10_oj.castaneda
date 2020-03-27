@@ -1,7 +1,5 @@
 package uniandes.isis2304.alohandes.negocio;
 
-import java.util.List;
-
 public class Alojamiento implements VOAlojamiento {
 	/**
 	 * El identificador ÚNICO de los alojamientos
@@ -31,19 +29,17 @@ public class Alojamiento implements VOAlojamiento {
 	/**
 	 * El registro de camara de comercio del alojamiento
 	 */
-	private String registro_Cam;
+	private String registro_cam;
 
 	/**
 	 * El registro de la Super Intendencia del alojamiento
 	 */
-	private String registro_Sup;
+	private String registro_sup;
 
 	/**
 	 * El operador propetario del alojamiento
 	 */
-	private Operador operador_Id;
-
-	
+	private long operador_id;
 
 	/**
 	 * La capacidad del alojamiento
@@ -54,41 +50,34 @@ public class Alojamiento implements VOAlojamiento {
 		this.ubicacion = "";
 		this.descripcion = "";
 		this.tipo = 0;
-		this.setRegistro_Cam("");
-		this.setRegistro_Sup("");
-		this.setOperador_Id(null);
-		
+		this.registro_cam = "";
+		this.registro_sup = "";
+		this.operador_id = 0;
+
 	}
 
 	/**
 	 * Constructor con valores
 	 * 
-	 * @param id           - El id del establecimiento
-	 * @param capacidad    - La capacidad del alojamiento
-	 * @param ubicacion    - La ubicacion del alojamiento
-	 * @param descripcion  - La descipcion del alojamiento
-	 * @param tipo         - El tipo del alojamiento
-	 * @param registroCam  - El registro de camara de comercio del alojamiento
-	 * @param registroSup  - El registro de la Super Intendencia del alojamiento
-	 * @param operador     - El operardor propetario del alojamiento
-	 * @param seguro       - El seguro del alojamiento
-	 * @param servicios    - Los servicios del alojamiento
-	 * @param habitaciones - Las habitaciones del alojamiento
-	 * @param reglas       - Las reglas del alojamiento
-	 * @param menaje       - El menaje del alojamiento
-	 * @param ofertas      - Las ofertas del alojamiento
+	 * @param id          - El id del establecimiento
+	 * @param capacidad   - La capacidad del alojamiento
+	 * @param ubicacion   - La ubicacion del alojamiento
+	 * @param descripcion - La descipcion del alojamiento
+	 * @param tipo        - El tipo del alojamiento
+	 * @param registroCam - El registro de camara de comercio del alojamiento
+	 * @param registroSup - El registro de la Super Intendencia del alojamiento
 	 */
-	public Alojamiento(long id, int capacidad, String ubicacion, String descripcion, int tipo, String registroCam,
-			String registroSup, Operador operador) {
+	public Alojamiento(long id, int capacidad, String ubicacion, String descripcion, int tipo, String registro_cam,
+			String registro_sup, long operador_Id) {
 		this.id = id;
 		this.capacidad = capacidad;
 		this.ubicacion = ubicacion;
 		this.descripcion = descripcion;
 		this.tipo = tipo;
-		this.setRegistro_Cam(registroCam);
-		this.setRegistro_Sup(registroSup);
-		this.setOperador_Id(operador);
-		
+		this.registro_cam = registro_cam;
+		this.registro_sup = registro_sup;
+		this.operador_id = operador_id;
+
 	}
 
 	/**
@@ -162,39 +151,36 @@ public class Alojamiento implements VOAlojamiento {
 		this.tipo = tipo;
 	}
 
-	
+	public String getRegistro_cam() {
+		return registro_cam;
+	}
+
+	public void setRegistro_cam(String registro_cam) {
+		this.registro_cam = registro_cam;
+	}
+
+	public String getRegistro_sup() {
+		return registro_sup;
+	}
+
+	public void setRegistro_sup(String registro_sup) {
+		this.registro_sup = registro_sup;
+	}
+
+	public long getOperador_id() {
+		return operador_id;
+	}
+
+	public void setOperador_id(long operador_id) {
+		this.operador_id = operador_id;
+	}
 
 	/**
 	 * @return Una cadena de caracteres con todos los atributos del alojamiento
 	 */
 	public String toString() {
 		return "Alojamiento [id=" + id + ", capacidad=" + capacidad + ", ubicacion=" + ubicacion + ", descripcion="
-				+ descripcion + ", tipo=" + tipo + ", registroCam=" + registro_Cam + ", registroSup=" + registro_Sup
-				+ ", operador=" + "]";
+				+ descripcion + ", tipo=" + tipo + ", registro_cam=" + registro_cam + ", registro_sup=" + registro_sup
+				+ ", operador=" + operador_id + "]";
 	}
-
-	public String getRegistro_Cam() {
-		return registro_Cam;
-	}
-
-	public void setRegistro_Cam(String registro_Cam) {
-		this.registro_Cam = registro_Cam;
-	}
-
-	public String getRegistro_Sup() {
-		return registro_Sup;
-	}
-
-	public void setRegistro_Sup(String registro_Sup) {
-		this.registro_Sup = registro_Sup;
-	}
-
-	public Operador getOperador_Id() {
-		return operador_Id;
-	}
-
-	public void setOperador_Id(Operador operador_Id) {
-		this.operador_Id = operador_Id;
-	}
-
 }

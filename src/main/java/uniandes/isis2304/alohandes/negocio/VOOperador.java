@@ -24,16 +24,6 @@ public interface VOOperador {
 	public void setTipo(int tipo);
 
 	/**
-	 * @return Los alojamientos pertenecientes al operador
-	 */
-	public List<Alojamiento> getAlojamientos();
-	
-	/**
-	 * @param alojamientos - Los nuevos alojamientos pertenecientes al operador
-	 */
-	public void setAlojamientos(List<Alojamiento> alojamientos);
-
-	/**
 	 * @return Una cadena de caracteres con todos los atributos del operador
 	 */
 	public String toString();
