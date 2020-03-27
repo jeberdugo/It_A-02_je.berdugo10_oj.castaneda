@@ -15,10 +15,8 @@
 
 package uniandes.isis2304.alohandes.persistencia;
 
-import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
@@ -448,7 +446,7 @@ public class PersistenciaAlohAndes {
 			long tuplasInsertadas = sqlCliente.adicionarCliente(pm, idCliente, nombre, rol);
 			tx.commit();
 			log.trace("Inserción de cliente: " + nombre + ": " + tuplasInsertadas + " tuplas insertadas");
-			return new Cliente(idCliente, nombre, rol, null);
+			return new Cliente(idCliente, nombre, rol);
 		} catch (Exception e) {
 			log.error("Exception : " + e.getMessage() + "\n" + darDetalleException(e));
 			throw new Exception(darDetalleException(e));
@@ -478,7 +476,7 @@ public class PersistenciaAlohAndes {
 			System.out.print("Commit");
 			log.trace("Inserción de cliente: " + idOferta + ": " + tuplasInsertadas + " tuplas insertadas");
 
-			return new Oferta(idOferta, fecha, precio, null, darAlojamientoPorId("" + alojamientoid));
+			return new Oferta(idOferta, fecha, precio, -1, alojamientoid);
 		} catch (Exception e) {
 			log.error("Exception : " + e.getMessage() + "\n" + darDetalleException(e));
 			throw new Exception(darDetalleException(e));
@@ -544,7 +542,7 @@ public class PersistenciaAlohAndes {
 
 			log.trace("Inserción de cliente: " + idOferta + ": " + tuplasInsertadas + " tuplas insertadas");
 
-			return new Reserva(idOferta, estado2, valorTotal, darClientePorId("" + clienteid));
+			return new Reserva(idOferta, estado2, valorTotal, clienteid);
 		} catch (Exception e) {
 			log.error("Exception : " + e.getMessage() + "\n" + darDetalleException(e));
 			throw new Exception(darDetalleException(e));
@@ -592,15 +590,8 @@ public class PersistenciaAlohAndes {
 					"" + tipo, "" + idOperador, "" + registrocam, "" + registrosup, ubicacion, descripcion);
 			tx.commit();
 			log.trace("Inserción de alojamiento: " + idAlojamiento + ": " + tuplasInsertadas + " tuplas insertadas");
-			List<Habitacion> habitaciones = new ArrayList<Habitacion>();
-			Seguro seguro = new Seguro();
-			List<Servicio> servicios = new ArrayList<Servicio>();
-			List<Regla> reglas = new ArrayList<Regla>();
-			List<Menaje> menaje = new ArrayList<Menaje>();
-			List<Oferta> ofertas = new ArrayList<Oferta>();
-
 			return new Alojamiento(idAlojamiento, capacidad, ubicacion, descripcion, tipo, "" + registrocam,
-					"" + registrosup, darOperadorPorId("" + idOperador));
+					"" + registrosup, idOperador);
 		} catch (Exception e) {
 			log.error("Exception : " + e.getMessage() + "\n" + darDetalleException(e));
 			throw new Exception(darDetalleException(e));
@@ -620,8 +611,7 @@ public class PersistenciaAlohAndes {
 			long tuplasInsertadas = sqlOperador.adicionarOperador(pm, idOperador, tipo);
 			tx.commit();
 			log.trace("Inserción de operador: " + tipo + ": " + tuplasInsertadas + " tuplas insertadas");
-			List<Alojamiento> lista = new ArrayList<Alojamiento>();
-			return new Operador(idOperador, tipo, lista);
+			return new Operador(idOperador, tipo);
 		} catch (Exception e) {
 			log.error("Exception : " + e.getMessage() + "\n" + darDetalleException(e));
 			throw new Exception(darDetalleException(e));
@@ -700,7 +690,6 @@ public class PersistenciaAlohAndes {
 	 *         TIPOBEBIDA con el identificador dado
 	 */
 	public Usuario login(String idUsuario, String contra) {
-		boolean exito = false;
 		PersistenceManager pm = pmf.getPersistenceManager();
 		Usuario user = sqlUsuario.darUsuarioPorUsuario(pm, idUsuario);
 

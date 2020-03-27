@@ -7,19 +7,19 @@ public interface VOSeguro {
 	 * @return El id del seguro
 	 */
 	public long getId();
-	
+
 	/**
 	 * @param id - El nuevo id del seguro
 	 */
 	public void setId(long id);
 
 	/**
-	 * @return  Las caracteristicas del seguro
+	 * @return Las caracteristicas del seguro
 	 */
 	public String getCaracteristicas();
 
 	/**
-	 * @param caracteristicas -  Las nuevas caracteristicas del seguro
+	 * @param caracteristicas - Las nuevas caracteristicas del seguro
 	 */
 	public void setCaracteristicas(String caracteristicas);
 
@@ -46,12 +46,12 @@ public interface VOSeguro {
 	/**
 	 * @return El alojamiento al que pertenece el seguro
 	 */
-	public Alojamiento getAlojamiento();
+	public long getAlojamiento_id();
 
 	/**
-	 * @param alojamiento - El nuevo alojamiento al que pertenece el seguro
+	 * @param alojamiento_id - El nuevo alojamiento al que pertenece el seguro
 	 */
-	public void setAlojamiento(Alojamiento alojamiento);
+	public void setAlojamiento_id(long alojamiento_id);
 
 	/**
 	 * @return Una cadena de caracteres con todos los atributos del seguro

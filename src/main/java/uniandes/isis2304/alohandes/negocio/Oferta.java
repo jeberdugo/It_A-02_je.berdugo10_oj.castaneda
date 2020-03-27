@@ -21,12 +21,12 @@ public class Oferta implements VOOferta {
 	/**
 	 * La reserva hecha para la oferta
 	 */
-	private Reserva reserva_Id;
+	private long reserva_id;
 
 	/**
 	 * El alojamiento al que pertenece la oferta
 	 */
-	private Alojamiento alojamiento_Id;
+	private long alojamiento_id;
 
 	/**
 	 * Constructor por defecto
@@ -35,8 +35,8 @@ public class Oferta implements VOOferta {
 		this.id = 0;
 		this.dia = null;
 		this.precio = 0;
-		this.setReserva_Id(null);
-		this.setAlojamiento_Id(null);
+		this.reserva_id = 0;
+		this.alojamiento_id = 0;
 	}
 
 	/**
@@ -45,16 +45,16 @@ public class Oferta implements VOOferta {
 	 * @param id          - El id de la oferta
 	 * @param dia         - El dia de la oferta
 	 * @param precio      - El precio de la oferta
-	 * @param reserva     - La reserva hecha para la oferta
-	 * @param alojamiento - El alojamiento al que pertenece la oferta
+	 * @param reserva_id     - La reserva hecha para la oferta
+	 * @param alojamiento_id - El alojamiento al que pertenece la oferta
 	 */
-	public Oferta(long id, Date dia, int precio, Reserva reserva, Alojamiento alojamiento) {
+	public Oferta(long id, Date dia, int precio, long reserva_id, long alojamiento_id) {
 		super();
 		this.id = id;
 		this.dia = dia;
 		this.precio = precio;
-		this.setReserva_Id(reserva);
-		this.setAlojamiento_Id(alojamiento);
+		this.reserva_id = reserva_id;
+		this.alojamiento_id = alojamiento_id;
 	}
 
 	/**
@@ -100,30 +100,28 @@ public class Oferta implements VOOferta {
 
 	}
 
-	
+	public long getReserva_id() {
+		return reserva_id;
+	}
+
+	public void setReserva_id(long reserva_id) {
+		this.reserva_id = reserva_id;
+	}
+
+	public long getAlojamiento_id() {
+		return alojamiento_id;
+	}
+
+	public void setAlojamiento_id(long alojamiento_id) {
+		this.alojamiento_id = alojamiento_id;
+	}
 
 	/**
 	 * @return Una cadena de caracteres con todos los atributos de la oferta
 	 */
 	public String toString() {
-		return "Oferta [id=" + id + ", dia=" + dia + ", precio=" + precio + ", reserva=" + 
-				  "]";
-	}
-
-	public Reserva getReserva_Id() {
-		return reserva_Id;
-	}
-
-	public void setReserva_Id(Reserva reserva_Id) {
-		this.reserva_Id = reserva_Id;
-	}
-
-	public Alojamiento getAlojamiento_Id() {
-		return alojamiento_Id;
-	}
-
-	public void setAlojamiento_Id(Alojamiento alojamiento_Id) {
-		this.alojamiento_Id = alojamiento_Id;
+		return "Oferta [id=" + id + ", dia=" + dia + ", precio=" + precio + ", reserva_id=" + reserva_id
+				+ ", alojamiento_id=" + alojamiento_id + "]";
 	}
 
 }
