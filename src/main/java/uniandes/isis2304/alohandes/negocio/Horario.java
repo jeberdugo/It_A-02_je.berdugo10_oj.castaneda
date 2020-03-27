@@ -11,48 +11,49 @@ public class Horario implements VOHorario {
 	/**
 	 * La hora de inicio del horario
 	 */
-	private Date hora_inicio;
-
+	private Date horaInicio;
+	
 	/**
 	 * La hora de finalizacion del horario
 	 */
-	private Date hora_fin;
-
+	private Date horaFin;
+	
 	/**
 	 * Los dias de la semana en donde se efectua el horario
 	 */
-	private String dias_semana;
+	private String diasSemana;
 	/**
 	 * El servicio responsable del horario
 	 */
-	private long servicio_id;
+	private Servicio servicio;
 
 	/**
 	 * Constructor por defecto
 	 */
 	public Horario() {
 		this.id = 0;
-		this.hora_inicio = null;
-		this.hora_fin = null;
-		this.dias_semana = "";
-		this.servicio_id = 0;
+		this.horaInicio = null;
+		this.horaFin = null;
+		this.diasSemana = "";
+		this.servicio = null;
 	}
 
 	/**
 	 * Constructor con valores
 	 * 
 	 * @param id          - El id del horario
-	 * @param horaInicio  - La hora de inicio del horario
-	 * @param horaFin     - La hora de finalizacion del horario
-	 * @param diasSemana  - Los dias de la semana en donde se efectua el horario
-	 * @param servicio_id - El servicio responsable del horario
+	 * @param horaInicio      - La hora de inicio del horario
+	 * @param horaFin - La hora de finalizacion del horario
+	 * @param diasSemana    - Los dias de la semana en donde se efectua el horario
+	 * @param servicio - El servicio responsable del horario
 	 */
-	public Horario(long id, Date hora_inicio, Date hora_fin, String dias_semana, long servicio_id) {
+	public Horario(long id, Date horaInicio, Date horaFin, String diasSemana, Servicio servicio) {
+		super();
 		this.id = id;
-		this.hora_inicio = hora_fin;
-		this.hora_fin = hora_fin;
-		this.dias_semana = dias_semana;
-		this.servicio_id = servicio_id;
+		this.horaInicio = horaInicio;
+		this.horaFin = horaFin;
+		this.diasSemana = diasSemana;
+		this.servicio = servicio;
 	}
 
 	/**
@@ -72,65 +73,64 @@ public class Horario implements VOHorario {
 	/**
 	 * @return La hora de inicio del horario
 	 */
-	public Date getHora_inicio() {
-		return hora_inicio;
+	public Date getHoraInicio() {
+		return horaInicio;
 	}
 
 	/**
-	 * @param hora_inicio - La nueva hora de inicio del horario
+	 * @param horaInicio - La nueva hora de inicio del horario
 	 */
-	public void setHora_inicio(Date hora_inicio) {
-		this.hora_inicio = hora_inicio;
+	public void setHoraInicio(Date horaInicio) {
+		this.horaInicio = horaInicio;
 	}
 
 	/**
 	 * @return La hora de finalizacion del horario
 	 */
-	public Date getHora_fin() {
-		return hora_fin;
+	public Date getHoraFin() {
+		return horaFin;
 	}
 
 	/**
-	 * @param hora_fin - La nueva hora de finalizacion del horario
+	 * @param horaFin - La nueva hora de finalizacion del horario
 	 */
-	public void setHora_fin(Date hora_fin) {
-		this.hora_fin = hora_fin;
+	public void setHoraFin(Date horaFin) {
+		this.horaFin = horaFin;
 	}
 
 	/**
 	 * @return Los dias de la semana en donde se efectua el horario
 	 */
-	public String getDias_semana() {
-		return dias_semana;
+	public String getDiasSemana() {
+		return diasSemana;
 	}
 
 	/**
-	 * @param dias_semana - Los nuevos dias de la semana en donde se efectua el
-	 *                    horario
+	 * @param diasSemana - Los nuevos dias de la semana en donde se efectua el horario
 	 */
-	public void setDias_semana(String dias_semana) {
-		this.dias_semana = dias_semana;
+	public void setDiasSemana(String diasSemana) {
+		this.diasSemana = diasSemana;
 	}
 
 	/**
 	 * @return El servicio responsable del horario
 	 */
-	public long getServicio_id() {
-		return servicio_id;
+	public Servicio getServicio() {
+		return servicio;
 	}
 
 	/**
-	 * @param servicio_id - El nuevo servicio responsable del horario
+	 * @param servicio - El nuevo servicio responsable del horario
 	 */
-	public void setServicio_id(long servicio_id) {
-		this.servicio_id = servicio_id;
+	public void setServicio(Servicio servicio) {
+		this.servicio = servicio;
 	}
 
 	/**
 	 * @return Una cadena de caracteres con todos los atributos del horario
 	 */
 	public String toString() {
-		return "Horario [id=" + id + ", hora_inicio=" + hora_inicio + ", hora_fin=" + hora_fin + ", dias_semana="
-				+ dias_semana + ", servicio_id=" + servicio_id + "]";
+		return "Horario [id=" + id + ", horaInicio=" + horaInicio + ", horaFin=" + horaFin + ", diasSemana="
+				+ diasSemana + ", servicio=" + servicio + "]";
 	}
 }

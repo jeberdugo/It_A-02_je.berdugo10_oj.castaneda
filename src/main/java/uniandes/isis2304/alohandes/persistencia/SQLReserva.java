@@ -1,5 +1,6 @@
 package uniandes.isis2304.alohandes.persistencia;
 
+
 import java.util.List;
 
 import javax.jdo.PersistenceManager;
@@ -8,7 +9,7 @@ import javax.jdo.Query;
 import uniandes.isis2304.alohandes.negocio.Reserva;
 
 public class SQLReserva {
-
+	
 	/**
 	 * Cadena que representa el tipo de consulta que se va a realizar en las
 	 * sentencias de acceso a la base de datos Se renombra acá para facilitar la
@@ -74,7 +75,7 @@ public class SQLReserva {
 		q.setResultClass(Reserva.class);
 		return (List<Reserva>) q.executeList();
 	}
-
+	
 	/**
 	 * Crea y ejecuta la sentencia SQL para encontrar la información de LOS RESERVAS
 	 * de la base de datos de AlohAndes
@@ -83,12 +84,13 @@ public class SQLReserva {
 	 * @return Una lista de objetos RESERVA
 	 */
 	public List darReservasPorCliente(PersistenceManager pm, long idUsuario) {
-		Query q = pm.newQuery(SQL, "SELECT id FROM " + pa.darTablaReserva() + " WHERE cliente_id = ?");
-
+		Query q = pm.newQuery(SQL, "SELECT id FROM " + pa.darTablaReserva()+" WHERE cliente_id = ?");
+		
 		q.setParameters(idUsuario);
-
-		List tipoServicio = (List) q.executeList();
+		
+		List tipoServicio=(List) q.executeList();
 		return tipoServicio;
 	}
+	 
 
 }

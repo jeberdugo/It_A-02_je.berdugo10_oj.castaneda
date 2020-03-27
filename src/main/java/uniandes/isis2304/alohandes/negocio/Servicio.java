@@ -1,8 +1,10 @@
 package uniandes.isis2304.alohandes.negocio;
 
+import java.util.List;
+
 public class Servicio implements VOServicio {
 	/**
-	 * El identificador ÚNICO de los servicios
+	 * El identificador ÚNICO de los servicios	
 	 */
 	private long id;
 
@@ -19,7 +21,12 @@ public class Servicio implements VOServicio {
 	/**
 	 * El horario del servicio
 	 */
-	private long horario_id;
+	private Horario horario;
+	
+	/**
+	 * Los alojamientos en los que se ofrece el servicio
+	 */
+	private List<Alojamiento> alojamientos;
 
 	/**
 	 * Constructor por defecto
@@ -28,22 +35,25 @@ public class Servicio implements VOServicio {
 		this.id = 0;
 		this.descripcion = "";
 		this.costo = 0;
-		this.horario_id = 0;
+		this.horario = null;
+		this.alojamientos=null;
 	}
 
 	/**
 	 * Constructor con valores
 	 * 
 	 * @param id          - El id del horario
-	 * @param descripcion - La descripcion del servicio
-	 * @param costo       - El costo del servicio
-	 * @param horario_id  - El horario del servicio
+	 * @param descripcion      - La descripcion del servicio
+	 * @param costo - El costo del servicio
+	 * @param horario    - El horario del servicio
+	 * @param alojamientos - Los alojamientos en los que se ofrece el servicio
 	 */
-	public Servicio(long id, String descripcion, double costo, long horario_id) {
+	public Servicio(long id, String descripcion, double costo, Horario horario, List<Alojamiento>alojamientos) {
 		this.id = id;
 		this.descripcion = descripcion;
 		this.costo = costo;
-		this.horario_id = horario_id;
+		this.horario = horario;
+		this.alojamientos=alojamientos;
 	}
 
 	/**
@@ -91,23 +101,37 @@ public class Servicio implements VOServicio {
 	/**
 	 * @return El horario del servicio
 	 */
-	public long getHorario_id() {
-		return horario_id;
+	public Horario getHorario() {
+		return horario;
 	}
 
 	/**
-	 * @param horario_id - El nuevo horario del servicio
+	 * @param horario - El nuevo horario del servicio
 	 */
-	public void setHorario_id(long horario_id) {
-		this.horario_id = horario_id;
+	public void setHorario(Horario horario) {
+		this.horario = horario;
+	}
+
+	/**
+	 * @return Los alojamientos en los que se ofrece el servicio
+	 */
+	public List<Alojamiento> getAlojamientos() {
+		return alojamientos;
+	}
+
+	/**
+	 * @param alojamientos - Los nuevos alojamientos en los que se ofrece el servicio
+	 */
+	public void setAlojamientos(List<Alojamiento> alojamientos) {
+		this.alojamientos = alojamientos;
 	}
 
 	/**
 	 * @return Una cadena de caracteres con todos los atributos del servicio
 	 */
 	public String toString() {
-		return "Servicio [id=" + id + ", descripcion=" + descripcion + ", costo=" + costo + ", horario_id=" + horario_id
-				+ "]";
+		return "Servicio [id=" + id + ", descripcion=" + descripcion + ", costo=" + costo + ", horario=" + horario
+				+ ", alojamientos=" + alojamientos + "]";
 	}
 
 }

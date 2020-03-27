@@ -5,6 +5,7 @@ import java.util.List;
 import javax.jdo.PersistenceManager;
 import javax.jdo.Query;
 
+import uniandes.isis2304.alohandes.negocio.Cliente;
 import uniandes.isis2304.alohandes.negocio.Operador;
 
 public class SQLOperador {
@@ -70,8 +71,9 @@ public class SQLOperador {
 		q.setResultClass(Operador.class);
 		return (List<Operador>) q.executeList();
 	}
-
-	public Operador darOperadorPorId(PersistenceManager pm, String idUsuario) {
+	
+	public Operador darOperadorPorId (PersistenceManager pm, String idUsuario) 
+	{
 		Query q = pm.newQuery(SQL, "SELECT * FROM " + pa.darTablaOperador() + " WHERE ID = ?");
 		q.setResultClass(Operador.class);
 		q.setParameters(idUsuario);

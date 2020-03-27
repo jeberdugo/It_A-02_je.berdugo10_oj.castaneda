@@ -1,5 +1,7 @@
 package uniandes.isis2304.alohandes.negocio;
 
+import java.util.List;
+
 public interface VOServicio {
 	/**
 	 * @return El id del servicio
@@ -34,12 +36,22 @@ public interface VOServicio {
 	/**
 	 * @return El horario del servicio
 	 */
-	public long getHorario_id();
+	public Horario getHorario();
 
 	/**
-	 * @param horario_id - El nuevo horario del servicio
+	 * @param horario - El nuevo horario del servicio
 	 */
-	public void setHorario_id(long horario_id);
+	public void setHorario(Horario horario);
+
+	/**
+	 * @return Los alojamientos en los que se ofrece el servicio
+	 */
+	public List<Alojamiento> getAlojamientos();
+
+	/**
+	 * @param alojamientos - Los nuevos alojamientos en los que se ofrece el servicio
+	 */
+	public void setAlojamientos(List<Alojamiento> alojamientos);
 
 	/**
 	 * @return Una cadena de caracteres con todos los atributos del servicio

@@ -24,12 +24,12 @@ public interface VORegla {
 	/**
 	 * @return El alojamiento al que pertenece la regla
 	 */
-	public long getAlojamiento_id();
+	public Alojamiento getAlojamiento();
 
 	/**
-	 * @param alojamiento_id - El nuevo alojamiento al que pertenece la regla
+	 * @param alojamiento - El nuevo alojamiento al que pertenece la regla
 	 */
-	public void setAlojamiento_id(long alojamiento_id);
+	public void setAlojamiento(Alojamiento alojamiento);
 
 	/**
 	 * @return Una cadena de caracteres con todos los atributos de la regla

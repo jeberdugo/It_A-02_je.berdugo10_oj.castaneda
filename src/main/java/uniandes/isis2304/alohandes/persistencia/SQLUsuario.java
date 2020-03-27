@@ -62,6 +62,8 @@ public class SQLUsuario {
 		q.setParameters(idUsuario);
 		return (long) q.executeUnique();
 	}
+	
+	
 
 	/**
 	 * Crea y ejecuta la sentencia SQL para encontrar la información de LOS USUARIOS
@@ -75,15 +77,17 @@ public class SQLUsuario {
 		q.setResultClass(Usuario.class);
 		return (List<Usuario>) q.executeList();
 	}
-
-	public Usuario darUsuarioPorUsuario(PersistenceManager pm, String idUsuario) {
+	
+	
+	public Usuario darUsuarioPorUsuario (PersistenceManager pm, String idUsuario) 
+	{
 		Query q = pm.newQuery(SQL, "SELECT * FROM " + pa.darTablaUsuario() + " WHERE USUARIO Like ?");
 		q.setResultClass(Usuario.class);
 		q.setParameters(idUsuario);
 		return (Usuario) q.executeUnique();
 	}
-
-	public Usuario darUsuarioPorId(PersistenceManager pm, String idUsuario) {
+	public Usuario darUsuarioPorId (PersistenceManager pm, String idUsuario) 
+	{
 		Query q = pm.newQuery(SQL, "SELECT * FROM " + pa.darTablaUsuario() + " WHERE ID = ?");
 		q.setResultClass(Usuario.class);
 		q.setParameters(idUsuario);

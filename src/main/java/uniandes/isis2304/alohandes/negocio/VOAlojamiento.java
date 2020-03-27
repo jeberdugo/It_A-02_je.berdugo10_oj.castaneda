@@ -1,5 +1,7 @@
 package uniandes.isis2304.alohandes.negocio;
 
+import java.util.List;
+
 public interface VOAlojamiento {
 
 	/**
@@ -55,34 +57,35 @@ public interface VOAlojamiento {
 	/**
 	 * @return El registro de camara de comercio del alojamiento
 	 */
-	public String getRegistro_cam();
+	public String getRegistro_Cam();
 
 	/**
 	 * @param registroCam - El nuevo registro de camara de comercio del alojamiento
 	 */
-	public void setRegistro_cam(String registro_cam);
+	public void setRegistro_Cam(String registroCam);
 
 	/**
 	 * @return El registro de la Super Intendencia del alojamiento
 	 */
-	public String getRegistro_sup();
+	public String getRegistro_Sup();
 
 	/**
 	 * @param registroSup - El nuevo registro de la Super Intendencia del
 	 *                    alojamiento
 	 */
-	public void setRegistro_sup(String registro_sup);
+	public void setRegistro_Sup(String registroSup);
 
 	/**
 	 * @return El operador propetario del alojamiento
 	 */
-	public long getOperador_id();
+	public Operador getOperador_Id();
 
 	/**
 	 * @param operador - El nuevo operador propetario del alojamiento
 	 */
-	public void setOperador_id(long operador_id);
+	public void setOperador_Id(Operador operador);
 
+	
 	/**
 	 * @return Una cadena de caracteres con todos los atributos del alojamiento
 	 */

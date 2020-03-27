@@ -6,9 +6,10 @@ import javax.jdo.PersistenceManager;
 import javax.jdo.Query;
 
 import uniandes.isis2304.alohandes.negocio.Alojamiento;
+import uniandes.isis2304.alohandes.negocio.Oferta;
 
 public class SQLAlojamiento {
-
+	
 	/**
 	 * Cadena que representa el tipo de consulta que se va a realizar en las
 	 * sentencias de acceso a la base de datos Se renombra acá para facilitar la
@@ -34,17 +35,16 @@ public class SQLAlojamiento {
 	 * Crea y ejecuta la sentencia SQL para adicionar un CLIENTE a la base de datos
 	 * de AlohAndes
 	 * 
-	 * @param pm            - El manejador de persistencia
-	 * @param idAlojamiento - El id del alojamiento
-	 * @param nombre        - El nombre del alojamiento
-	 * @param presupuesto   - El rol del alojamiento (0: Profesor, 1: Empleado, 2:
-	 *                      Egresado, 3: Estudiante, 4: Padre)
+	 * @param pm          - El manejador de persistencia
+	 * @param idAlojamiento   - El id del alojamiento
+	 * @param nombre      - El nombre del alojamiento
+	 * @param presupuesto - El rol del alojamiento (0: Profesor, 1: Empleado, 2:
+	 *                    Egresado, 3: Estudiante, 4: Padre)
 	 * @return El número de tuplas insertadas
 	 */
-	public long adicionarAlojamiento(PersistenceManager pm, String idAlojamiento, String capacidad, String tipo,
-			String idoperador, String registrocam, String registrosup, String ubicacion, String descripcion) {
-		Query q = pm.newQuery(SQL, "INSERT INTO " + pa.darTablaAlojamiento()
-				+ "(id, capacidad, tipo, operador_id, registro_cam, registro_sup, ubicacion, descripcion) values (?, ?, ?, ?, ?, ?, ?, ?)");
+	public long adicionarAlojamiento(PersistenceManager pm, String idAlojamiento, String capacidad, String  tipo, String idoperador, String registrocam, String registrosup, String ubicacion, String descripcion) {
+		Query q = pm.newQuery(SQL,
+				"INSERT INTO " + pa.darTablaAlojamiento() + "(id, capacidad, tipo, operador_id, registro_cam, registro_sup, ubicacion, descripcion) values (?, ?, ?, ?, ?, ?, ?, ?)");
 		q.setParameters(idAlojamiento, capacidad, tipo, idoperador, registrocam, registrosup, ubicacion, descripcion);
 		return (long) q.executeUnique();
 	}
@@ -53,7 +53,7 @@ public class SQLAlojamiento {
 	 * Crea y ejecuta la sentencia SQL para eliminar CLIENTES de la base de datos de
 	 * AlohAndes, por su id
 	 * 
-	 * @param pm            - El manejador de persistencia
+	 * @param pm        - El manejador de persistencia
 	 * @param idAlojamiento - El id del alojamiento
 	 * @return EL número de tuplas eliminadas
 	 */
@@ -62,14 +62,14 @@ public class SQLAlojamiento {
 		q.setParameters(idAlojamiento);
 		return (long) q.executeUnique();
 	}
-
-	public Alojamiento buscarAlojamientoPorId(PersistenceManager pm, String idReserva) {
+	
+	public Alojamiento buscarAlojamientoPorId (PersistenceManager pm, String idReserva) 
+	{
 		Query q = pm.newQuery(SQL, "SELECT * FROM " + pa.darTablaAlojamiento() + " WHERE id Like ?");
 		q.setResultClass(Alojamiento.class);
 		q.setParameters(idReserva);
 		return (Alojamiento) q.executeUnique();
 	}
-
 	/**
 	 * Crea y ejecuta la sentencia SQL para encontrar la información de LOS CLIENTES
 	 * de la base de datos de AlohAndes
@@ -78,7 +78,7 @@ public class SQLAlojamiento {
 	 * @return Una lista de objetos CLIENTE
 	 */
 	public List<Alojamiento> darAlojamientosPorUserId(PersistenceManager pm, String idUsuario) {
-		Query q = pm.newQuery(SQL, "SELECT * FROM " + pa.darTablaAlojamiento() + " WHERE operador_id = ?");
+		Query q = pm.newQuery(SQL, "SELECT * FROM " + pa.darTablaAlojamiento()+ " WHERE operador_id = ?");
 		q.setParameters(idUsuario);
 		q.setResultClass(Alojamiento.class);
 		return (List<Alojamiento>) q.executeList();
@@ -96,7 +96,6 @@ public class SQLAlojamiento {
 		q.setResultClass(Alojamiento.class);
 		return (List<Alojamiento>) q.executeList();
 	}
-
 	public List<Alojamiento> darAlojamientoPorDotacion(PersistenceManager pm, List<String> dotacion, String inicio,
 			String fin, int size) {
 		String peticion = "SELECT AL.* FROM OFERTA OFE JOIN ALOJAMIENTO AL ON OFE.ALOJAMIENTO_ID=AL.ID JOIN (  SELECT AL.ID	FROM ALOJAMIENTO AL JOIN SERVICIOS_ALOJAMIENTOS SA ON AL.ID= sa.alojamiento_id JOIN SERVICIO SER ON 		sa.servicio_id=SER.ID ";

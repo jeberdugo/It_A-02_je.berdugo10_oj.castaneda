@@ -1,5 +1,7 @@
 package uniandes.isis2304.alohandes.negocio;
 
+import java.util.List;
+
 public class Cliente implements VOCliente {
 	/**
 	 * El identificador ÚNICO de los clientes
@@ -18,12 +20,18 @@ public class Cliente implements VOCliente {
 	private int rol;
 
 	/**
+	 * Las reservas del cliente
+	 */
+	private List<Reserva> reservas;
+
+	/**
 	 * Constructor por defecto
 	 */
 	public Cliente() {
 		this.id = 0;
 		this.nombre = "";
 		this.rol = 0;
+		this.reservas = null;
 	}
 
 	/**
@@ -33,11 +41,13 @@ public class Cliente implements VOCliente {
 	 * @param nombre      - El nombre del cliente
 	 * @param presupuesto - El rol del cliente (0: Profesor, 1: Empleado, 2:
 	 *                    Egresado, 3: Estudiante, 4: Padre)
+	 * @param reservas    - Las reservas del cliente
 	 */
-	public Cliente(long id, String nombre, int rol) {
+	public Cliente(long id, String nombre, int rol, List<Reserva> reservas) {
 		this.id = id;
 		this.nombre = nombre;
 		this.rol = rol;
+		this.reservas = reservas;
 	}
 
 	/**
@@ -83,10 +93,24 @@ public class Cliente implements VOCliente {
 	}
 
 	/**
+	 * @return Las reservas del cliente
+	 */
+	public List<Reserva> getReservas() {
+		return reservas;
+	}
+
+	/**
+	 * @param reservas - Las nuevas reservas del cliente
+	 */
+	public void setReservas(List<Reserva> reservas) {
+		this.reservas = reservas;
+	}
+
+	/**
 	 * @return Una cadena de caracteres con todos los atributos del cliente
 	 */
 	public String toString() {
-		return "Cliente [id=" + id + ", nombre=" + nombre + ", rol=" + rol + "]";
+		return "Cliente [id=" + id + ", nombre=" + nombre + ", rol=" + rol + ", reservas=" + reservas + "]";
 	}
 
 }

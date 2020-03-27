@@ -6,6 +6,7 @@ import javax.jdo.PersistenceManager;
 import javax.jdo.Query;
 
 import uniandes.isis2304.alohandes.negocio.Cliente;
+import uniandes.isis2304.alohandes.negocio.Usuario;
 
 public class SQLCliente {
 	/**
@@ -41,7 +42,8 @@ public class SQLCliente {
 	 * @return El número de tuplas insertadas
 	 */
 	public long adicionarCliente(PersistenceManager pm, long idCliente, String nombre, int rol) {
-		Query q = pm.newQuery(SQL, "INSERT INTO " + pa.darTablaCliente() + "(id, nombre, rol) values (?, ?, ?)");
+		Query q = pm.newQuery(SQL,
+				"INSERT INTO " + pa.darTablaCliente() + "(id, nombre, rol) values (?, ?, ?)");
 		q.setParameters(idCliente, nombre, rol);
 		return (long) q.executeUnique();
 	}
@@ -72,8 +74,9 @@ public class SQLCliente {
 		q.setResultClass(Cliente.class);
 		return (List<Cliente>) q.executeList();
 	}
-
-	public Cliente darClientePorId(PersistenceManager pm, String idUsuario) {
+	
+	public Cliente darClientePorId (PersistenceManager pm, String idUsuario) 
+	{
 		Query q = pm.newQuery(SQL, "SELECT * FROM " + pa.darTablaCliente() + " WHERE ID = ?");
 		q.setResultClass(Cliente.class);
 		q.setParameters(idUsuario);

@@ -16,43 +16,42 @@ public interface VOHorario {
 	/**
 	 * @return La hora de inicio del horario
 	 */
-	public Date getHora_inicio();
+	public Date getHoraInicio();
 
 	/**
-	 * @param hora_inicio - La nueva hora de inicio del horario
+	 * @param horaInicio - La nueva hora de inicio del horario
 	 */
-	public void setHora_inicio(Date hora_inicio);
+	public void setHoraInicio(Date horaInicio);
 
 	/**
 	 * @return La hora de finalizacion del horario
 	 */
-	public Date getHora_fin();
+	public Date getHoraFin();
 
 	/**
-	 * @param hora_fin - La nueva hora de finalizacion del horario
+	 * @param horaFin - La nueva hora de finalizacion del horario
 	 */
-	public void setHora_fin(Date hora_fin);
+	public void setHoraFin(Date horaFin);
 
 	/**
 	 * @return Los dias de la semana en donde se efectua el horario
 	 */
-	public String getDias_semana();
+	public String getDiasSemana();
 
 	/**
-	 * @param dias_semana - Los nuevos dias de la semana en donde se efectua el
-	 *                    horario
+	 * @param diasSemana - Los nuevos dias de la semana en donde se efectua el horario
 	 */
-	public void setDias_semana(String dias_semana);
+	public void setDiasSemana(String diasSemana);
 
 	/**
 	 * @return El servicio responsable del horario
 	 */
-	public long getServicio_id();
+	public Servicio getServicio();
 
 	/**
-	 * @param servicio_id - El nuevo servicio responsable del horario
+	 * @param servicio - El nuevo servicio responsable del horario
 	 */
-	public void setServicio_id(long servicio_id);
+	public void setServicio(Servicio servicio);
 
 	/**
 	 * @return Una cadena de caracteres con todos los atributos del horario

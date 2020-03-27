@@ -19,7 +19,7 @@ public class Menaje implements VOMenaje {
 	/**
 	 * El alojamiento al que pertenece del menaje
 	 */
-	private long alojamiento_id;
+	private Alojamiento alojamiento;
 
 	/**
 	 * Constructor por defecto
@@ -28,7 +28,7 @@ public class Menaje implements VOMenaje {
 		this.id = 0;
 		this.descripcion = "";
 		this.disponibilidad = false;
-		this.alojamiento_id = 0;
+		this.alojamiento = null;
 	}
 
 	/**
@@ -37,13 +37,13 @@ public class Menaje implements VOMenaje {
 	 * @param id             - El id del menaje
 	 * @param descripcion    - La descripcion del menaje
 	 * @param disponibilidad - La disponibilidad del menaje
-	 * @param alojamiento_id    - El alojamiento al que pertenece del menaje
+	 * @param alojamiento    - El alojamiento al que pertenece del menaje
 	 */
-	public Menaje(long id, String descripcion, boolean disponibilidad, long alojamiento_id) {
+	public Menaje(long id, String descripcion, boolean disponibilidad, Alojamiento alojamiento) {
 		this.id = id;
 		this.descripcion = descripcion;
 		this.disponibilidad = disponibilidad;
-		this.alojamiento_id = alojamiento_id;
+		this.alojamiento = alojamiento;
 	}
 
 	/**
@@ -91,15 +91,15 @@ public class Menaje implements VOMenaje {
 	/**
 	 * @return El alojamiento al que pertenece del menaje
 	 */
-	public long getAlojamiento_id() {
-		return alojamiento_id;
+	public Alojamiento getAlojamiento() {
+		return alojamiento;
 	}
 
 	/**
-	 * @param alojamiento_id - El nuevo alojamiento al que pertenece del menaje
+	 * @param alojamiento - El nuevo alojamiento al que pertenece del menaje
 	 */
-	public void setAlojamiento_id(long alojamiento_id) {
-		this.alojamiento_id = alojamiento_id;
+	public void setAlojamiento(Alojamiento alojamiento) {
+		this.alojamiento = alojamiento;
 	}
 
 	/**
@@ -107,7 +107,7 @@ public class Menaje implements VOMenaje {
 	 */
 	public String toString() {
 		return "Menaje [id=" + id + ", descripcion=" + descripcion + ", disponibilidad=" + disponibilidad
-				+ ", alojamiento_id=" + alojamiento_id + "]";
+				+ ", alojamiento=" + alojamiento + "]";
 	}
 
 }

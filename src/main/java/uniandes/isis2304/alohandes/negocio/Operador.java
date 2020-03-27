@@ -1,5 +1,7 @@
 package uniandes.isis2304.alohandes.negocio;
 
+import java.util.List;
+
 public class Operador implements VOOperador {
 	/**
 	 * El identificador ÚNICO de los operadores
@@ -12,11 +14,17 @@ public class Operador implements VOOperador {
 	private int tipo;
 
 	/**
+	 * Los alojamientos pertenecientes al operador
+	 */
+	private List<Alojamiento> alojamientos;
+
+	/**
 	 * Constructor por defecto
 	 */
 	public Operador() {
 		this.id = 0;
 		this.tipo = 0;
+		this.alojamientos = null;
 	}
 
 	/**
@@ -24,10 +32,12 @@ public class Operador implements VOOperador {
 	 * 
 	 * @param id   - El id del operador
 	 * @param tipo - El tipo del operador
+	 * @param alojamientos - Los alojamientos pertenecientes al operador
 	 */
-	public Operador(long id, int tipo) {
+	public Operador(long id, int tipo, List<Alojamiento> alojamientos) {
 		this.id = id;
 		this.tipo = tipo;
+		this.alojamientos = alojamientos;
 	}
 
 	/**
@@ -59,10 +69,24 @@ public class Operador implements VOOperador {
 	}
 
 	/**
+	 * @return Los alojamientos pertenecientes al operador
+	 */
+	public List<Alojamiento> getAlojamientos() {
+		return alojamientos;
+	}
+	
+	/**
+	 * @param alojamientos - Los nuevos alojamientos pertenecientes al operador
+	 */
+	public void setAlojamientos(List<Alojamiento> alojamientos) {
+		this.alojamientos = alojamientos;
+	}
+
+	/**
 	 * @return Una cadena de caracteres con todos los atributos del operador
 	 */
 	public String toString() {
-		return "Operador [id=" + id + ", tipo=" + tipo + "]";
+		return "Operador [id=" + id + ", tipo=" + tipo + ", alojamientos=" + alojamientos + "]";
 	}
 
 }

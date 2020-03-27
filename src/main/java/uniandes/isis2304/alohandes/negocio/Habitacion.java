@@ -19,7 +19,7 @@ public class Habitacion implements VOHabitacion {
 	/**
 	 * El alojamiento al que pertenece la habitacion
 	 */
-	private long alojamiento_id;
+	private Alojamiento alojamiento;
 
 	/**
 	 * Constructor por defecto
@@ -28,7 +28,7 @@ public class Habitacion implements VOHabitacion {
 		this.id = 0;
 		this.capacidad = 0;
 		this.tipo = 0;
-		this.alojamiento_id = 0;
+		this.alojamiento = null;
 	}
 
 	/**
@@ -37,13 +37,13 @@ public class Habitacion implements VOHabitacion {
 	 * @param id          - El id de la habitacion
 	 * @param capacidad   - La capacidad de la habitacion
 	 * @param tipo        - El tipo de la habitacion
-	 * @param alojamiento_id - El alojamiento al que pertenece la habitacion
+	 * @param alojamiento - El alojamiento al que pertenece la habitacion
 	 */
-	public Habitacion(long id, int capacidad, int tipo, long alojamiento_id) {
+	public Habitacion(long id, int capacidad, int tipo, Alojamiento alojamiento) {
 		this.id = id;
 		this.capacidad = capacidad;
 		this.tipo = tipo;
-		this.alojamiento_id = alojamiento_id;
+		this.alojamiento = alojamiento;
 	}
 
 	/**
@@ -91,22 +91,22 @@ public class Habitacion implements VOHabitacion {
 	/**
 	 * @return El alojamiento al que pertenece la habitacion
 	 */
-	public long getAlojamiento_id() {
-		return alojamiento_id;
+	public Alojamiento getAlojamiento() {
+		return alojamiento;
 	}
 
 	/**
-	 * @param alojamiento_id - El nuevo alojamiento al que pertenece la habitacion
+	 * @param alojamiento - El nuevo alojamiento al que pertenece la habitacion
 	 */
-	public void setAlojamiento_id(long alojamiento_id) {
-		this.alojamiento_id = alojamiento_id;
+	public void setAlojamiento(Alojamiento alojamiento) {
+		this.alojamiento = alojamiento;
 	}
 
 	/**
 	 * @return Una cadena de caracteres con todos los atributos de la habitacion
 	 */
 	public String toString() {
-		return "Habitacion [id=" + id + ", capacidad=" + capacidad + ", tipo=" + tipo + ", alojamiento_id=" + alojamiento_id
+		return "Habitacion [id=" + id + ", capacidad=" + capacidad + ", tipo=" + tipo + ", alojamiento=" + alojamiento
 				+ "]";
 	}
 }
