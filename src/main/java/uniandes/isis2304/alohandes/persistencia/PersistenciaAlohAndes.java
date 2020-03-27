@@ -27,6 +27,7 @@ import javax.jdo.JDODataStoreException;
 import javax.jdo.JDOHelper;
 import javax.jdo.PersistenceManager;
 import javax.jdo.PersistenceManagerFactory;
+import javax.jdo.Query;
 import javax.jdo.Transaction;
 
 import org.apache.log4j.Logger;
@@ -737,6 +738,41 @@ public Oferta darOferta(long idOferta){
 		
 		
 		return user;
+		
+	}
+	
+	public Object ingresoQuery(String query) throws Exception {
+		Object ob=null;
+		PersistenceManager pm = pmf.getPersistenceManager();
+		
+		Transaction tx=pm.currentTransaction();
+        try
+        {
+            tx.begin();
+            
+            Query q = pm.newQuery(SQL,query);
+    		
+            q.executeUnique();
+    		
+    		
+            tx.commit();
+            return ob;
+        }
+        catch (Exception e)
+        {
+//        	e.printStackTrace();
+        	log.error ("Exception : " + e.getMessage() + "\n" + darDetalleException(e));
+            throw new Exception(darDetalleException(e));
+        }
+        finally
+        {
+            if (tx.isActive())
+            {
+                tx.rollback();
+            }
+            pm.close();
+        }
+		
 		
 	}
 
