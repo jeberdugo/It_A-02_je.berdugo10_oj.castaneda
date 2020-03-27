@@ -103,6 +103,12 @@ public class PersistenciaAlohAndes {
 	private SQLReserva sqlReserva;
 	private SQLOferta sqlOferta;
 	private SQLAlojamiento sqlAlojamiento;
+	private SQLHorario sqlHorario;
+	private SQLMenaje sqlMenaje;
+	private SQLRegla sqlRegla;
+	private SQLServicio sqlServicio;
+	private SQLHabitacion sqlHabitacion;
+	private SQLSeguro sqlSeguro;
 	/*
 	 * **************************************************************** Métodos del
 	 * MANEJADOR DE PERSISTENCIA
@@ -124,6 +130,13 @@ public class PersistenciaAlohAndes {
 		tablas.add("RESERVA");
 		tablas.add("OFERTA");
 		tablas.add("ALOJAMIENTO");
+		tablas.add("HORARIO");
+		tablas.add("MENAJE");
+		tablas.add("REGLA");
+		tablas.add("SERVICIO");
+		tablas.add("HABITACION");
+		tablas.add("SERVICIOS_ALOJAMIENTOS");
+		tablas.add("SEGURO");
 
 	}
 
@@ -201,11 +214,17 @@ public class PersistenciaAlohAndes {
 
 		sqlUtil = new SQLUtil(this);
 		sqlOperador = new SQLOperador(this);
-		 sqlUsuario = new SQLUsuario(this);
-		 sqlCliente = new SQLCliente(this);
-		 sqlReserva = new SQLReserva(this);
-		 sqlOferta = new SQLOferta(this);
-		 sqlAlojamiento = new SQLAlojamiento(this);
+		sqlUsuario = new SQLUsuario(this);
+		sqlCliente = new SQLCliente(this);
+		sqlReserva = new SQLReserva(this);
+		sqlOferta = new SQLOferta(this);
+		sqlAlojamiento = new SQLAlojamiento(this);
+		sqlHorario = new SQLHorario(this);
+		sqlMenaje = new SQLMenaje(this);
+		sqlRegla = new SQLRegla(this);
+		sqlServicio = new SQLServicio(this);
+		sqlHabitacion = new SQLHabitacion(this);
+		sqlSeguro = new SQLSeguro(this);
 	}
 
 	/**
@@ -261,6 +280,62 @@ public class PersistenciaAlohAndes {
 	 */
 	public String darTablaAlojamiento() {
 		return tablas.get(6);
+	}
+
+	/**
+	 * @return La cadena de caracteres con el nombre de la tabla de Horario de
+	 *         AlohAndes
+	 */
+	public String darTablaHorario() {
+		return tablas.get(7);
+	}
+
+	/**
+	 * @return La cadena de caracteres con el nombre de la tabla de Menaje de
+	 *         AlohAndes
+	 */
+	public String darTablaMenaje() {
+		return tablas.get(8);
+	}
+
+	/**
+	 * @return La cadena de caracteres con el nombre de la tabla de Regla de
+	 *         AlohAndes
+	 */
+	public String darTablaRegla() {
+		return tablas.get(9);
+	}
+
+	/**
+	 * @return La cadena de caracteres con el nombre de la tabla de Servicio de
+	 *         AlohAndes
+	 */
+	public String darTablaServicio() {
+		return tablas.get(10);
+	}
+
+	/**
+	 * @return La cadena de caracteres con el nombre de la tabla de Habitacion de
+	 *         AlohAndes
+	 */
+	public String darTablaHabitacion() {
+		return tablas.get(11);
+	}
+
+	/**
+	 * @return La cadena de caracteres con el nombre de la tabla de
+	 *         Servicios_Alojamientos de AlohAndes
+	 */
+	public String darTablaServicios_Alojamientos() {
+		return tablas.get(12);
+	}
+
+	/**
+	 * @return La cadena de caracteres con el nombre de la tabla de Seguro de
+	 *         AlohAndes
+	 */
+	public String darTablaSeguro() {
+		return tablas.get(13);
 	}
 
 	/**
@@ -373,7 +448,7 @@ public class PersistenciaAlohAndes {
 			long tuplasInsertadas = sqlCliente.adicionarCliente(pm, idCliente, nombre, rol);
 			tx.commit();
 			log.trace("Inserción de cliente: " + nombre + ": " + tuplasInsertadas + " tuplas insertadas");
-			return new Cliente(idCliente, nombre, rol,null);
+			return new Cliente(idCliente, nombre, rol, null);
 		} catch (Exception e) {
 			log.error("Exception : " + e.getMessage() + "\n" + darDetalleException(e));
 			throw new Exception(darDetalleException(e));
@@ -384,7 +459,7 @@ public class PersistenciaAlohAndes {
 			pm.close();
 		}
 	}
-	
+
 	public Oferta adicionarOferta(String dia, int precio, long alojamientoid) throws Exception {
 		PersistenceManager pm = pmf.getPersistenceManager();
 		Transaction tx = pm.currentTransaction();
@@ -393,16 +468,17 @@ public class PersistenciaAlohAndes {
 			long idOferta = nextval();
 			System.out.print("Empieza");
 			SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
-			Date fecha=sdf.parse(dia);
-			Timestamp fechasql=new Timestamp(fecha.getTime());;
+			Date fecha = sdf.parse(dia);
+			Timestamp fechasql = new Timestamp(fecha.getTime());
+			;
 			System.out.print("Tiempo");
-			long tuplasInsertadas = sqlOferta.adicionarOferta(pm, ""+idOferta, fechasql, precio,alojamientoid);
+			long tuplasInsertadas = sqlOferta.adicionarOferta(pm, "" + idOferta, fechasql, precio, alojamientoid);
 			System.out.print("Ejecuta");
 			tx.commit();
 			System.out.print("Commit");
 			log.trace("Inserción de cliente: " + idOferta + ": " + tuplasInsertadas + " tuplas insertadas");
-			
-			return new Oferta(idOferta, fecha, precio,null,darAlojamientoPorId(""+alojamientoid));
+
+			return new Oferta(idOferta, fecha, precio, null, darAlojamientoPorId("" + alojamientoid));
 		} catch (Exception e) {
 			log.error("Exception : " + e.getMessage() + "\n" + darDetalleException(e));
 			throw new Exception(darDetalleException(e));
@@ -413,69 +489,62 @@ public class PersistenciaAlohAndes {
 			pm.close();
 		}
 	}
-	public List<Oferta> darOfertas(){
-		
-		PersistenceManager pm = pmf.getPersistenceManager();
-		
-			List<Oferta> lista=sqlOferta.darOfertas(pmf.getPersistenceManager());
-			
 
-			return lista;
-		
-		
-	}
-	
-public List<Oferta> darOfertasPorAlojamiento(long idUsuario){
-		
-		PersistenceManager pm = pmf.getPersistenceManager();
-		
-			List<Oferta> lista=sqlOferta.darOfertasPorAlojamiento(pmf.getPersistenceManager(),idUsuario);
-			
+	public List<Oferta> darOfertas() {
 
-			return lista;
-		
-		
-	}
-	
-public Oferta darOferta(long idOferta){
-		
 		PersistenceManager pm = pmf.getPersistenceManager();
-		
-		
-			Oferta lista=sqlOferta.darOfertaPorId(pmf.getPersistenceManager(),idOferta);
-			
 
-			return lista;
-		
-		
+		List<Oferta> lista = sqlOferta.darOfertas(pmf.getPersistenceManager());
+
+		return lista;
+
 	}
-	
-	public Reserva adicionarReserva( boolean estado, long clienteid, List<Oferta>ofertasid) throws Exception {
+
+	public List<Oferta> darOfertasPorAlojamiento(long idUsuario) {
+
+		PersistenceManager pm = pmf.getPersistenceManager();
+
+		List<Oferta> lista = sqlOferta.darOfertasPorAlojamiento(pmf.getPersistenceManager(), idUsuario);
+
+		return lista;
+
+	}
+
+	public Oferta darOferta(long idOferta) {
+
+		PersistenceManager pm = pmf.getPersistenceManager();
+
+		Oferta lista = sqlOferta.darOfertaPorId(pmf.getPersistenceManager(), idOferta);
+
+		return lista;
+
+	}
+
+	public Reserva adicionarReserva(boolean estado, long clienteid, List<Oferta> ofertasid) throws Exception {
 		PersistenceManager pm = pmf.getPersistenceManager();
 		Transaction tx = pm.currentTransaction();
 		try {
 			tx.begin();
 			long idOferta = nextval();
-			int valorTotal=0;
-			for(Oferta o:ofertasid) {
-				valorTotal+=o.getPrecio();
+			int valorTotal = 0;
+			for (Oferta o : ofertasid) {
+				valorTotal += o.getPrecio();
 			}
-			int estado2=1;
-			if(estado==false) {
-				estado2=0;
+			int estado2 = 1;
+			if (estado == false) {
+				estado2 = 0;
 			}
-				
-			long tuplasInsertadas = sqlReserva.adicionarReserva(pm, ""+idOferta, estado2, valorTotal,clienteid);
-			
-			
-					for(Oferta o:ofertasid) {
-						tuplasInsertadas+=sqlOferta.actualizarReserva(pm, ""+o.getId(),""+ idOferta);
-					}
+
+			long tuplasInsertadas = sqlReserva.adicionarReserva(pm, "" + idOferta, estado2, valorTotal, clienteid);
+
+			for (Oferta o : ofertasid) {
+				tuplasInsertadas += sqlOferta.actualizarReserva(pm, "" + o.getId(), "" + idOferta);
+			}
 			tx.commit();
-			
+
 			log.trace("Inserción de cliente: " + idOferta + ": " + tuplasInsertadas + " tuplas insertadas");
-			
-			return new Reserva(idOferta, estado2,valorTotal,darClientePorId(""+clienteid));
+
+			return new Reserva(idOferta, estado2, valorTotal, darClientePorId("" + clienteid));
 		} catch (Exception e) {
 			log.error("Exception : " + e.getMessage() + "\n" + darDetalleException(e));
 			throw new Exception(darDetalleException(e));
@@ -486,61 +555,52 @@ public Oferta darOferta(long idOferta){
 			pm.close();
 		}
 	}
-	
+
 	public String dar20mas() {
-		String veinti="";
-		veinti+=sqlOferta.dar20AlojamientosMasPopulares(pmf.getPersistenceManager());
-		
-			
-		
-		
-		
-		
+		String veinti = "";
+		veinti += sqlOferta.dar20AlojamientosMasPopulares(pmf.getPersistenceManager());
+
 		return veinti;
 	}
-	
+
 	public String indiceOcupacion() {
-		String veinti="";
-		veinti+=sqlOferta.indiceOcupacion(pmf.getPersistenceManager());
-		
-			
-		
-		
-		
-		
+		String veinti = "";
+		veinti += sqlOferta.indiceOcupacion(pmf.getPersistenceManager());
+
 		return veinti;
 	}
-	
+
 	public String ingresosPorOperador() {
-		String veinti="";
-		veinti+=sqlOferta.ingresosPorOperador(pmf.getPersistenceManager());
-	
-		
+		String veinti = "";
+		veinti += sqlOferta.ingresosPorOperador(pmf.getPersistenceManager());
+
 		return veinti;
 	}
-	
-	public List<Alojamiento> darAlojamientosPorDotacion(List<String> dotacion, String inicio, String fin, int size)
-	{
+
+	public List<Alojamiento> darAlojamientosPorDotacion(List<String> dotacion, String inicio, String fin, int size) {
 		return sqlAlojamiento.darAlojamientoPorDotacion(pmf.getPersistenceManager(), dotacion, inicio, fin, size);
 	}
-	
-	public Alojamiento adicionarAlojamiento(int capacidad, int  tipo, long idOperador, long registrocam, long registrosup, String ubicacion, String descripcion) throws Exception {
+
+	public Alojamiento adicionarAlojamiento(int capacidad, int tipo, long idOperador, long registrocam,
+			long registrosup, String ubicacion, String descripcion) throws Exception {
 		PersistenceManager pm = pmf.getPersistenceManager();
 		Transaction tx = pm.currentTransaction();
 		try {
 			tx.begin();
 			long idAlojamiento = nextval();
-			long tuplasInsertadas = sqlAlojamiento.adicionarAlojamiento(pm, ""+idAlojamiento, ""+capacidad, ""+tipo, ""+idOperador, ""+registrocam, ""+registrosup, ubicacion, descripcion);
+			long tuplasInsertadas = sqlAlojamiento.adicionarAlojamiento(pm, "" + idAlojamiento, "" + capacidad,
+					"" + tipo, "" + idOperador, "" + registrocam, "" + registrosup, ubicacion, descripcion);
 			tx.commit();
 			log.trace("Inserción de alojamiento: " + idAlojamiento + ": " + tuplasInsertadas + " tuplas insertadas");
-			List<Habitacion> habitaciones= new ArrayList<Habitacion>();
-			Seguro seguro=new Seguro();
-			List<Servicio> servicios= new ArrayList<Servicio>();
-			List<Regla> reglas= new ArrayList<Regla>();
-			List<Menaje> menaje= new ArrayList<Menaje>();
-			List<Oferta> ofertas= new ArrayList<Oferta>();
-			
-			return new Alojamiento(idAlojamiento, capacidad,  ubicacion,  descripcion,  tipo, ""+registrocam, ""+ registrosup,  darOperadorPorId(""+idOperador));
+			List<Habitacion> habitaciones = new ArrayList<Habitacion>();
+			Seguro seguro = new Seguro();
+			List<Servicio> servicios = new ArrayList<Servicio>();
+			List<Regla> reglas = new ArrayList<Regla>();
+			List<Menaje> menaje = new ArrayList<Menaje>();
+			List<Oferta> ofertas = new ArrayList<Oferta>();
+
+			return new Alojamiento(idAlojamiento, capacidad, ubicacion, descripcion, tipo, "" + registrocam,
+					"" + registrosup, darOperadorPorId("" + idOperador));
 		} catch (Exception e) {
 			log.error("Exception : " + e.getMessage() + "\n" + darDetalleException(e));
 			throw new Exception(darDetalleException(e));
@@ -560,12 +620,12 @@ public Oferta darOferta(long idOferta){
 			long tuplasInsertadas = sqlOperador.adicionarOperador(pm, idOperador, tipo);
 			tx.commit();
 			log.trace("Inserción de operador: " + tipo + ": " + tuplasInsertadas + " tuplas insertadas");
-			List<Alojamiento> lista=new ArrayList<Alojamiento>();
-			return new Operador(idOperador, tipo,lista);
+			List<Alojamiento> lista = new ArrayList<Alojamiento>();
+			return new Operador(idOperador, tipo, lista);
 		} catch (Exception e) {
 			log.error("Exception : " + e.getMessage() + "\n" + darDetalleException(e));
 			throw new Exception(darDetalleException(e));
-			
+
 		} finally {
 			if (tx.isActive()) {
 				tx.rollback();
@@ -573,171 +633,164 @@ public Oferta darOferta(long idOferta){
 			pm.close();
 		}
 	}
-	
+
 	/**
-	 * Método que elimina, de manera transaccional, una tupla en la tabla BEBEDOR, dado el identificador del bebedor
-	 * Adiciona entradas al log de la aplicación
+	 * Método que elimina, de manera transaccional, una tupla en la tabla BEBEDOR,
+	 * dado el identificador del bebedor Adiciona entradas al log de la aplicación
+	 * 
 	 * @param idBebedor - El identificador del bebedor
 	 * @return El número de tuplas eliminadas. -1 si ocurre alguna Excepción
-	 * @throws Exception 
+	 * @throws Exception
 	 */
-	public long eliminarAlojamientoPorId (long Alojamiento) throws Exception 
-	{
+	public long eliminarAlojamientoPorId(long Alojamiento) throws Exception {
 		PersistenceManager pm = pmf.getPersistenceManager();
-        Transaction tx=pm.currentTransaction();
-        try
-        {
-            tx.begin();
-            long resp = sqlAlojamiento.eliminarAlojamientoPorId(pm, Alojamiento);
-            tx.commit();
-            return resp;
-        }
-        catch (Exception e)
-        {
+		Transaction tx = pm.currentTransaction();
+		try {
+			tx.begin();
+			long resp = sqlAlojamiento.eliminarAlojamientoPorId(pm, Alojamiento);
+			tx.commit();
+			return resp;
+		} catch (Exception e) {
 //        	e.printStackTrace();
-        	log.error ("Exception : " + e.getMessage() + "\n" + darDetalleException(e));
-        	throw new Exception(darDetalleException(e));
-        }
-        finally
-        {
-            if (tx.isActive())
-            {
-                tx.rollback();
-            }
-            pm.close();
-        }
+			log.error("Exception : " + e.getMessage() + "\n" + darDetalleException(e));
+			throw new Exception(darDetalleException(e));
+		} finally {
+			if (tx.isActive()) {
+				tx.rollback();
+			}
+			pm.close();
+		}
 	}
-	
+
 	/**
-	 * Método que elimina, de manera transaccional, una tupla en la tabla BEBEDOR, dado el identificador del bebedor
-	 * Adiciona entradas al log de la aplicación
+	 * Método que elimina, de manera transaccional, una tupla en la tabla BEBEDOR,
+	 * dado el identificador del bebedor Adiciona entradas al log de la aplicación
+	 * 
 	 * @param idBebedor - El identificador del bebedor
 	 * @return El número de tuplas eliminadas. -1 si ocurre alguna Excepción
 	 */
-	public long eliminarReservaPorId (long idBebedor) 
-	{
+	public long eliminarReservaPorId(long idBebedor) {
 		PersistenceManager pm = pmf.getPersistenceManager();
-        Transaction tx=pm.currentTransaction();
-        try
-        {
-            tx.begin();
-            long resp=0;
-             resp += sqlOferta.actualizarReservaNull(pm,""+ idBebedor);
-            resp += sqlReserva.eliminarReservaPorId(pm, idBebedor);
-            tx.commit();
-            return resp;
-        }
-        catch (Exception e)
-        {
+		Transaction tx = pm.currentTransaction();
+		try {
+			tx.begin();
+			long resp = 0;
+			resp += sqlOferta.actualizarReservaNull(pm, "" + idBebedor);
+			resp += sqlReserva.eliminarReservaPorId(pm, idBebedor);
+			tx.commit();
+			return resp;
+		} catch (Exception e) {
 //        	e.printStackTrace();
-        	log.error ("Exception : " + e.getMessage() + "\n" + darDetalleException(e));
-            return -1;
-        }
-        finally
-        {
-            if (tx.isActive())
-            {
-                tx.rollback();
-            }
-            pm.close();
-        }
+			log.error("Exception : " + e.getMessage() + "\n" + darDetalleException(e));
+			return -1;
+		} finally {
+			if (tx.isActive()) {
+				tx.rollback();
+			}
+			pm.close();
+		}
 	}
-	
-	
+
 	/**
-	 * Método que consulta todas las tuplas en la tabla TipoBebida con un identificador dado
+	 * Método que consulta todas las tuplas en la tabla TipoBebida con un
+	 * identificador dado
+	 * 
 	 * @param idTipoBebida - El identificador del tipo de bebida
-	 * @return El objeto TipoBebida, construido con base en las tuplas de la tabla TIPOBEBIDA con el identificador dado
+	 * @return El objeto TipoBebida, construido con base en las tuplas de la tabla
+	 *         TIPOBEBIDA con el identificador dado
 	 */
-	public Usuario login (String idUsuario,String contra)
-	{
-		boolean exito=false;
+	public Usuario login(String idUsuario, String contra) {
+		boolean exito = false;
 		PersistenceManager pm = pmf.getPersistenceManager();
-		Usuario user= sqlUsuario.darUsuarioPorUsuario(pm, idUsuario);
-		
-		
+		Usuario user = sqlUsuario.darUsuarioPorUsuario(pm, idUsuario);
+
 		return user;
-		
+
 	}
-	
-	
-	
+
 	/**
 	 * Método que consulta todas las tuplas en la tabla TipoBebida
-	 * @return La lista de objetos TipoBebida, construidos con base en las tuplas de la tabla TIPOBEBIDA
+	 * 
+	 * @return La lista de objetos TipoBebida, construidos con base en las tuplas de
+	 *         la tabla TIPOBEBIDA
 	 */
-	public List<Alojamiento> darAlojamientosPorUserId (String idUsuario)
-	{
+	public List<Alojamiento> darAlojamientosPorUserId(String idUsuario) {
 		return sqlAlojamiento.darAlojamientosPorUserId(pmf.getPersistenceManager(), idUsuario);
 	}
-	
+
 	/**
 	 * Método que consulta todas las tuplas en la tabla TipoBebida
-	 * @return La lista de objetos TipoBebida, construidos con base en las tuplas de la tabla TIPOBEBIDA
+	 * 
+	 * @return La lista de objetos TipoBebida, construidos con base en las tuplas de
+	 *         la tabla TIPOBEBIDA
 	 */
-	public List darReservasPorCliente (long idUsuario)
-	{
-		return sqlReserva.darReservasPorCliente(pmf.getPersistenceManager(),idUsuario);
+	public List darReservasPorCliente(long idUsuario) {
+		return sqlReserva.darReservasPorCliente(pmf.getPersistenceManager(), idUsuario);
 	}
-	
+
 	/**
 	 * Método que consulta todas las tuplas en la tabla TipoBebida
-	 * @return La lista de objetos TipoBebida, construidos con base en las tuplas de la tabla TIPOBEBIDA
+	 * 
+	 * @return La lista de objetos TipoBebida, construidos con base en las tuplas de
+	 *         la tabla TIPOBEBIDA
 	 */
-	public Alojamiento darAlojamientoPorId (String idUsuario)
-	{
+	public Alojamiento darAlojamientoPorId(String idUsuario) {
 		return sqlAlojamiento.buscarAlojamientoPorId(pmf.getPersistenceManager(), idUsuario);
 	}
-	
-	public List<Alojamiento> darAlojamientos(){
+
+	public List<Alojamiento> darAlojamientos() {
 		return sqlAlojamiento.darAlojamientos(pmf.getPersistenceManager());
 	}
+
 	/**
-	 * Método que consulta todas las tuplas en la tabla TipoBebida con un identificador dado
+	 * Método que consulta todas las tuplas en la tabla TipoBebida con un
+	 * identificador dado
+	 * 
 	 * @param idTipoBebida - El identificador del tipo de bebida
-	 * @return El objeto TipoBebida, construido con base en las tuplas de la tabla TIPOBEBIDA con el identificador dado
+	 * @return El objeto TipoBebida, construido con base en las tuplas de la tabla
+	 *         TIPOBEBIDA con el identificador dado
 	 */
-	public Usuario darUsuarioPorId (String idUsuario)
-	{
-		
+	public Usuario darUsuarioPorId(String idUsuario) {
+
 		PersistenceManager pm = pmf.getPersistenceManager();
-		Usuario user= sqlUsuario.darUsuarioPorId(pm, idUsuario);
-		
-		
+		Usuario user = sqlUsuario.darUsuarioPorId(pm, idUsuario);
+
 		return user;
-		
+
 	}
-	
+
 	/**
-	 * Método que consulta todas las tuplas en la tabla TipoBebida con un identificador dado
+	 * Método que consulta todas las tuplas en la tabla TipoBebida con un
+	 * identificador dado
+	 * 
 	 * @param idTipoBebida - El identificador del tipo de bebida
-	 * @return El objeto TipoBebida, construido con base en las tuplas de la tabla TIPOBEBIDA con el identificador dado
+	 * @return El objeto TipoBebida, construido con base en las tuplas de la tabla
+	 *         TIPOBEBIDA con el identificador dado
 	 */
-	public Cliente darClientePorId (String idUsuario)
-	{
-		
+	public Cliente darClientePorId(String idUsuario) {
+
 		PersistenceManager pm = pmf.getPersistenceManager();
-		Cliente user= sqlCliente.darClientePorId(pm, idUsuario);
-		
-		
+		Cliente user = sqlCliente.darClientePorId(pm, idUsuario);
+
 		return user;
-		
+
 	}
-	
+
 	/**
-	 * Método que consulta todas las tuplas en la tabla TipoBebida con un identificador dado
+	 * Método que consulta todas las tuplas en la tabla TipoBebida con un
+	 * identificador dado
+	 * 
 	 * @param idTipoBebida - El identificador del tipo de bebida
-	 * @return El objeto TipoBebida, construido con base en las tuplas de la tabla TIPOBEBIDA con el identificador dado
+	 * @return El objeto TipoBebida, construido con base en las tuplas de la tabla
+	 *         TIPOBEBIDA con el identificador dado
 	 */
-	public Operador darOperadorPorId (String idUsuario)
-	{
-		
+	public Operador darOperadorPorId(String idUsuario) {
+
 		PersistenceManager pm = pmf.getPersistenceManager();
-		Operador user= sqlOperador.darOperadorPorId(pm, idUsuario);
-		
-		
+		Operador user = sqlOperador.darOperadorPorId(pm, idUsuario);
+
 		return user;
-		
+
 	}
 
 }
