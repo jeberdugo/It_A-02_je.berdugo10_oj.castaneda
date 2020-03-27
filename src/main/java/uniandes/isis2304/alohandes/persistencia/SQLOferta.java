@@ -9,7 +9,7 @@ import javax.jdo.Query;
 import uniandes.isis2304.alohandes.negocio.Oferta;
 
 public class SQLOferta {
-	
+
 	/**
 	 * Cadena que representa el tipo de consulta que se va a realizar en las
 	 * sentencias de acceso a la base de datos Se renombra acá para facilitar la
@@ -36,7 +36,7 @@ public class SQLOferta {
 	 * de AlohAndes
 	 * 
 	 * @param pm          - El manejador de persistencia
-	 * @param idOferta   - El id del oferta
+	 * @param idOferta    - El id del oferta
 	 * @param nombre      - El nombre del oferta
 	 * @param presupuesto - El rol del oferta (0: Profesor, 1: Empleado, 2:
 	 *                    Egresado, 3: Estudiante, 4: Padre)
@@ -46,27 +46,24 @@ public class SQLOferta {
 		Query q = pm.newQuery(SQL,
 				"INSERT INTO " + pa.darTablaOferta() + "(id, dia, precio, alojamiento_id) values (?, ?, ?, ?)");
 		q.setParameters(idOferta, dia, precio, alojamientoid);
-		
+
 		return (long) q.executeUnique();
-		
+
 	}
-	
-	
+
 	public long actualizarReserva(PersistenceManager pm, String idOferta, String reservaid) {
-		Query q = pm.newQuery(SQL,
-				"UPDATE " + pa.darTablaOferta() + " SET reserva_id = ? WHERE id = ?");
-		q.setParameters(reservaid,idOferta);
-		
+		Query q = pm.newQuery(SQL, "UPDATE " + pa.darTablaOferta() + " SET reserva_id = ? WHERE id = ?");
+		q.setParameters(reservaid, idOferta);
+
 		return (long) q.executeUnique();
-		
+
 	}
-	
-	public long actualizarReservaNull(PersistenceManager pm,  String reservaid) {
-		
-		Query q = pm.newQuery(SQL,
-				"UPDATE " + pa.darTablaOferta() + " SET reserva_id = null WHERE reserva_id = ?");
+
+	public long actualizarReservaNull(PersistenceManager pm, String reservaid) {
+
+		Query q = pm.newQuery(SQL, "UPDATE " + pa.darTablaOferta() + " SET reserva_id = null WHERE reserva_id = ?");
 		q.setParameters(reservaid);
-		
+
 		return (long) q.executeUnique();
 	}
 
@@ -74,7 +71,7 @@ public class SQLOferta {
 	 * Crea y ejecuta la sentencia SQL para eliminar OFERTAS de la base de datos de
 	 * AlohAndes, por su id
 	 * 
-	 * @param pm        - El manejador de persistencia
+	 * @param pm       - El manejador de persistencia
 	 * @param idOferta - El id del oferta
 	 * @return EL número de tuplas eliminadas
 	 */
@@ -96,85 +93,80 @@ public class SQLOferta {
 		q.setResultClass(Oferta.class);
 		return (List<Oferta>) q.executeList();
 	}
-	
-	public Oferta darOfertaPorId (PersistenceManager pm, long idReserva) 
-	{
+
+	public Oferta darOfertaPorId(PersistenceManager pm, long idReserva) {
 		Query q = pm.newQuery(SQL, "SELECT * FROM " + pa.darTablaOferta() + " WHERE id = ?");
 		q.setResultClass(Oferta.class);
 		q.setParameters(idReserva);
 		return (Oferta) q.executeUnique();
 	}
-	
-	public String dar20AlojamientosMasPopulares(PersistenceManager pm){
-		String veinte="";
-		Query q = pm.newQuery(SQL, "SELECT * FROM (select CONCAT(alojamiento_id,CONCAT('-', count(*))) from oferta where Reserva_id is not null group by alojamiento_id order by Count(*) DESC) WHERE rownum <= 20");
-		
-		
-		List tipoServicio=(List) q.executeList();
-		
-		for(int i=0;i<tipoServicio.size();i++) {
-			String temp="";
-			temp+=""+tipoServicio.get(i);
-			String[] datos=temp.split("-");
-			veinte+="ID Alojamiento: "+datos[0]+" Numero de reservas: "+datos[1]+"\n";
+
+	public String dar20AlojamientosMasPopulares(PersistenceManager pm) {
+		String veinte = "";
+		Query q = pm.newQuery(SQL,
+				"SELECT * FROM (select CONCAT(alojamiento_id,CONCAT('-', count(*))) from oferta where Reserva_id is not null group by alojamiento_id order by Count(*) DESC) WHERE rownum <= 20");
+
+		List tipoServicio = (List) q.executeList();
+
+		for (int i = 0; i < tipoServicio.size(); i++) {
+			String temp = "";
+			temp += "" + tipoServicio.get(i);
+			String[] datos = temp.split("-");
+			veinte += "ID Alojamiento: " + datos[0] + " Numero de reservas: " + datos[1] + "\n";
 		}
-		
+
 		return veinte;
-		
+
 	}
-	
+
 	public String ingresosPorOperador(PersistenceManager pm) {
-		String peticion="SELECT CONCAT(operador_id,CONCAT('-',suma)) FROM(SELECT "
+		String peticion = "SELECT CONCAT(operador_id,CONCAT('-',suma)) FROM(SELECT "
 				+ "Operador_ID,SUM(valor_total)AS SUMA FROM reserva ofe JOIN (SELECT reserva_id,alojamiento_id  "
 				+ "FROM oferta where reserva_id is not null group by reserva_id, alojamiento_id) temp on temp.reserva_id=ofe.id "
 				+ "JOIN alojamiento on temp.alojamiento_id=alojamiento.id GROUP BY operador_id)";
-		String respuesta="";
-		
-        Query q = pm.newQuery(SQL, peticion);
-		
-		
-		List tipoServicio=(List) q.executeList();
-		
-		for(int i=0;i<tipoServicio.size();i++) {
-			String temp="";
-			temp+=""+tipoServicio.get(i);
-			String[] datos=temp.split("-");
-			respuesta+="ID Operador: "+datos[0]+" Ingresos totales: "+datos[1]+"\n";
+		String respuesta = "";
+
+		Query q = pm.newQuery(SQL, peticion);
+
+		List tipoServicio = (List) q.executeList();
+
+		for (int i = 0; i < tipoServicio.size(); i++) {
+			String temp = "";
+			temp += "" + tipoServicio.get(i);
+			String[] datos = temp.split("-");
+			respuesta += "ID Operador: " + datos[0] + " Ingresos totales: " + datos[1] + "\n";
 		}
 		return respuesta;
-		
+
 	}
-	
+
 	public String indiceOcupacion(PersistenceManager pm) {
-		String peticion="SELECT CONCAT(alojamiento_id,CONCAT('-',CONCAT(numOfertas,CONCAT('-',numOcupacion)))) "
+		String peticion = "SELECT CONCAT(alojamiento_id,CONCAT('-',CONCAT(numOfertas,CONCAT('-',numOcupacion)))) "
 				+ "from( Select alojamiento_id,count(alojamiento_id) AS numOfertas from oferta "
 				+ "group by alojamiento_id) natural join( SELECT alojamiento_id,count(alojamiento_id) AS numOcupacion "
 				+ "FROM oferta where reserva_id is not null group by alojamiento_id)";
-		String respuesta="";
-		
-        Query q = pm.newQuery(SQL, peticion);
-		
-		
-		List tipoServicio=(List) q.executeList();
-		
-		for(int i=0;i<tipoServicio.size();i++) {
-			String temp="";
-			temp+=""+tipoServicio.get(i);
-			String[] datos=temp.split("-");
-			double d1=Double.valueOf(""+Integer.parseInt(datos[2]));
-					double d2=Double.valueOf(""+Integer.parseInt(datos[1]));
-			double indice=d1/d2;
-			
-			
+		String respuesta = "";
 
-			String ind=String.format("%.2f", indice);
-			
-			respuesta+="ID Alojamiento: "+datos[0]+" Idice de ocupacion: "+ind+"\n";
+		Query q = pm.newQuery(SQL, peticion);
+
+		List tipoServicio = (List) q.executeList();
+
+		for (int i = 0; i < tipoServicio.size(); i++) {
+			String temp = "";
+			temp += "" + tipoServicio.get(i);
+			String[] datos = temp.split("-");
+			double d1 = Double.valueOf("" + Integer.parseInt(datos[2]));
+			double d2 = Double.valueOf("" + Integer.parseInt(datos[1]));
+			double indice = d1 / d2;
+
+			String ind = String.format("%.2f", indice);
+
+			respuesta += "ID Alojamiento: " + datos[0] + " Idice de ocupacion: " + ind + "\n";
 		}
 		return respuesta;
-		
+
 	}
-	
+
 	/**
 	 * Crea y ejecuta la sentencia SQL para encontrar la información de LOS OFERTAS
 	 * de la base de datos de AlohAndes
@@ -183,12 +175,10 @@ public class SQLOferta {
 	 * @return Una lista de objetos OFERTA
 	 */
 	public List<Oferta> darOfertasPorAlojamiento(PersistenceManager pm, long idAlojamiento) {
-		Query q = pm.newQuery(SQL, "SELECT * FROM " + pa.darTablaOferta()+ " WHERE alojamiento_id = ?");
+		Query q = pm.newQuery(SQL, "SELECT * FROM " + pa.darTablaOferta() + " WHERE alojamiento_id = ?");
 		q.setResultClass(Oferta.class);
 		q.setParameters(idAlojamiento);
 		return (List<Oferta>) q.executeList();
 	}
-	
-	
 
 }

@@ -34,12 +34,12 @@ public interface VOMenaje {
 	/**
 	 * @return El alojamiento al que pertenece del menaje
 	 */
-	public Alojamiento getAlojamiento();
+	public long getAlojamiento_id();
 
 	/**
-	 * @param alojamiento - El nuevo alojamiento al que pertenece del menaje
+	 * @param alojamiento_id - El nuevo alojamiento al que pertenece del menaje
 	 */
-	public void setAlojamiento(Alojamiento alojamiento);
+	public void setAlojamiento_id(long alojamiento_id);
 
 	/**
 	 * @return Una cadena de caracteres con todos los atributos del menaje

@@ -14,7 +14,7 @@ public class Regla implements VORegla{
 	/**
 	 * El alojamiento al que pertenece la regla
 	 */
-	private Alojamiento alojamiento;
+	private long alojamiento_id;
 
 	/**
 	 * Constructor por defecto
@@ -22,7 +22,7 @@ public class Regla implements VORegla{
 	public Regla() {
 		this.id = 0;
 		this.descripcion = "";
-		this.alojamiento = null;
+		this.alojamiento_id = 0;
 	}
 	
 	/**
@@ -30,13 +30,13 @@ public class Regla implements VORegla{
 	 * 
 	 * @param id          - El id de la regla
 	 * @param descripcion      - La descripcion de la regla
-	 * @param alojamiento - El alojamiento al que pertenece la regla
+	 * @param alojamiento_id - El alojamiento al que pertenece la regla
 	 */
-	public Regla(long id, String descripcion, Alojamiento alojamiento) {
+	public Regla(long id, String descripcion, long alojamiento_id) {
 		super();
 		this.id = id;
 		this.descripcion = descripcion;
-		this.alojamiento = alojamiento;
+		this.alojamiento_id = alojamiento_id;
 	}
 
 	/**
@@ -70,21 +70,21 @@ public class Regla implements VORegla{
 	/**
 	 * @return El alojamiento al que pertenece la regla
 	 */
-	public Alojamiento getAlojamiento() {
-		return alojamiento;
+	public long getAlojamiento_id() {
+		return alojamiento_id;
 	}
 
 	/**
-	 * @param alojamiento - El nuevo alojamiento al que pertenece la regla
+	 * @param alojamiento_id - El nuevo alojamiento al que pertenece la regla
 	 */
-	public void setAlojamiento(Alojamiento alojamiento) {
-		this.alojamiento = alojamiento;
+	public void setAlojamiento_id(long alojamiento_id) {
+		this.alojamiento_id = alojamiento_id;
 	}
 
 	/**
 	 * @return Una cadena de caracteres con todos los atributos de la regla
 	 */
 	public String toString() {
-		return "Regla [id=" + id + ", descripcion=" + descripcion + ", alojamiento=" + alojamiento + "]";
+		return "Regla [id=" + id + ", descripcion=" + descripcion + ", alojamiento_id=" + alojamiento_id + "]";
 	}
 }

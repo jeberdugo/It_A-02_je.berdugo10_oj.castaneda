@@ -1,7 +1,5 @@
 package uniandes.isis2304.alohandes.negocio;
 
-import java.util.List;
-
 public interface VOCliente {
 	/**
 	 * @return El id del cliente
@@ -32,16 +30,6 @@ public interface VOCliente {
 	 * @param rol - El nuevo rol del cliente
 	 */
 	public void setRol(int rol);
-
-	/**
-	 * @return Las reservas del cliente
-	 */
-	public List<Reserva> getReservas();
-
-	/**
-	 * @param reservas - Las nuevas reservas del cliente
-	 */
-	public void setReservas(List<Reserva> reservas);
 
 	/**
 	 * @return Una cadena de caracteres con todos los atributos del cliente

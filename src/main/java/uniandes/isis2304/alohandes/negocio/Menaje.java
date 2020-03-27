@@ -19,7 +19,7 @@ public class Menaje implements VOMenaje {
 	/**
 	 * El alojamiento al que pertenece del menaje
 	 */
-	private Alojamiento alojamiento;
+	private long alojamiento_id;
 
 	/**
 	 * Constructor por defecto
@@ -28,7 +28,7 @@ public class Menaje implements VOMenaje {
 		this.id = 0;
 		this.descripcion = "";
 		this.disponibilidad = false;
-		this.alojamiento = null;
+		this.alojamiento_id = 0;
 	}
 
 	/**
@@ -37,13 +37,13 @@ public class Menaje implements VOMenaje {
 	 * @param id             - El id del menaje
 	 * @param descripcion    - La descripcion del menaje
 	 * @param disponibilidad - La disponibilidad del menaje
-	 * @param alojamiento    - El alojamiento al que pertenece del menaje
+	 * @param alojamiento_id    - El alojamiento al que pertenece del menaje
 	 */
-	public Menaje(long id, String descripcion, boolean disponibilidad, Alojamiento alojamiento) {
+	public Menaje(long id, String descripcion, boolean disponibilidad, long alojamiento_id) {
 		this.id = id;
 		this.descripcion = descripcion;
 		this.disponibilidad = disponibilidad;
-		this.alojamiento = alojamiento;
+		this.alojamiento_id = alojamiento_id;
 	}
 
 	/**
@@ -91,15 +91,15 @@ public class Menaje implements VOMenaje {
 	/**
 	 * @return El alojamiento al que pertenece del menaje
 	 */
-	public Alojamiento getAlojamiento() {
-		return alojamiento;
+	public long getAlojamiento_id() {
+		return alojamiento_id;
 	}
 
 	/**
-	 * @param alojamiento - El nuevo alojamiento al que pertenece del menaje
+	 * @param alojamiento_id - El nuevo alojamiento al que pertenece del menaje
 	 */
-	public void setAlojamiento(Alojamiento alojamiento) {
-		this.alojamiento = alojamiento;
+	public void setAlojamiento_id(long alojamiento_id) {
+		this.alojamiento_id = alojamiento_id;
 	}
 
 	/**
@@ -107,7 +107,7 @@ public class Menaje implements VOMenaje {
 	 */
 	public String toString() {
 		return "Menaje [id=" + id + ", descripcion=" + descripcion + ", disponibilidad=" + disponibilidad
-				+ ", alojamiento=" + alojamiento + "]";
+				+ ", alojamiento_id=" + alojamiento_id + "]";
 	}
 
 }
