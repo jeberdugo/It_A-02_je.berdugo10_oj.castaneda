@@ -30,7 +30,7 @@ public class SQLMenaje {
 	}
 
 	public long adicionarMenaje(PersistenceManager pm, long idMenaje, String descripcion, int disponibilidad,
-			String alojamientoId) {
+			long alojamientoId) {
 		Query q = pm.newQuery(SQL, "INSERT INTO " + pa.darTablaMenaje()
 				+ "(ID, DESCRIPCION, DISPONIBILIDAD, ALOJAMIENTO_ID) values (?, ?, ?, ?)");
 		q.setParameters(idMenaje, descripcion, disponibilidad, alojamientoId);
