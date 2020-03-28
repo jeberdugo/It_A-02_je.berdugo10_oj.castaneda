@@ -116,7 +116,7 @@ public class PersistenciaAlohAndes {
 	/**
 	 * Constructor privado con valores por defecto - Patrón SINGLETON
 	 */
-	private PersistenciaAlohAndes() {
+	public PersistenciaAlohAndes() {
 		pmf = JDOHelper.getPersistenceManagerFactory("AlohAndes");
 		crearClasesSQL();
 
