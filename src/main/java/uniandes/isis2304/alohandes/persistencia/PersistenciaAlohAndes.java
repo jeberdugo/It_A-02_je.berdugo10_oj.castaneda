@@ -426,8 +426,9 @@ public class PersistenciaAlohAndes {
 			long tuplasInsertadas = sqlUsuario.adicionarUsuario(pm, idUsuario, nombreUsuario, correo, contrasena,
 					numeroDocumento, tipoDocumento);
 			tx.commit();
-			log.trace("Inserción de usuario: " + nombreUsuario + ": " + tuplasInsertadas + " tuplas insertadas");
-			return new Usuario(idUsuario, nombreUsuario, correo, contrasena, numeroDocumento, tipoDocumento);
+			Usuario usuario = new Usuario(idUsuario, nombreUsuario, correo, contrasena, numeroDocumento, tipoDocumento);
+			log.trace("Inserción de usuario: " + usuario.toString() + " : " + tuplasInsertadas + " tuplas insertadas");
+			return usuario;
 		} catch (Exception e) {
 			log.error("Exception : " + e.getMessage() + "\n" + darDetalleException(e));
 			throw new Exception(darDetalleException(e));
@@ -446,7 +447,9 @@ public class PersistenciaAlohAndes {
 			tx.begin();
 			long tuplasInsertadas = sqlCliente.adicionarCliente(pm, idCliente, nombre, rol);
 			tx.commit();
-			return new Cliente(idCliente, nombre, rol);
+			Cliente cliente = new Cliente(idCliente, nombre, rol);
+			log.trace("Inserción de cliente: " + cliente.toString() + " : " + tuplasInsertadas + " tuplas insertadas");
+			return cliente;
 		} catch (Exception e) {
 			log.error("Exception : " + e.getMessage() + "\n" + darDetalleException(e));
 			throw new Exception(darDetalleException(e));
@@ -470,7 +473,9 @@ public class PersistenciaAlohAndes {
 			Timestamp fechasql = new Timestamp(fecha.getTime());
 			long tuplasInsertadas = sqlOferta.adicionarOferta(pm, "" + idOferta, fechasql, precio, alojamientoid);
 			tx.commit();
-			return new Oferta(idOferta, fecha, precio, -1, alojamientoid);
+			Oferta oferta= new Oferta(idOferta, fecha, precio, -1, alojamientoid);;
+			log.trace("Inserción de oferta: " + oferta.toString() + " : " + tuplasInsertadas + " tuplas insertadas");
+			return oferta;
 		} catch (Exception e) {
 			log.error("Exception : " + e.getMessage() + "\n" + darDetalleException(e));
 			throw new Exception(darDetalleException(e));
@@ -492,8 +497,10 @@ public class PersistenciaAlohAndes {
 			long tuplasInsertadas = sqlAlojamiento.adicionarAlojamiento(pm, "" + idAlojamiento, "" + capacidad,
 					"" + tipo, "" + idOperador, "" + registrocam, "" + registrosup, ubicacion, descripcion);
 			tx.commit();
-			return new Alojamiento(idAlojamiento, capacidad, ubicacion, descripcion, tipo, "" + registrocam,
+			Alojamiento alojamiento= new Alojamiento(idAlojamiento, capacidad, ubicacion, descripcion, tipo, "" + registrocam,
 					"" + registrosup, idOperador);
+			log.trace("Inserción de alojamiento: " + alojamiento.toString() + " : " + tuplasInsertadas + " tuplas insertadas");
+			return alojamiento;
 		} catch (Exception e) {
 			log.error("Exception : " + e.getMessage() + "\n" + darDetalleException(e));
 			throw new Exception(darDetalleException(e));
@@ -526,8 +533,9 @@ public class PersistenciaAlohAndes {
 				tuplasInsertadas += sqlOferta.actualizarReserva(pm, "" + o.getId(), "" + idOferta);
 			}
 			tx.commit();
-
-			return new Reserva(idOferta, estado2, valorTotal, clienteid);
+			Reserva reserva = new Reserva(idOferta, estado2, valorTotal, clienteid);
+			log.trace("Inserción de reserva: " + reserva.toString() + " : " + tuplasInsertadas + " tuplas insertadas");
+			return reserva;
 		} catch (Exception e) {
 			log.error("Exception : " + e.getMessage() + "\n" + darDetalleException(e));
 			throw new Exception(darDetalleException(e));
@@ -546,7 +554,9 @@ public class PersistenciaAlohAndes {
 			tx.begin();
 			long tuplasInsertadas = sqlOperador.adicionarOperador(pm, idOperador, tipo);
 			tx.commit();
-			return new Operador(idOperador, tipo);
+			Operador operador =new Operador(idOperador, tipo);
+			log.trace("Inserción de operador: " + operador.toString() + " : " + tuplasInsertadas + " tuplas insertadas");
+			return operador;
 		} catch (Exception e) {
 			log.error("Exception : " + e.getMessage() + "\n" + darDetalleException(e));
 			throw new Exception(darDetalleException(e));
@@ -567,7 +577,9 @@ public class PersistenciaAlohAndes {
 			tx.begin();
 			long tuplasInsertadas = sqlHabitacion.adicionarHorario(pm, idHabitacion, capacidad, tipo, alojamientoId);
 			tx.commit();
-			return new Habitacion(idHabitacion, capacidad, tipo, alojamientoId);
+			Habitacion habitacion = new Habitacion(idHabitacion, capacidad, tipo, alojamientoId);
+			log.trace("Inserción de habitacion: " + habitacion.toString() + " : " + tuplasInsertadas + " tuplas insertadas");
+			return habitacion;
 		} catch (Exception e) {
 			log.error("Exception : " + e.getMessage() + "\n" + darDetalleException(e));
 			throw new Exception(darDetalleException(e));
@@ -590,7 +602,9 @@ public class PersistenciaAlohAndes {
 					"TO_DATE(\'" + horaInicio.getTime() + ", \'hh24:mi:ss\')",
 					"TO_DATE(\'" + horaFin.getTime() + ", \'hh24:mi:ss\')", diasSemana);
 			tx.commit();
-			return new Horario(idHorario, horaInicio, horaFin, diasSemana);
+			Horario horario = new Horario(idHorario, horaInicio, horaFin, diasSemana);
+			log.trace("Inserción de horario: " + horario.toString() + " : " + tuplasInsertadas + " tuplas insertadas");
+			return horario;
 		} catch (Exception e) {
 			log.error("Exception : " + e.getMessage() + "\n" + darDetalleException(e));
 			throw new Exception(darDetalleException(e));
@@ -611,13 +625,16 @@ public class PersistenciaAlohAndes {
 			tx.begin();
 			long tuplasInsertadas = sqlMenaje.adicionarMenaje(pm, idMenaje, descripcion, disponibilidad, alojamientoId);
 			tx.commit();
+			Menaje menaje;
 			if (disponibilidad == 1) {
-				return new Menaje(idMenaje, descripcion, true, alojamientoId);
+				menaje= new Menaje(idMenaje, descripcion, true, alojamientoId);
 			}
 
 			else {
-				return new Menaje(idMenaje, descripcion, false, alojamientoId);
+				menaje= new Menaje(idMenaje, descripcion, false, alojamientoId);
 			}
+			log.trace("Inserción de menaje: " + menaje.toString() + " : " + tuplasInsertadas + " tuplas insertadas");
+			return menaje;
 		} catch (Exception e) {
 			log.error("Exception : " + e.getMessage() + "\n" + darDetalleException(e));
 			throw new Exception(darDetalleException(e));
@@ -637,7 +654,9 @@ public class PersistenciaAlohAndes {
 			tx.begin();
 			long tuplasInsertadas = sqlRegla.adicionarRegla(pm, idRegla, descripcion, alojamientoId);
 			tx.commit();
-			return new Regla(idRegla, descripcion, alojamientoId);
+			Regla regla = new Regla(idRegla, descripcion, alojamientoId);
+			log.trace("Inserción de regla: " + regla.toString() + " : " + tuplasInsertadas + " tuplas insertadas");
+			return regla;
 		} catch (Exception e) {
 			log.error("Exception : " + e.getMessage() + "\n" + darDetalleException(e));
 			throw new Exception(darDetalleException(e));
@@ -659,7 +678,9 @@ public class PersistenciaAlohAndes {
 			long tuplasInsertadas = sqlServicio.adicionarServicio(pm, idServicio, descripcion, costo, idHorario,
 					alojamientoId);
 			tx.commit();
-			return new Servicio(idServicio, descripcion, costo, idHorario);
+			Servicio servicio = new Servicio(idServicio, descripcion, costo, idHorario);
+			log.trace("Inserción de servicio: " + servicio.toString() + " : " + tuplasInsertadas + " tuplas insertadas");
+			return servicio;
 		} catch (Exception e) {
 			log.error("Exception : " + e.getMessage() + "\n" + darDetalleException(e));
 			throw new Exception(darDetalleException(e));
@@ -681,7 +702,9 @@ public class PersistenciaAlohAndes {
 			long tuplasInsertadas = sqlSeguro.adicionarSeguro(pm, idSeguro, caracteristicas, costo,
 					"TO_DATE(\'" + vigencia + "\', \'YYYY-MM-DD\')", alojamientoId);
 			tx.commit();
-			return new Seguro(idSeguro, caracteristicas, costo, vigencia, alojamientoId);
+			Seguro seguro=new Seguro(idSeguro, caracteristicas, costo, vigencia, alojamientoId);
+			log.trace("Inserción de seguro: " + seguro.toString() + " : " + tuplasInsertadas + " tuplas insertadas");
+			return seguro;
 		} catch (Exception e) {
 			log.error("Exception : " + e.getMessage() + "\n" + darDetalleException(e));
 			throw new Exception(darDetalleException(e));
@@ -724,10 +747,6 @@ public class PersistenciaAlohAndes {
 		return sqlAlojamiento.buscarAlojamientoPorId(pmf.getPersistenceManager(), idUsuario);
 	}
 
-	public List<Alojamiento> darAlojamientos() {
-		return sqlAlojamiento.darAlojamientos(pmf.getPersistenceManager());
-	}
-
 	/**
 	 * Método que consulta todas las tuplas en la tabla TipoBebida con un
 	 * identificador dado
@@ -737,12 +756,7 @@ public class PersistenciaAlohAndes {
 	 *         TIPOBEBIDA con el identificador dado
 	 */
 	public Usuario darUsuarioPorId(String idUsuario) {
-
-		PersistenceManager pm = pmf.getPersistenceManager();
-		Usuario user = sqlUsuario.darUsuarioPorId(pm, idUsuario);
-
-		return user;
-
+		return sqlUsuario.darUsuarioPorId(pmf.getPersistenceManager(), idUsuario);
 	}
 
 	/**
@@ -754,12 +768,7 @@ public class PersistenciaAlohAndes {
 	 *         TIPOBEBIDA con el identificador dado
 	 */
 	public Cliente darClientePorId(String idUsuario) {
-
-		PersistenceManager pm = pmf.getPersistenceManager();
-		Cliente user = sqlCliente.darClientePorId(pm, idUsuario);
-
-		return user;
-
+		return sqlCliente.darClientePorId(pmf.getPersistenceManager(), idUsuario);
 	}
 
 	/**
@@ -771,42 +780,63 @@ public class PersistenciaAlohAndes {
 	 *         TIPOBEBIDA con el identificador dado
 	 */
 	public Operador darOperadorPorId(String idUsuario) {
-
-		PersistenceManager pm = pmf.getPersistenceManager();
-		Operador user = sqlOperador.darOperadorPorId(pm, idUsuario);
-
-		return user;
-
-	}
-
-	public List<Oferta> darOfertas() {
-
-		PersistenceManager pm = pmf.getPersistenceManager();
-
-		List<Oferta> lista = sqlOferta.darOfertas(pmf.getPersistenceManager());
-
-		return lista;
-
-	}
-
-	public List<Oferta> darOfertasPorAlojamiento(long idUsuario) {
-
-		PersistenceManager pm = pmf.getPersistenceManager();
-
-		List<Oferta> lista = sqlOferta.darOfertasPorAlojamiento(pmf.getPersistenceManager(), idUsuario);
-
-		return lista;
-
+		return sqlOperador.darOperadorPorId(pmf.getPersistenceManager(), idUsuario);
 	}
 
 	public Oferta darOferta(long idOferta) {
+		return sqlOferta.darOfertaPorId(pmf.getPersistenceManager(), idOferta);
+	}
 
-		PersistenceManager pm = pmf.getPersistenceManager();
+	public List<Alojamiento> darAlojamientos() {
+		return sqlAlojamiento.darAlojamientos(pmf.getPersistenceManager());
+	}
+	
+	public List<Oferta> darOfertas() {
+		return sqlOferta.darOfertas(pmf.getPersistenceManager());
+	}
+	
+	public List<Operador> darOperadores() {
+		return sqlOperador.darOperadores(pmf.getPersistenceManager());
+	}
+	
+	public List<Cliente> darClientes() {
+		return sqlCliente.darClientes(pmf.getPersistenceManager());
+	}
+	
+	public List<Usuario> darUsuarios() {
+		return sqlUsuario.darUsuarios(pmf.getPersistenceManager());
+	}
+	
+	public List<Reserva> darReservas() {
+		return sqlReserva.darReservas(pmf.getPersistenceManager());
+	}
+	
+	public List<Habitacion> darHabitaciones() {
+		return sqlHabitacion.darHabitaciones(pmf.getPersistenceManager());
+	}
+	
+	public List<Regla> darReglas() {
+		return sqlRegla.darReglas(pmf.getPersistenceManager());
+	}
+	
+	public List<Menaje> darMenajeList() {
+		return sqlMenaje.darMenajeList(pmf.getPersistenceManager());
+	}
+	
+	public List<Horario> darHorarios() {
+		return sqlHorario.darHorarios(pmf.getPersistenceManager());
+	}
+	
+	public List<Servicio> darServicios() {
+		return sqlServicio.darServicios(pmf.getPersistenceManager());
+	}
+	
+	public List<Seguro> darSeguros() {
+		return sqlSeguro.darSeguros(pmf.getPersistenceManager());
+	}
 
-		Oferta lista = sqlOferta.darOfertaPorId(pmf.getPersistenceManager(), idOferta);
-
-		return lista;
-
+	public List<Oferta> darOfertasPorAlojamiento(long idUsuario) {
+		return sqlOferta.darOfertasPorAlojamiento(pmf.getPersistenceManager(), idUsuario);
 	}
 
 	/**

@@ -43,7 +43,7 @@ public class SQLMenaje {
 		return (long) q.executeUnique();
 	}
 
-	public List<Menaje> darMenaje(PersistenceManager pm) {
+	public List<Menaje> darMenajeList(PersistenceManager pm) {
 		Query q = pm.newQuery(SQL, "SELECT * FROM " + pa.darTablaMenaje());
 		q.setResultClass(Menaje.class);
 		return (List<Menaje>) q.executeList();

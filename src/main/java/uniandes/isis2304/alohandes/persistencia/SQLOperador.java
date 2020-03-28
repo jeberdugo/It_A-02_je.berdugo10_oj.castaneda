@@ -52,7 +52,7 @@ public class SQLOperador {
 	 * @param idOperador - El id del operador
 	 * @return EL número de tuplas eliminadas
 	 */
-	public long eliminarClientePorId(PersistenceManager pm, long idCliente) {
+	public long eliminarOperadorePorId(PersistenceManager pm, long idCliente) {
 		Query q = pm.newQuery(SQL, "DELETE FROM " + pa.darTablaOperador() + " WHERE id = ?");
 		q.setParameters(idCliente);
 		return (long) q.executeUnique();
@@ -65,7 +65,7 @@ public class SQLOperador {
 	 * @param pm - El manejador de persistencia
 	 * @return Una lista de objetos OPERADOR
 	 */
-	public List<Operador> darClientes(PersistenceManager pm) {
+	public List<Operador> darOperadores(PersistenceManager pm) {
 		Query q = pm.newQuery(SQL, "SELECT * FROM " + pa.darTablaOperador());
 		q.setResultClass(Operador.class);
 		return (List<Operador>) q.executeList();
