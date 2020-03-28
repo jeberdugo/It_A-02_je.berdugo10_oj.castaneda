@@ -1,0 +1,1 @@
+memberSearchIndex = [{"p":"uniandes.isis2304.alohandes.interfazApp","c":"PanelDatos","l":"actualizarInterfaz(String)","url":"actualizarInterfaz(java.lang.String)"},{"p":"uniandes.isis2304.alohandes.interfazApp","c":"PanelDatos","l":"PanelDatos()","url":"%3Cinit%3E()"}]
