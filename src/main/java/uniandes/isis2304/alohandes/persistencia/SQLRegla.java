@@ -42,7 +42,7 @@ public class SQLRegla {
 		return (long) q.executeUnique();
 	}
 
-	public List<Regla> darRegla(PersistenceManager pm) {
+	public List<Regla> darReglas(PersistenceManager pm) {
 		Query q = pm.newQuery(SQL, "SELECT * FROM " + pa.darTablaRegla());
 		q.setResultClass(Regla.class);
 		return (List<Regla>) q.executeList();

@@ -490,23 +490,20 @@ public class InterfazAlohAndes extends JFrame implements ActionListener
 						JOptionPane.QUESTION_MESSAGE);
 			 int dias=Integer.parseInt(nDias);
 			 
-			 List<Oferta> listaO= alohandes.darOfertasPorAlojamiento(alojamientoId);
+			 List<String> listaO= alohandes.darOfertasPorAlojamiento(alojamientoId);
 			 List<String> listaOfertas=new ArrayList<String>();
 			 
 			 
-			 if(listaO!=null) {
-				 for(Oferta a:listaO) {
-					 listaOfertas.add(""+a.getId());
-				 }}
+			 
 			 
 			 
 			 
 			 
 			 for(int i=1;i<=dias;i++) {
 				 
-				 String ofid = (String) JOptionPane.showInputDialog(null,"Seleccione Oferta Dia"+i,
+				 String ofid = (String) JOptionPane.showInputDialog(null,"Seleccione Oferta Dia "+i,
 						   "Ofertas", JOptionPane.QUESTION_MESSAGE, null,
-						  listaOfertas.toArray(),"Seleccione");
+						  listaO.toArray(),"Seleccione");
 				 long ofertaId=Long.parseLong(ofid);
 				 
 				 Oferta of=alohandes.darOferta(ofertaId);
@@ -528,6 +525,7 @@ public class InterfazAlohAndes extends JFrame implements ActionListener
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				JOptionPane.showMessageDialog(this,e.getMessage(),"Error",JOptionPane.ERROR_MESSAGE);
+				e.printStackTrace();
 			}
 		 
 		 

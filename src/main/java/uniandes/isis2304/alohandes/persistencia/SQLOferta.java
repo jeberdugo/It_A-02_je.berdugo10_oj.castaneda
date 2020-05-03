@@ -174,11 +174,11 @@ public class SQLOferta {
 	 * @param pm - El manejador de persistencia
 	 * @return Una lista de objetos OFERTA
 	 */
-	public List<Oferta> darOfertasPorAlojamiento(PersistenceManager pm, long idAlojamiento) {
-		Query q = pm.newQuery(SQL, "SELECT * FROM " + pa.darTablaOferta() + " WHERE alojamiento_id = ?");
-		q.setResultClass(Oferta.class);
+	public List darOfertasPorAlojamiento(PersistenceManager pm, long idAlojamiento) {
+		Query q = pm.newQuery(SQL, "SELECT id FROM " + pa.darTablaOferta() + " WHERE alojamiento_id = ?");
 		q.setParameters(idAlojamiento);
-		return (List<Oferta>) q.executeList();
+		
+		return (List) q.executeList();
 	}
 
 }

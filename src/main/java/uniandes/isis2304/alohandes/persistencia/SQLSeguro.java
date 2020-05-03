@@ -43,7 +43,7 @@ public class SQLSeguro {
 		return (long) q.executeUnique();
 	}
 
-	public List<Seguro> darSeguro(PersistenceManager pm) {
+	public List<Seguro> darSeguros(PersistenceManager pm) {
 		Query q = pm.newQuery(SQL, "SELECT * FROM " + pa.darTablaSeguro());
 		q.setResultClass(Seguro.class);
 		return (List<Seguro>) q.executeList();

@@ -145,7 +145,7 @@ public class AlohAndes
 		return pp.darAlojamientos();
 	}
 	
-	public List<Oferta> darOfertasPorAlojamiento(long idUsuario){
+	public List darOfertasPorAlojamiento(long idUsuario){
 		return pp.darOfertasPorAlojamiento(idUsuario);
 	}
 	
