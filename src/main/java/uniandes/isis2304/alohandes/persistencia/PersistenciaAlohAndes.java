@@ -17,6 +17,7 @@ package uniandes.isis2304.alohandes.persistencia;
 
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
@@ -136,6 +137,7 @@ public class PersistenciaAlohAndes {
 		tablas.add("HABITACION");
 		tablas.add("SERVICIOS_ALOJAMIENTOS");
 		tablas.add("SEGURO");
+		tablas.add("RESERVA_COLECTIVA");
 
 	}
 
@@ -336,6 +338,14 @@ public class PersistenciaAlohAndes {
 	public String darTablaSeguro() {
 		return tablas.get(13);
 	}
+	
+	/**
+	 * @return La cadena de caracteres con el nombre de la tabla de Seguro de
+	 *         AlohAndes
+	 */
+	public String darTablaReservaColectiva() {
+		return tablas.get(14);
+	}
 
 	/**
 	 * Transacción para el generador de secuencia de AlohAndes Adiciona entradas al
@@ -495,10 +505,10 @@ public class PersistenciaAlohAndes {
 			tx.begin();
 			long idAlojamiento = nextval();
 			long tuplasInsertadas = sqlAlojamiento.adicionarAlojamiento(pm, "" + idAlojamiento, "" + capacidad,
-					"" + tipo, "" + idOperador, "" + registrocam, "" + registrosup, ubicacion, descripcion);
+					"" + tipo, "" + idOperador, "" + registrocam, "" + registrosup, ubicacion, descripcion, "", 1);
 			tx.commit();
 			Alojamiento alojamiento= new Alojamiento(idAlojamiento, capacidad, ubicacion, descripcion, tipo, "" + registrocam,
-					"" + registrosup, idOperador);
+					"" + registrosup, 1, null, idOperador);
 			log.trace("Inserción de alojamiento: " + alojamiento.toString() + " : " + tuplasInsertadas + " tuplas insertadas");
 			return alojamiento;
 		} catch (Exception e) {
@@ -527,13 +537,13 @@ public class PersistenciaAlohAndes {
 				estado2 = 0;
 			}
 
-			long tuplasInsertadas = sqlReserva.adicionarReserva(pm, "" + idOferta, estado2, valorTotal, clienteid);
+			long tuplasInsertadas = sqlReserva.adicionarReserva(pm, "" + idOferta, estado2, valorTotal, clienteid, "TO_DATE(\'"+ new java.sql.Date(Calendar.getInstance().getTime().getTime())+"\',\'YYYY-MM-DD\')", "null");
 
 			for (Oferta o : ofertasid) {
 				tuplasInsertadas += sqlOferta.actualizarReserva(pm, "" + o.getId(), "" + idOferta);
 			}
 			tx.commit();
-			Reserva reserva = new Reserva(idOferta, estado2, valorTotal, clienteid);
+			Reserva reserva = new Reserva(idOferta, estado2, valorTotal, new java.sql.Date(Calendar.getInstance().getTime().getTime()), null ,clienteid);
 			log.trace("Inserción de reserva: " + reserva.toString() + " : " + tuplasInsertadas + " tuplas insertadas");
 			return reserva;
 		} catch (Exception e) {

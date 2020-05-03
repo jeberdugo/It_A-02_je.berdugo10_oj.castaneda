@@ -1,6 +1,9 @@
 package uniandes.isis2304.alohandes.negocio;
 
+import java.sql.Date;
+
 public class Alojamiento implements VOAlojamiento {
+
 	/**
 	 * El identificador ÚNICO de los alojamientos
 	 */
@@ -35,6 +38,10 @@ public class Alojamiento implements VOAlojamiento {
 	 * El registro de la Super Intendencia del alojamiento
 	 */
 	private String registro_sup;
+	
+	private Date ultima_reserva;
+	
+	private int habilitado;
 
 	/**
 	 * El operador propetario del alojamiento
@@ -52,6 +59,8 @@ public class Alojamiento implements VOAlojamiento {
 		this.tipo = 0;
 		this.registro_cam = "";
 		this.registro_sup = "";
+		this.habilitado = 1;
+		this.ultima_reserva = null;
 		this.operador_id = 0;
 
 	}
@@ -68,7 +77,7 @@ public class Alojamiento implements VOAlojamiento {
 	 * @param registroSup - El registro de la Super Intendencia del alojamiento
 	 */
 	public Alojamiento(long id, int capacidad, String ubicacion, String descripcion, int tipo, String registro_cam,
-			String registro_sup, long operador_Id) {
+			String registro_sup, int habilitado, Date ultima_reserva, long operador_id) {
 		this.id = id;
 		this.capacidad = capacidad;
 		this.ubicacion = ubicacion;
@@ -76,6 +85,8 @@ public class Alojamiento implements VOAlojamiento {
 		this.tipo = tipo;
 		this.registro_cam = registro_cam;
 		this.registro_sup = registro_sup;
+		this.ultima_reserva = ultima_reserva;
+		this.habilitado = habilitado;
 		this.operador_id = operador_id;
 
 	}
@@ -166,6 +177,22 @@ public class Alojamiento implements VOAlojamiento {
 	public void setRegistro_sup(String registro_sup) {
 		this.registro_sup = registro_sup;
 	}
+	
+	public int getHabilitado() {
+		return habilitado;
+	}
+
+	public void setHabilitado(int habilitado) {
+		this.habilitado = habilitado;
+	}
+	
+	public Date getUltima_reserva() {
+		return ultima_reserva;
+	}
+
+	public void setUltima_reserva(Date ultima_reserva) {
+		this.ultima_reserva = ultima_reserva;
+	}
 
 	public long getOperador_id() {
 		return operador_id;
@@ -181,6 +208,7 @@ public class Alojamiento implements VOAlojamiento {
 	public String toString() {
 		return "Alojamiento [id=" + id + ", capacidad=" + capacidad + ", ubicacion=" + ubicacion + ", descripcion="
 				+ descripcion + ", tipo=" + tipo + ", registro_cam=" + registro_cam + ", registro_sup=" + registro_sup
-				+ ", operador=" + operador_id + "]";
+				+ ", habilitado=" + habilitado + ", ultima_reserva=" + ultima_reserva +", operador_id=" + operador_id + "]";
 	}
+	
 }

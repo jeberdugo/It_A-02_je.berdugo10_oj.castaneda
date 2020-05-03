@@ -1,5 +1,6 @@
 package uniandes.isis2304.alohandes.persistencia;
 
+import java.sql.Date;
 import java.util.List;
 
 import javax.jdo.PersistenceManager;
@@ -42,10 +43,10 @@ public class SQLAlojamiento {
 	 * @return El número de tuplas insertadas
 	 */
 	public long adicionarAlojamiento(PersistenceManager pm, String idAlojamiento, String capacidad, String tipo,
-			String idoperador, String registrocam, String registrosup, String ubicacion, String descripcion) {
+			String idoperador, String registrocam, String registrosup, String ubicacion, String descripcion, String ultimaReserva, int habilitado) {
 		Query q = pm.newQuery(SQL, "INSERT INTO " + pa.darTablaAlojamiento()
-				+ "(id, capacidad, tipo, operador_id, registro_cam, registro_sup, ubicacion, descripcion) values (?, ?, ?, ?, ?, ?, ?, ?)");
-		q.setParameters(idAlojamiento, capacidad, tipo, idoperador, registrocam, registrosup, ubicacion, descripcion);
+				+ "(id, capacidad, tipo, operador_id, registro_cam, registro_sup, ubicacion, descripcion, ultima_reserva, habilitado) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+		q.setParameters(idAlojamiento, capacidad, tipo, idoperador, registrocam, registrosup, ubicacion, descripcion, ultimaReserva, habilitado);
 		return (long) q.executeUnique();
 	}
 
