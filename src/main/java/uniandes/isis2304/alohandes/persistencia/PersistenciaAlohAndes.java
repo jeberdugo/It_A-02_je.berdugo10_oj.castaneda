@@ -536,8 +536,12 @@ public class PersistenciaAlohAndes {
 			if (estado == false) {
 				estado2 = 0;
 			}
+			Date hoy = new Date();
+			
+			Timestamp fechasql = new Timestamp(hoy.getTime());
+			
 
-			long tuplasInsertadas = sqlReserva.adicionarReserva(pm, "" + idOferta, estado2, valorTotal, clienteid, "TO_DATE(\'"+ new java.sql.Date(Calendar.getInstance().getTime().getTime())+"\',\'YYYY-MM-DD\')", "null");
+			long tuplasInsertadas = sqlReserva.adicionarReserva(pm, "" + idOferta, estado2, valorTotal, clienteid, fechasql , null);
 
 			for (Oferta o : ofertasid) {
 				tuplasInsertadas += sqlOferta.actualizarReserva(pm, "" + o.getId(), "" + idOferta);

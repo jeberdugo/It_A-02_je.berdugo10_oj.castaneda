@@ -1,0 +1,9 @@
+16:45:56,499 (main) INFO  [uniandes.isis2304.alohandes.interfazApp.InterfazAlohAndes] - Se encontró un archivo de configuración válido: Interfaz
+16:45:56,505 (main) INFO  [uniandes.isis2304.alohandes.interfazApp.InterfazAlohAndes] - Se aplica configuración indicada en el archivo de configuración
+16:45:56,540 (main) INFO  [uniandes.isis2304.alohandes.interfazApp.InterfazAlohAndes] - Se encontró un archivo de configuración válido: Tablas BD
+16:45:56,554 (main) INFO  [uniandes.isis2304.alohandes.persistencia.PersistenciaAlohAndes] - Accediendo unidad de persistencia: AlohAndes
+16:46:10,791 (AWT-EventQueue-0) INFO  [uniandes.isis2304.alohandes.negocio.AlohAndes] - Intento de login de usuario: admin
+16:46:35,142 (AWT-EventQueue-0) INFO  [uniandes.isis2304.alohandes.negocio.AlohAndes] - Intento de login de usuario: cliente
+16:46:53,584 (AWT-EventQueue-0) ERROR [uniandes.isis2304.alohandes.persistencia.PersistenciaAlohAndes] - Exception : Error con la ejecucion de Query de SQL "INSERT INTO RESERVA(id, estado, valor_total, cliente_id, fecha_realizacion, reserva_colectiva_id) values (?, ?, ?, ?, ?, ?)".
+ORA-01858: se ha encontrado un carácter no numérico donde se esperaba uno numérico
+

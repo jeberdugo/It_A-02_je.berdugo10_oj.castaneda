@@ -1,5 +1,6 @@
 package uniandes.isis2304.alohandes.persistencia;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 import javax.jdo.PersistenceManager;
@@ -41,7 +42,7 @@ public class SQLReserva {
 	 *                    Egresado, 3: Estudiante, 4: Padre)
 	 * @return El número de tuplas insertadas
 	 */
-	public long adicionarReserva(PersistenceManager pm, String idReserva, int estado, int valorTotal, long clienteid, String fechaRealizacion, String reservaColectivaId) {
+	public long adicionarReserva(PersistenceManager pm, String idReserva, int estado, int valorTotal, long clienteid, Timestamp fechaRealizacion, String reservaColectivaId) {
 		Query q = pm.newQuery(SQL,
 				"INSERT INTO " + pa.darTablaReserva() + "(id, estado, valor_total, cliente_id, fecha_realizacion, reserva_colectiva_id) values (?, ?, ?, ?, ?, ?)");
 		q.setParameters(idReserva, estado, valorTotal, clienteid, fechaRealizacion, reservaColectivaId);
