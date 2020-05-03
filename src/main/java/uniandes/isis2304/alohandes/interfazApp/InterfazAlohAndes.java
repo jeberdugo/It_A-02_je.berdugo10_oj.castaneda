@@ -501,10 +501,10 @@ public class InterfazAlohAndes extends JFrame implements ActionListener
 			 
 			 for(int i=1;i<=dias;i++) {
 				 
-				 String ofid = (String) JOptionPane.showInputDialog(null,"Seleccione Oferta Dia "+i,
+				 BigDecimal ofid =  (BigDecimal) JOptionPane.showInputDialog(null,"Seleccione Oferta Dia "+i,
 						   "Ofertas", JOptionPane.QUESTION_MESSAGE, null,
 						  listaO.toArray(),"Seleccione");
-				 long ofertaId=Long.parseLong(ofid);
+				 long ofertaId=ofid.longValue();
 				 
 				 Oferta of=alohandes.darOferta(ofertaId);
 			   listaOfertasFinal.add(of);

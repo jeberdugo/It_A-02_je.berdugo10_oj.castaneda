@@ -1,4 +1,4 @@
-{
+﻿{
 	"title": "Aplicación transaccional de Parranderos Uniandes",
 	"frameH": 600,
 	"frameW": 800,
@@ -54,6 +54,22 @@
 				{
 					"label": "RF6 Retirar Alojamiento",
 					"event": "retirarAlojamiento"
+				},
+				{
+					"label": "RF7 Registrar Reserva Colectiva",
+					"event": "registrarReservaColectiva"
+				},
+				{
+					"label": "RF8 Cancelar Reserva Colectiva",
+					"event": "cancelarReservaColectiva"
+				},
+				{
+					"label": "RF9 Deshabilitar Oferta Alojamiento",
+					"event": "deshabilitarAlojamiento"
+				},
+				{
+					"label": "RF10 Habilitar Oferta Alojamiento",
+					"event": "habilitarAlojamiento"
 				}
 			]
 		},
@@ -75,6 +91,26 @@
 				{
 					"label": "RFC4 Alojamientos por dotacion",
 					"event": "alojamientosPorDotacion"
+				},
+				{
+					"label": "RFC5 Uso de AlohAndes por tipo de Usuario",
+					"event": "usoPorTipo"
+				},
+				{
+					"label": "RFC6 Uso de AlohAndes por Usuario",
+					"event": "usoPorUsuario"
+				},
+				{
+					"label": "RFC7 Analizar Operación",
+					"event": "analisisOperacion"
+				},
+				{
+					"label": "RFC8 Clientes Frecuentes",
+					"event": "clientesFrecuentes"
+				},
+				{
+					"label": "RFC9 Ofertas con poca Demanda",
+					"event": "ofertasPocaDemanda"
 				}
 			]
 		},
