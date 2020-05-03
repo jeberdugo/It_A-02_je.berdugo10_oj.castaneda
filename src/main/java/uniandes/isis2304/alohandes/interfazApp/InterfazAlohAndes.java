@@ -713,6 +713,22 @@ public class InterfazAlohAndes extends JFrame implements ActionListener
  	
  }
  
+   public void registrarReservaColectiva() {
+	   
+   }
+   
+   public void cancelarReservaColectiva() {
+	   
+   }
+   
+   public void deshabilitarAlojamiento() {
+	   
+   }
+   
+   public void habilitarAlojamiento() {
+	   
+   }
+ 
  /* ****************************************************************
 	 * 			Requerimientos funcionales de consulta
 	 *****************************************************************/
@@ -747,6 +763,28 @@ public class InterfazAlohAndes extends JFrame implements ActionListener
 	 panelDatos.actualizarInterfaz(alohandes.darAlojamientosPorDotacion(dotacion, inicio, fin, limite).toString());
 	 
  }
+ 
+ 	public void usoPorTipo() {
+	   
+ 	}
+ 	
+ 	public void usoPorUsuario() {
+ 	   
+ 	}
+ 	
+ 	public void analisisOperacion() {
+ 	   
+ 	}
+ 	
+ 	public void clientesFrecuentes() {
+ 	   
+ 	}
+ 	
+ 	public void ofertasPocaDemanda() {
+ 	   
+ 	}
+ 
+ 
 	/* ****************************************************************
 	 * 			Métodos administrativos
 	 *****************************************************************/
