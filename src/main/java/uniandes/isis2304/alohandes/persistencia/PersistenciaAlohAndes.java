@@ -941,45 +941,75 @@ public class PersistenciaAlohAndes {
 	}
 
 	public String deshabilitarAlojamiento(Alojamiento alojamiento) {
-		String resp = "";
-		sqlAlojamiento.deshabilitarAlojamientoPorId(pmf.getPersistenceManager(), alojamiento.getId());
-		List<Oferta> ofertas = sqlOferta.darOfertasConReservaPorAlojamiento(pmf.getPersistenceManager(),
-				alojamiento.getId());
-		sqlOferta.eliminarReservasAlojamiento(pmf.getPersistenceManager(), alojamiento.getId());
-		List<Alojamiento> alojamientos = sqlAlojamiento.buscarAlojamientosPorCapacidad(pmf.getPersistenceManager(),
-				alojamiento.getCapacidad());
-		if (alojamientos.isEmpty()) {
-			resp = "No se pueden reubicar las reservas";
-			return resp;
-		}
-		for (int i = 0; i < ofertas.size(); i++) {
-			boolean encontro = false;
-			for (int j = 0; j < alojamientos.size() && !encontro; j++) {
-				try {
-					Oferta oferta = sqlOferta.darOfertasSinReservaPorAlojamientoYFecha(pmf.getPersistenceManager(),
-							alojamiento.getId(), ofertas.get(i).getDia() + "").get(0);
-					encontro = true;
-					sqlOferta.actualizarReserva(pmf.getPersistenceManager(), oferta.getId() + "",
-							ofertas.get(i).getReserva_id() + "");
-					resp += "Se cambio asigno la reserva " + ofertas.get(i).getReserva_id() + " al alojamiento "
-							+ ofertas.get(i).getAlojamiento_id() + " con el indice de oferta " + oferta.getId() + "\n";
-					alojamientos.remove(j);
-				} catch (Exception e) {
+		PersistenceManager pm = pmf.getPersistenceManager();
+		Transaction tx = pm.currentTransaction();
+		try {
+			tx.begin();
+			String resp = "";
+			sqlAlojamiento.deshabilitarAlojamientoPorId(pmf.getPersistenceManager(), alojamiento.getId());
+			List<Oferta> ofertas = sqlOferta.darOfertasConReservaPorAlojamiento(pmf.getPersistenceManager(),
+					alojamiento.getId());
+			sqlOferta.eliminarReservasAlojamiento(pmf.getPersistenceManager(), alojamiento.getId());
+			List<Alojamiento> alojamientos = sqlAlojamiento.buscarAlojamientosPorCapacidad(pmf.getPersistenceManager(),
+					alojamiento.getCapacidad());
+			if (alojamientos.isEmpty()) {
+				resp = "No se pueden reubicar las reservas";
+				return resp;
+			}
+			for (int i = 0; i < ofertas.size(); i++) {
+				boolean encontro = false;
+				for (int j = 0; j < alojamientos.size() && !encontro; j++) {
+					try {
+						Oferta oferta = sqlOferta.darOfertasSinReservaPorAlojamientoYFecha(pmf.getPersistenceManager(),
+								alojamiento.getId(), ofertas.get(i).getDia() + "").get(0);
+						encontro = true;
+						sqlOferta.actualizarReserva(pmf.getPersistenceManager(), oferta.getId() + "",
+								ofertas.get(i).getReserva_id() + "");
+						resp += "Se cambio asigno la reserva " + ofertas.get(i).getReserva_id() + " al alojamiento "
+								+ ofertas.get(i).getAlojamiento_id() + " con el indice de oferta " + oferta.getId()
+								+ "\n";
+						alojamientos.remove(j);
+					} catch (IndexOutOfBoundsException e) {
+
+					}
 
 				}
-				
+				if (!encontro) {
+					sqlReserva.eliminarReservaPorId(pmf.getPersistenceManager(), ofertas.get(i).getReserva_id());
+					resp += "No se encontro alojamiento para la reserva " + ofertas.get(i).getId() + "\n";
+				}
 			}
-			if (!encontro) {
-				sqlReserva.eliminarReservaPorId(pmf.getPersistenceManager(), ofertas.get(i).getReserva_id());
-				resp += "No se encontro alojamiento para la reserva " + ofertas.get(i).getId() + "\n";
+			log.trace(resp);
+			tx.commit();
+			return resp;
+		} catch (Exception e) {
+			log.error("Exception : " + e.getMessage() + "\n" + darDetalleException(e));
+			return "";
+		} finally {
+			if (tx.isActive()) {
+				tx.rollback();
 			}
+			pm.close();
 		}
-		log.trace(resp);
-		return resp;
+
 	}
 
 	public void habilitarAlojamiento(Long alojamientoId) {
-		sqlAlojamiento.habilitarAlojamientoPorId(pmf.getPersistenceManager(), alojamientoId);
+		PersistenceManager pm = pmf.getPersistenceManager();
+		Transaction tx = pm.currentTransaction();
+		try {
+			tx.begin();
+			sqlAlojamiento.habilitarAlojamientoPorId(pmf.getPersistenceManager(), alojamientoId);
+			tx.commit();
+		} catch (Exception e) {
+			log.error("Exception : " + e.getMessage() + "\n" + darDetalleException(e));
+		} finally {
+			if (tx.isActive()) {
+				tx.rollback();
+			}
+			pm.close();
+		}
+
 	}
 
 	public List<Alojamiento> darAlojamientosPorUserIdNoHabilitados(Long userId) {
