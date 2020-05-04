@@ -197,6 +197,17 @@ public class AlohAndes
 		return exito;
 	}
 	
+	public String dar20(String idAlo) {
+		return pp.clientesFrecuentes(idAlo);
+	}
+	public String analisisOp(String tipo) {
+		return pp.analisisOperacion(tipo);
+	}
+	
+	public String pocaOferta() {
+		return pp.pocaOferta();
+	}
+	
 	public String dar20() {
 		return pp.dar20mas();
 	}

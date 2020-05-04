@@ -992,6 +992,27 @@ public class PersistenciaAlohAndes {
 
 		return veinti;
 	}
+	
+	public String pocaOferta() {
+		String veinti = "";
+		veinti += sqlOferta.pocaOferta(pmf.getPersistenceManager());
+
+		return veinti;
+	}
+	
+	public String clientesFrecuentes(String idAlojamiento) {
+		String veinti = "";
+		veinti += sqlOferta.clientesFrecuentes(pmf.getPersistenceManager(),idAlojamiento);
+
+		return veinti;
+	}
+	
+	public String analisisOperacion(String tipo) {
+		String veinti = "";
+		veinti += sqlOferta.analisisOperacion(pmf.getPersistenceManager(),tipo);
+
+		return veinti;
+	}
 
 	public String ingresosPorOperador() {
 		String veinti = "";

@@ -755,6 +755,8 @@ public void cancelarReservaColectiva() {
 	public void ofertasPopulares() {
 		panelDatos.actualizarInterfaz(alohandes.dar20());
 	}
+	
+	
 
 	public void indiceOcupacion() {
 
@@ -796,14 +798,42 @@ public void cancelarReservaColectiva() {
 	}
 
 	public void analisisOperacion() {
+		
+		String[] tipos=new String[5];
+		tipos[0]="1";
+		tipos[1]="2";
+		tipos[2]="3";
+		tipos[3]="4";
+		tipos[4]="5";
+		
+		String alooid = (String) JOptionPane.showInputDialog(null, "Tipo",
+				"Alojamientos", JOptionPane.QUESTION_MESSAGE, null,tipos, "Seleccione");
+		
+		panelDatos.actualizarInterfaz(alohandes.analisisOp(alooid));
 
 	}
 
 	public void clientesFrecuentes() {
+		List<Alojamiento> lista = alohandes.darAlojamientosPorUserId("" + usuarioActivo);
+		List<String> listaId = new ArrayList<String>();
+		if (lista != null) {
+			for (Alojamiento a : lista) {
+				listaId.add("" + a.getId());
+			}
+
+			String alooid = (String) JOptionPane.showInputDialog(null, "Seleccione Un Alojamiento",
+					"Alojamientos", JOptionPane.QUESTION_MESSAGE, null, listaId.toArray(), "Seleccione");
+		
+			
+			panelDatos.actualizarInterfaz(alohandes.dar20(alooid));
+		}
+		
 
 	}
 
 	public void ofertasPocaDemanda() {
+		
+		panelDatos.actualizarInterfaz(alohandes.pocaOferta());
 
 	}
 

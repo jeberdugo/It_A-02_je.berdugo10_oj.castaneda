@@ -119,6 +119,132 @@ public class SQLOferta {
 		return veinte;
 
 	}
+	
+	public String pocaOferta(PersistenceManager pm) {
+		String veinte = "";
+		Query q = pm.newQuery(SQL,
+				"SELECT CONCAT(CONCAT(id,'-'),ultima_reserva) FROM ALOJAMIENTO al WHERE al.ultima_reserva<(SYSDATE-30)");
+
+		List tipoServicio = (List) q.executeList();
+
+		if(tipoServicio.isEmpty()) {
+			veinte="No hay ningun alojamiento con poca demanda";
+		}
+		for (int i = 0; i < tipoServicio.size(); i++) {
+			String temp = "";
+			temp += "" + tipoServicio.get(i);
+			String[] datos = temp.split("-");
+			veinte += "Alojamiento: " + datos[0] + " Fecha ultima reserva: " + datos[1] + "\n";
+		}
+
+		return veinte;
+
+	}
+	
+	public String clientesFrecuentes(PersistenceManager pm, String idAlojamiento) {
+		String veinte = "";
+		Query q = pm.newQuery(SQL,
+				"SELECT CONCAT(CONCAT(res.cliente_id,'-'),count(res.cliente_id))\r\n" + 
+				"FROM OFERTA o \r\n" + 
+				"JOIN  RESERVA res ON o.reserva_id=res.id\r\n" + 
+				"WHERE o.alojamiento_id= ? \r\n" + 
+				"GROUP BY res.cliente_id\r\n" + 
+				"HAVING count(res.cliente_id)>=15");
+		q.setParameters(idAlojamiento);
+
+		List tipoServicio = (List) q.executeList();
+
+		if(tipoServicio.isEmpty()) {
+			veinte="No hay ningun cliente frecuente";
+		}
+		for (int i = 0; i < tipoServicio.size(); i++) {
+			String temp = "";
+			temp += "" + tipoServicio.get(i);
+			String[] datos = temp.split("-");
+			veinte += "ID Cliente Frecuente: " + datos[0] + " Alojamiento: " + datos[1] + "\n";
+		}
+
+		return veinte;
+
+	}
+	
+	
+	public String analisisOperacion(PersistenceManager pm, String tipo) {
+		String veinte = "";
+		Query mayorDemanda = pm.newQuery(SQL,
+				"SELECT * FROM(\r\n" + 
+				"SELECT\r\n" + 
+				"    CONCAT(CONCAT(o.dia,'-'), COUNT(o.dia))\r\n" + 
+				"FROM ALOJAMIENTO al\r\n" + 
+				"JOIN OFERTA o ON o.alojamiento_id=al.id\r\n" + 
+				" WHERE al.tipo = ? \r\n" + 
+				"AND o.reserva_id IS NOT NULL\r\n" + 
+				" GROUP BY o.dia\r\n" + 
+				" ORDER BY COUNT(o.dia) DESC) WHERE ROWNUM<=5");
+		mayorDemanda.setParameters(tipo);
+		
+		Query mayorIngreso = pm.newQuery(SQL,
+				" SELECT * FROM(\r\n" + 
+				" SELECT  CONCAT(CONCAT(o.dia,'-'), SUM(o.precio))\r\n" + 
+				"FROM ALOJAMIENTO al\r\n" + 
+				"JOIN OFERTA o ON o.alojamiento_id=al.id\r\n" + 
+				" WHERE al.tipo =  ? \r\n" + 
+				"AND o.reserva_id IS NOT NULL\r\n" + 
+				" GROUP BY o.dia)WHERE  ROWNUM<=5");
+		mayorIngreso.setParameters(tipo);
+		
+		Query menorOcu = pm.newQuery(SQL,
+				" SELECT * FROM(\r\n" + 
+				"SELECT\r\n" + 
+				"    CONCAT(CONCAT(o.dia,'-'), COUNT(o.dia))\r\n" + 
+				"FROM ALOJAMIENTO al\r\n" + 
+				"JOIN OFERTA o ON o.alojamiento_id=al.id\r\n" + 
+				" WHERE al.tipo =  ? \r\n" + 
+				"AND o.reserva_id IS NOT NULL\r\n" + 
+				" GROUP BY o.dia\r\n" + 
+				" ORDER BY COUNT(o.dia) ASC) WHERE ROWNUM<=5");
+		menorOcu.setParameters(tipo);
+
+		List listaMayorDemanda = (List) mayorDemanda.executeList();
+		List listaMayorIngreso = (List) mayorIngreso.executeList();
+		List listaMenorOcu = (List) menorOcu.executeList();
+
+		veinte += "Fechas con mayor demanda: \n";
+		if(listaMayorDemanda.isEmpty()) {
+			veinte="No hay datos";
+		}
+		for (int i = 0; i < listaMayorDemanda.size(); i++) {
+			String temp = "";
+			temp += "" + listaMayorDemanda.get(i);
+			String[] datos = temp.split("-");
+			veinte += "Fecha: " + datos[0] + " Numero de clientes: " + datos[1] + "\n";
+		}
+		
+		veinte += "Fechas con mayor ingreso: \n";
+		if(listaMayorIngreso.isEmpty()) {
+			veinte="No hay datos";
+		}
+		for (int i = 0; i < listaMayorIngreso.size(); i++) {
+			String temp = "";
+			temp += "" + listaMayorIngreso.get(i);
+			String[] datos = temp.split("-");
+			veinte += "Fecha: " + datos[0] + " Recaudo: " + datos[1] + "\n";
+		}
+		
+		veinte += "Fechas con menor ocupación: \n";
+		if(listaMenorOcu.isEmpty()) {
+			veinte="No hay datos";
+		}
+		for (int i = 0; i < listaMenorOcu.size(); i++) {
+			String temp = "";
+			temp += "" + listaMenorOcu.get(i);
+			String[] datos = temp.split("-");
+			veinte += "Fecha: " + datos[0] + " Numero de clientes: " + datos[1] + "\n";
+		}
+
+		return veinte;
+
+	}
 
 	public String ingresosPorOperador(PersistenceManager pm) {
 		String peticion = "SELECT CONCAT(operador_id,CONCAT('-',suma)) FROM(SELECT "
