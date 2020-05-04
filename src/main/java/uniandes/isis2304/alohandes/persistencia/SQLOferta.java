@@ -96,8 +96,9 @@ public class SQLOferta {
 
 	public Oferta darOfertaPorId(PersistenceManager pm, long idReserva) {
 		Query q = pm.newQuery(SQL, "SELECT * FROM " + pa.darTablaOferta() + " WHERE id = ?");
-		q.setResultClass(Oferta.class);
 		q.setParameters(idReserva);
+		q.setResultClass(Oferta.class);
+		
 		return (Oferta) q.executeUnique();
 	}
 
@@ -179,6 +180,16 @@ public class SQLOferta {
 		q.setParameters(idAlojamiento);
 		
 		return (List) q.executeList();
+	}
+
+	public List darOfertasPorFecha(PersistenceManager pm, String fecha) {
+		Query q = pm.newQuery(SQL, "SELECT * FROM " + pa.darTablaOferta() + " WHERE DIA = ?");
+		q.setParameters(fecha);
+		q.setResultClass(Oferta.class);
+		
+		return (List<Oferta>) q.executeList();
+		// TODO Auto-generated method stub
+		
 	}
 
 }

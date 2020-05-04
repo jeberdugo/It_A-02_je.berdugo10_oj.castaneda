@@ -16,7 +16,9 @@
 package uniandes.isis2304.alohandes.persistencia;
 
 import java.sql.Timestamp;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.LinkedList;
@@ -109,6 +111,7 @@ public class PersistenciaAlohAndes {
 	private SQLServicio sqlServicio;
 	private SQLHabitacion sqlHabitacion;
 	private SQLSeguro sqlSeguro;
+	private SQLReservaColectiva sqlReservaColectiva;
 	/*
 	 * **************************************************************** Métodos del
 	 * MANEJADOR DE PERSISTENCIA
@@ -522,7 +525,7 @@ public class PersistenciaAlohAndes {
 		}
 	}
 
-	public Reserva adicionarReserva(boolean estado, long clienteid, List<Oferta> ofertasid) throws Exception {
+	public Reserva adicionarReserva(boolean estado, long clienteid, List<Oferta> ofertasid, String idResColectiva) throws Exception {
 		PersistenceManager pm = pmf.getPersistenceManager();
 		Transaction tx = pm.currentTransaction();
 		try {
@@ -536,12 +539,16 @@ public class PersistenciaAlohAndes {
 			if (estado == false) {
 				estado2 = 0;
 			}
-			Date hoy = new Date();
+			
+			Date hoy= new Date();
+			 
+			
 			
 			Timestamp fechasql = new Timestamp(hoy.getTime());
 			
 
-			long tuplasInsertadas = sqlReserva.adicionarReserva(pm, "" + idOferta, estado2, valorTotal, clienteid, fechasql , null);
+
+	long tuplasInsertadas = sqlReserva.adicionarReserva(pm, "" + idOferta, estado2, valorTotal, clienteid, fechasql , idResColectiva);
 
 			for (Oferta o : ofertasid) {
 				tuplasInsertadas += sqlOferta.actualizarReserva(pm, "" + o.getId(), "" + idOferta);
@@ -851,6 +858,83 @@ public class PersistenciaAlohAndes {
 
 	public List darOfertasPorAlojamiento(long idUsuario) {
 		return sqlOferta.darOfertasPorAlojamiento(pmf.getPersistenceManager(), idUsuario);
+	}
+	
+	public List<Oferta> darOfertasPorFecha(String fecha){
+		return sqlOferta.darOfertasPorFecha(pmf.getPersistenceManager(), fecha);
+	}
+	
+	public List<Oferta> darOfertasCapacidad(  int capacidad, String dia) throws ParseException {
+		
+		
+		
+		
+		
+			
+			
+		
+		
+		
+		
+		List<Oferta> ofertas = darOfertasPorFecha(dia);
+		ArrayList<Oferta> ofCap= new ArrayList<Oferta>();
+		int capAsignada=0;
+		
+		
+		for(int i = 0;i<ofertas.size()|| capAsignada>capacidad;i++) {
+			Oferta of =  ofertas.get(i);
+			ofCap.add( ofertas.get(i));
+			capAsignada += darAlojamientoPorId(""+of.getAlojamiento_id()).getCapacidad();
+		}
+		
+		if(capAsignada<=capacidad) {
+			ofCap=null;
+		}
+		return ofCap;
+	}
+	
+	
+	public String registrarReservaColectiva(long clienteid, int capacidad, String dia) {
+		
+		PersistenceManager pm = pmf.getPersistenceManager();
+		Transaction tx = pm.currentTransaction();
+		String resp=" Error";
+		System.out.println("inciio");
+		try {
+			tx.begin();
+			System.out.println("incio2");
+			List<Oferta> ofertas = darOfertasCapacidad(capacidad, dia);
+			System.out.println(""+ofertas.size());
+			
+			if(ofertas.isEmpty()==true) {
+				System.out.println("No se pudo agregar reserva colectiva");
+				resp="No hay capacidad";
+				
+			}
+			else
+			{
+				System.out.println("Agregar reserva colectiva");
+				sqlReservaColectiva.adicionarReserva(pm, ""+sqlUtil.nextval(pm), 2);
+					adicionarReserva(false, clienteid, ofertas,""+sqlUtil.nextval(pm));
+				
+			}
+			
+			tx.commit();
+			
+			return "Se agrego la reserva colectiva";
+			
+		} catch (Exception e) {
+			log.error("Exception : " + e.getMessage() + "\n" + darDetalleException(e));
+			resp="Exception : " + e.getMessage() + "\n" + darDetalleException(e);
+			return resp;
+			
+		} finally {
+			if (tx.isActive()) {
+				tx.rollback();
+			}
+			pm.close();
+		}
+		
 	}
 
 	/**

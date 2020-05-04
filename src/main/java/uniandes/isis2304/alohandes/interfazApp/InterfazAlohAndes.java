@@ -715,6 +715,50 @@ public class InterfazAlohAndes extends JFrame implements ActionListener
  
    public void registrarReservaColectiva() {
 	   
+	   
+			 if(usuarioActivo!=-1)
+			 {
+				 if(tipoActivo==2) {
+				 				 
+				 Properties p = new Properties();
+				 p.put("text.today", "Today");
+				 p.put("text.month", "Month");
+				 p.put("text.year", "Year");
+				 UtilDateModel model = new UtilDateModel();
+				 JDatePanelImpl datePanel = new JDatePanelImpl(model, p);
+				 String message ="Choose start date:\n";
+				 Object[] params = {message,datePanel};
+				 JOptionPane.showInputDialog(this,params,"Start date", JOptionPane.PLAIN_MESSAGE);
+				 String fecha =model.getDay()+"-"+model.getMonth()+"-"+model.getYear();
+				 System.out.print(fecha);
+				 String cap = JOptionPane.showInputDialog(this, "Capacidad Solicitada", "Capacidad",
+							JOptionPane.QUESTION_MESSAGE);
+				 
+				 int capacidad = Integer.parseInt(cap);
+				 
+				 	try {
+						
+						panelDatos.actualizarInterfaz(alohandes.adicionarReservaColectiva(usuarioActivo, capacidad, fecha));
+					} catch (Exception e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+						
+						 panelDatos.actualizarInterfaz(e.getMessage());
+					}
+				 
+				
+					
+				
+
+				 }else
+					 JOptionPane.showMessageDialog(this,"Debe loguearse como cliente","Debe loguearse",JOptionPane.ERROR_MESSAGE);
+			 }
+			 else
+				 JOptionPane.showMessageDialog(this,"No esta logueado","Debe loguearse",JOptionPane.ERROR_MESSAGE);
+				
+				 
+	   
+	   
    }
    
    public void cancelarReservaColectiva() {

@@ -131,9 +131,17 @@ public class AlohAndes
 	
 	public String adicionarReserva( long clienteid, List<Oferta>ofertasid) throws Exception {
 		String respuesta = "";
-		respuesta += pp.adicionarReserva(false, clienteid, ofertasid);
+		respuesta += pp.adicionarReserva(false, clienteid, ofertasid,null);
 		return respuesta;
 	}
+	
+	public String adicionarReservaColectiva( long clienteid, int capacidad, String dia) throws Exception {
+		String respuesta = "";
+		  respuesta += pp.registrarReservaColectiva(clienteid, capacidad, dia);;
+		return respuesta;
+	}
+	
+	
 	public long eliminarAlojamientoPorId(long idAlojamiento) throws Exception {
 	 return pp.eliminarAlojamientoPorId(idAlojamiento);
 	}
