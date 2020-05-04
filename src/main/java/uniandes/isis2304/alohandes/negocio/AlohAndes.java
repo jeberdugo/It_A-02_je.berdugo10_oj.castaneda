@@ -201,6 +201,20 @@ public class AlohAndes
 		return pp.ingresosPorOperador();
 	}
 	
+	public String deshabilitarAlojamiento(Alojamiento alojamiento) {
+		return pp.deshabilitarAlojamiento(alojamiento);
+	}
+	
+	public void habilitarAlojamiento(Long alojamientoId) {
+		pp.habilitarAlojamiento(alojamientoId);
+	}
+	public List<Alojamiento> darAlojamientosDeshabilitadosPorUserId(Long userId){
+		return pp.darAlojamientosPorUserIdNoHabilitados(userId);
+	}
+	
+	public Alojamiento darAlojamientoPorId(long alojamientoId) {
+		return pp.darAlojamientoPorId(alojamientoId+"");
+	}
 	/* ****************************************************************
 	 * 			Métodos para administración
 	 *****************************************************************/

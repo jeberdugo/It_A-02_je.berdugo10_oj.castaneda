@@ -117,4 +117,30 @@ public class SQLAlojamiento {
 		return (List<Alojamiento>) q.executeList();
 
 	}
+	
+	public void deshabilitarAlojamientoPorId(PersistenceManager pm, Long alojamientoId) {
+		Query q = pm.newQuery(SQL, "UPDATE " + pa.darTablaAlojamiento()+" SET HABILITADO = 0 WHERE ID = ?");
+		q.setParameters(alojamientoId);
+		q.executeUnique();
+	}
+	
+	public void habilitarAlojamientoPorId(PersistenceManager pm, Long alojamientoId) {
+		Query q = pm.newQuery(SQL, "UPDATE " + pa.darTablaAlojamiento()+" SET HABILITADO = 1 WHERE ID = ?");
+		q.setParameters(alojamientoId);
+		q.executeUnique();
+	}
+	
+	public List<Alojamiento> buscarAlojamientosPorCapacidad(PersistenceManager pm, Integer capacidad){
+		Query q = pm.newQuery(SQL, "SELECT * FROM " + pa.darTablaAlojamiento() + " WHERE capacidad = ?");
+		q.setParameters(capacidad);
+		q.setResultClass(Alojamiento.class);
+		return (List<Alojamiento>) q.executeList();
+	}
+	
+	public List<Alojamiento> darAlojamientosPorUserIdNoHabilitados(PersistenceManager pm, String idUsuario) {
+		Query q = pm.newQuery(SQL, "SELECT * FROM " + pa.darTablaAlojamiento() + " WHERE operador_id = ? AND habilitado = 0");
+		q.setParameters(idUsuario);
+		q.setResultClass(Alojamiento.class);
+		return (List<Alojamiento>) q.executeList();
+	}
 }

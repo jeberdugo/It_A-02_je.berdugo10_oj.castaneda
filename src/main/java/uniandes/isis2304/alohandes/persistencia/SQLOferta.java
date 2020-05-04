@@ -180,5 +180,27 @@ public class SQLOferta {
 		
 		return (List) q.executeList();
 	}
+	
+	public List<Oferta> darOfertasConReservaPorAlojamiento(PersistenceManager pm, long idAlojamiento) {
+		Query q = pm.newQuery(SQL,
+				"SELECT * FROM " + pa.darTablaOferta() + " WHERE alojamiento_id = ? AND reserva_id IS NOT NULL");
+		q.setResultClass(Oferta.class);
+		q.setParameters(idAlojamiento);
+		return (List<Oferta>) q.executeList();
+	}
+
+	public List<Oferta> darOfertasSinReservaPorAlojamientoYFecha(PersistenceManager pm, long idAlojamiento, String fecha) {
+		Query q = pm.newQuery(SQL, "SELECT * FROM " + pa.darTablaOferta()
+				+ " WHERE alojamiento_id = ? AND reserva_id IS NULL AND DIA=TO_DATE(\'"+fecha.split(" ")[0]+"\',\'YYYY-MM-DD\')");
+		q.setResultClass(Oferta.class);
+		q.setParameters(idAlojamiento);
+		return (List<Oferta>) q.executeList();
+	}
+	
+	public void eliminarReservasAlojamiento(PersistenceManager pm, long alojamientoId) {
+		Query q = pm.newQuery(SQL, "DELETE FROM " + pa.darTablaOferta() + " WHERE alojamiento_id = ?");
+		q.setParameters(alojamientoId);
+		q.executeUnique();
+	}
 
 }
