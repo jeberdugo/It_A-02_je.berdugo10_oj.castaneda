@@ -152,7 +152,7 @@ public class Usuario implements VOUsuario {
 	 * @return Una cadena de caracteres con todos los atributos del usuario
 	 */
 	public String toString() {
-		return "Usuario [id=" + id + ", nombreUsuario=" + usuario + ", correo=" + correo + ", contrasena=" + contrasena
+		return "Usuario [id=" + id + ", nombreUsuario=" + usuario + ", correo=" + correo 
 				+ ", numeroDocumento=" + numero_Documento + ", tipoDocumento=" + tipo_Documento + "]";
 	}
 }

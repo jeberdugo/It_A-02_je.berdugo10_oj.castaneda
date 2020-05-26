@@ -255,8 +255,8 @@ public class AlohAndes
 	}
 	
 	
-	public String consultarConsumo2() {
-		return pp.consultarConsumo2();
+	public String consultarConsumo2(long alid, Date fi, Date ff) {
+		return pp.consultarConsumo2(alid,fi,ff);
 	}
 	/* ****************************************************************
 	 * 			Métodos para administración
@@ -275,7 +275,7 @@ public class AlohAndes
         return borrrados;
 	}
 
-	public String consultarConsumo1() {
-		return pp.consultarConsumo1();
+	public String consultarConsumo1(long alid, Date fi, Date ff) {
+		return pp.consultarConsumo1(alid,fi,ff);
 	}
 }

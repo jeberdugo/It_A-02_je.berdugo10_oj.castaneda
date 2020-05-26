@@ -1306,10 +1306,12 @@ public class PersistenciaAlohAndes {
 		return resp;
 	}
 	
-	public String consultarConsumo2() {
-		String resp = "Consumo:\n";
+	public String consultarConsumo2(long alid,Date fi, Date ff) {
+		String resp = "Consumo de alojamiento con id: " + alid + " entre el "+ fi +" y el "+ ff +" \n";
 		PersistenceManager pm = pmf.getPersistenceManager();
-		List<Usuario> listaUsuarios=sqlOferta.consultarConsumo2(pm);
+		Timestamp fechasqlI = new Timestamp(fi.getTime());
+		Timestamp fechasqlF = new Timestamp(ff.getTime());
+		List<Usuario> listaUsuarios=sqlOferta.consultarConsumo2(pm, alid,fechasqlI,fechasqlF);
 		for(Usuario us:listaUsuarios) {
 			resp += us.toString() + "\n";
 		}
@@ -1318,10 +1320,12 @@ public class PersistenciaAlohAndes {
 		
 	}
 
-	public String consultarConsumo1() {
-		String resp = "Consumo:\n";
+	public String consultarConsumo1(long alid,Date fi, Date ff) {
+		String resp = "Consumo de alojamiento con id: " + alid + " entre el "+ fi.toString()+" y el "+ ff.toString() +" \n";
 		PersistenceManager pm = pmf.getPersistenceManager();
-		List<Usuario> listaUsuarios=sqlOferta.consultarConsumo1(pm);
+		Timestamp fechasqlI = new Timestamp(fi.getTime());
+		Timestamp fechasqlF = new Timestamp(ff.getTime());
+		List<Usuario> listaUsuarios=sqlOferta.consultarConsumo1(pm, alid,fechasqlI,fechasqlF);
 		for(Usuario us:listaUsuarios) {
 			resp += us.toString() + "\n";
 		}

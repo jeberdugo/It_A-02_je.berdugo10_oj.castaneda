@@ -309,29 +309,33 @@ public class SQLOferta {
 		return (List) q.executeList();
 	}
 	
-	public List<Usuario> consultarConsumo2(PersistenceManager pm){
+	public List<Usuario> consultarConsumo2(PersistenceManager pm, long alid, Timestamp fechaI, Timestamp fechaF){
 		Query q = pm.newQuery(SQL,
 				"SELECT * FROM USUARIO NATURAL JOIN (\r\n" + 
 				"SELECT ID FROM CLIENTE WHERE CLIENTE.id NOT IN(\r\n" + 
 				"SELECT res.cliente_id FROM OFERTA ofe \r\n" + 
 				"JOIN ALOJAMIENTO al ON ofe.alojamiento_id=al.id\r\n" + 
 				"JOIN RESERVA res ON ofe.reserva_id=res.id \r\n" + 
-				"WHERE ofe.alojamiento_id=10 \r\n" + 
+				"WHERE ofe.alojamiento_id= ? AND  ofe.dia>= ? AND  ofe.dia<= ?  \r\n" + 
 				"GROUP BY res.cliente_id))");
+		q.setParameters(alid,fechaI,fechaF);
 		q.setResultClass(Usuario.class);
 		return (List<Usuario>) q.executeList();
 	}
 	
-	public List<Usuario> consultarConsumo1(PersistenceManager pm){
+	public List<Usuario> consultarConsumo1(PersistenceManager pm, long alid,Timestamp fechaI, Timestamp fechaF){
 		Query q = pm.newQuery(SQL,
 				"SELECT * FROM USUARIO NATURAL JOIN (\r\n" + 
 				"SELECT ID FROM CLIENTE WHERE CLIENTE.id IN(\r\n" + 
 				"SELECT res.cliente_id FROM OFERTA ofe \r\n" + 
 				"JOIN ALOJAMIENTO al ON ofe.alojamiento_id=al.id\r\n" + 
 				"JOIN RESERVA res ON ofe.reserva_id=res.id \r\n" + 
-				"WHERE ofe.alojamiento_id=10 \r\n" + 
+				"WHERE ofe.alojamiento_id= ? AND  ofe.dia>= ? AND  ofe.dia<= ? \r\n" + 
 				"GROUP BY res.cliente_id))");
+		
+		q.setParameters(alid,fechaI,fechaF);
 		q.setResultClass(Usuario.class);
+		
 		return (List<Usuario>) q.executeList();
 	}
 	
