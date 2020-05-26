@@ -149,7 +149,7 @@ public class SQLOferta {
 				"JOIN  RESERVA res ON o.reserva_id=res.id\r\n" + 
 				"WHERE o.alojamiento_id= ? \r\n" + 
 				"GROUP BY res.cliente_id\r\n" + 
-				"HAVING count(res.cliente_id)>=15");
+				"HAVING count(res.cliente_id)>=1");
 		q.setParameters(idAlojamiento);
 
 		List tipoServicio = (List) q.executeList();

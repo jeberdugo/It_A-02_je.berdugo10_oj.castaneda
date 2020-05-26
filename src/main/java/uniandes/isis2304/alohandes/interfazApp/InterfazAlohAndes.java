@@ -796,6 +796,20 @@ public void cancelarReservaColectiva() {
 	public void usoPorUsuario() {
 
 	}
+	
+	public void consultarConsumo1() {
+
+	}
+	public void consultarConsumo2() {
+
+	}
+	
+	public void consultarFuncionamiento() {
+
+	}
+	public void consultarBuenosClientes() {
+
+	}
 
 	public void analisisOperacion() {
 		

@@ -532,6 +532,7 @@ public class PersistenciaAlohAndes {
 		Transaction tx = pm.currentTransaction();
 		try {
 			tx.begin();
+			
 			long idOferta = nextval();
 			int valorTotal = 0;
 			for (Oferta o : ofertasid) {
