@@ -1,11 +1,13 @@
 package uniandes.isis2304.alohandes.persistencia;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import javax.jdo.PersistenceManager;
 import javax.jdo.Query;
 
 import uniandes.isis2304.alohandes.negocio.Cliente;
+import uniandes.isis2304.alohandes.negocio.Usuario;
 
 public class SQLCliente {
 	/**
@@ -78,5 +80,54 @@ public class SQLCliente {
 		q.setResultClass(Cliente.class);
 		q.setParameters(idUsuario);
 		return (Cliente) q.executeUnique();
+	}
+	
+	public List<Usuario> darBuenClientesCosto(PersistenceManager pm) {
+		Query q = pm.newQuery(SQL,
+				"SELECT * FROM USUARIO USUA " + 
+				"NATURAL JOIN ( " + 
+				"SELECT USU.ID FROM USUARIO USU " + 
+				"LEFT JOIN RESERVA RES ON USU.ID = RES.CLIENTE_ID " + 
+				"LEFT JOIN OFERTA OFE ON RES.ID = OFE.RESERVA_ID " + 
+				"WHERE OFE.PRECIO >= 150 " + 
+				"GROUP BY USU.ID)");
+		q.setResultClass(Usuario.class);
+		return (List<Usuario>) q.executeList();
+	}
+	public List<Usuario> darBuenClienteSuite(PersistenceManager pm) {
+		Query q = pm.newQuery(SQL,
+				"SELECT * FROM USUARIO USUA " + 
+				"NATURAL JOIN ( " + 
+				"SELECT USU.ID FROM USUARIO USU " + 
+				"LEFT JOIN RESERVA RES ON USU.ID = RES.CLIENTE_ID " + 
+				"LEFT JOIN OFERTA OFE ON RES.ID = OFE.RESERVA_ID " + 
+				"LEFT JOIN ALOJAMIENTO AL ON OFE.ALOJAMIENTO_ID = AL.ID " + 
+				"WHERE AL.TIPO = 0 " + 
+				"GROUP BY USU.ID)");
+		q.setResultClass(Usuario.class);
+		return (List<Usuario>) q.executeList();
+	}
+	
+	public List<Usuario> darBuenClienteMes(PersistenceManager pm, int mes, int anio) {
+		String inicio = mes+"";
+		if(mes<10) {
+			inicio= "0"+mes;
+		}
+		String fin =(anio+1)+"";
+		if(mes>=12) {
+			fin = "01";
+		}
+		Query q = pm.newQuery(SQL,
+				"SELECT * FROM USUARIO USUA " + 
+				"NATURAL JOIN ( " + 
+				"SELECT USU.ID FROM USUARIO USU " + 
+				"LEFT JOIN RESERVA RES ON USU.ID = RES.CLIENTE_ID " + 
+				"LEFT JOIN OFERTA OFE ON RES.ID = OFE.RESERVA_ID " + 
+				"LEFT JOIN ALOJAMIENTO AL ON OFE.ALOJAMIENTO_ID = AL.ID " + 
+				"WHERE RES.FECHA_REALIZACION >= TO_DATE('"+inicio+"-"+mes+"-01', 'YYYY-MM-DD')" + 
+				"AND RES.FECHA_REALIZACION < TO_DATE('"+fin+"-"+mes+"-01', 'YYYY-MM-DD')" + 
+				"GROUP BY USU.ID)");
+		q.setResultClass(Usuario.class);
+		return (List<Usuario>) q.executeList();
 	}
 }

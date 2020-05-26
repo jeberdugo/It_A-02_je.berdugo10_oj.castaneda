@@ -113,6 +113,7 @@
 					"event": "ofertasPocaDemanda"
 				},
 				{
+
 					"label": "RFC10 Consultar Consumo",
 					"event": "consultarConsumo1"
 				},
@@ -126,7 +127,8 @@
 				},
 				{
 					"label": "RFC13 Consultar Buenos Clientes",
-					"event": "consultarBuenosClientes"
+					"event": "consultarLosBuenosClientes"
+
 				}
 			]
 		},

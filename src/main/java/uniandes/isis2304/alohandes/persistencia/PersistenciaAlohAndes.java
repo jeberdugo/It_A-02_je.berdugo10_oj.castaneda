@@ -21,6 +21,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -527,7 +528,8 @@ public class PersistenciaAlohAndes {
 		}
 	}
 
-	public Reserva adicionarReserva(boolean estado, long clienteid, List<Oferta> ofertasid, String idResColectiva) throws Exception {
+	public Reserva adicionarReserva(boolean estado, long clienteid, List<Oferta> ofertasid, String idResColectiva)
+			throws Exception {
 		PersistenceManager pm = pmf.getPersistenceManager();
 		Transaction tx = pm.currentTransaction();
 		try {
@@ -543,16 +545,12 @@ public class PersistenciaAlohAndes {
 				estado2 = 0;
 			}
 
+			Date hoy = new Date();
 
-			Date hoy= new Date();
-			 
-			
 			Timestamp fechasql = new Timestamp(hoy.getTime());
-
 
 			long tuplasInsertadas = sqlReserva.adicionarReserva(pm, "" + idOferta, estado2, valorTotal, clienteid,
 					fechasql, null);
-
 
 			for (Oferta o : ofertasid) {
 				tuplasInsertadas += sqlOferta.actualizarReserva(pm, "" + o.getId(), "" + idOferta);
@@ -867,82 +865,68 @@ public class PersistenciaAlohAndes {
 	public List darOfertasPorAlojamiento(long idUsuario) {
 		return sqlOferta.darOfertasPorAlojamiento(pmf.getPersistenceManager(), idUsuario);
 	}
-	
-	public List<Oferta> darOfertasPorFecha(String fecha){
+
+	public List<Oferta> darOfertasPorFecha(String fecha) {
 		return sqlOferta.darOfertasPorFecha(pmf.getPersistenceManager(), fecha);
 	}
-	
-	public List<Oferta> darOfertasCapacidad(  int capacidad, String dia) throws ParseException {
-		
-		
-		
-		
-		
-			
-			
-		
-		
-		
-		
+
+	public List<Oferta> darOfertasCapacidad(int capacidad, String dia) throws ParseException {
+
 		List<Oferta> ofertas = darOfertasPorFecha(dia);
-		ArrayList<Oferta> ofCap= new ArrayList<Oferta>();
-		int capAsignada=0;
-		
-		
-		for(int i = 0;i<ofertas.size()|| capAsignada>capacidad;i++) {
-			Oferta of =  ofertas.get(i);
-			ofCap.add( ofertas.get(i));
-			capAsignada += darAlojamientoPorId(""+of.getAlojamiento_id()).getCapacidad();
+		ArrayList<Oferta> ofCap = new ArrayList<Oferta>();
+		int capAsignada = 0;
+
+		for (int i = 0; i < ofertas.size() || capAsignada > capacidad; i++) {
+			Oferta of = ofertas.get(i);
+			ofCap.add(ofertas.get(i));
+			capAsignada += darAlojamientoPorId("" + of.getAlojamiento_id()).getCapacidad();
 		}
-		
-		if(capAsignada<=capacidad) {
-			ofCap=null;
+
+		if (capAsignada <= capacidad) {
+			ofCap = null;
 		}
 		return ofCap;
 	}
-	
-	
+
 	public String registrarReservaColectiva(long clienteid, int capacidad, String dia) {
-		
+
 		PersistenceManager pm = pmf.getPersistenceManager();
 		Transaction tx = pm.currentTransaction();
-		String resp=" Error";
+		String resp = " Error";
 		System.out.println("inciio");
 		try {
 			tx.begin();
 			System.out.println("incio2");
 			List<Oferta> ofertas = darOfertasCapacidad(capacidad, dia);
-			System.out.println(""+ofertas.size());
-			
-			if(ofertas.isEmpty()==true) {
+			System.out.println("" + ofertas.size());
+
+			if (ofertas.isEmpty() == true) {
 				System.out.println("No se pudo agregar reserva colectiva");
-				resp="No hay capacidad";
-				
-			}
-			else
-			{
+				resp = "No hay capacidad";
+
+			} else {
 				System.out.println("Agregar reserva colectiva");
-				sqlReservaColectiva.adicionarReserva(pm, ""+sqlUtil.nextval(pm), 2);
-					adicionarReserva(false, clienteid, ofertas,""+sqlUtil.nextval(pm));
-				
+				sqlReservaColectiva.adicionarReserva(pm, "" + sqlUtil.nextval(pm), 2);
+				adicionarReserva(false, clienteid, ofertas, "" + sqlUtil.nextval(pm));
+
 			}
-			
+
 			tx.commit();
-			
+
 			return "Se agrego la reserva colectiva";
-			
+
 		} catch (Exception e) {
 			log.error("Exception : " + e.getMessage() + "\n" + darDetalleException(e));
-			resp="Exception : " + e.getMessage() + "\n" + darDetalleException(e);
+			resp = "Exception : " + e.getMessage() + "\n" + darDetalleException(e);
 			return resp;
-			
+
 		} finally {
 			if (tx.isActive()) {
 				tx.rollback();
 			}
 			pm.close();
 		}
-		
+
 	}
 
 	/**
@@ -986,31 +970,31 @@ public class PersistenciaAlohAndes {
 
 		return veinti;
 	}
-	
+
 	public String analisisOperacion() {
 		String veinti = "";
 		veinti += sqlOferta.indiceOcupacion(pmf.getPersistenceManager());
 
 		return veinti;
 	}
-	
+
 	public String pocaOferta() {
 		String veinti = "";
 		veinti += sqlOferta.pocaOferta(pmf.getPersistenceManager());
 
 		return veinti;
 	}
-	
+
 	public String clientesFrecuentes(String idAlojamiento) {
 		String veinti = "";
-		veinti += sqlOferta.clientesFrecuentes(pmf.getPersistenceManager(),idAlojamiento);
+		veinti += sqlOferta.clientesFrecuentes(pmf.getPersistenceManager(), idAlojamiento);
 
 		return veinti;
 	}
-	
+
 	public String analisisOperacion(String tipo) {
 		String veinti = "";
-		veinti += sqlOferta.analisisOperacion(pmf.getPersistenceManager(),tipo);
+		veinti += sqlOferta.analisisOperacion(pmf.getPersistenceManager(), tipo);
 
 		return veinti;
 	}
@@ -1037,7 +1021,7 @@ public class PersistenciaAlohAndes {
 	public long eliminarAlojamientoPorId(long Alojamiento) throws Exception {
 		PersistenceManager pm = pmf.getPersistenceManager();
 		Transaction tx = pm.currentTransaction();
-		
+
 		try {
 			tx.begin();
 			long resp = sqlAlojamiento.eliminarAlojamientoPorId(pm, Alojamiento);
@@ -1145,6 +1129,62 @@ public class PersistenciaAlohAndes {
 
 		return user;
 
+	}
+
+	public String darAlojamientoMenorPorSemana(int semana, int anio) {
+		PersistenceManager pm = pmf.getPersistenceManager();
+		Long consulta = sqlAlojamiento.darAlojamientoMenorPorSemana(pm, semana, anio);
+		if (consulta != -1) {
+			return "Peor alojamiento: " + sqlAlojamiento.buscarAlojamientoPorId(pm, consulta + "").toString() + "\n";
+		}
+		return "No hay peor alojamiento\n";
+	}
+
+	public String darAlojamientoMayorPorSemana(int semana, int anio) {
+		PersistenceManager pm = pmf.getPersistenceManager();
+		Long consulta = sqlAlojamiento.darAlojamientoMayorPorSemana(pm, semana, anio);
+		if (consulta != -1) {
+			return "Mejor alojamiento: " + sqlAlojamiento.buscarAlojamientoPorId(pm, consulta + "").toString() + "\n";
+		}
+		return "No hay mejor alojamiento\n";
+	}
+
+	public String darOperadorMayorPorSemana(int semana, int anio) {
+		PersistenceManager pm = pmf.getPersistenceManager();
+		Long consulta = sqlOperador.darOperadorMayorPorSemana(pm, semana, anio);
+		if (consulta != -1) {
+			return "Mejor operador: " + sqlUsuario.darUsuarioPorId(pm, consulta + "").toString() + "\n";
+		}
+		return "No hay mejor operador\n";
+	}
+
+	public String darOperadorMenorPorSemana(int semana, int anio) {
+		PersistenceManager pm = pmf.getPersistenceManager();
+		Long consulta = sqlOperador.darOperadorMenorPorSemana(pm, semana, anio);
+		if (consulta != -1) {
+			return "Mejor operador: " + sqlUsuario.darUsuarioPorId(pm, consulta + "").toString() + "\n";
+		}
+		return "No hay mejor operador\n";
+	}
+
+	public String darBuenosClientes(int mes, int anio) {
+		String resp = "Buenos clientes por reserva mensual:\n";
+		PersistenceManager pm = pmf.getPersistenceManager();
+		Iterator<Usuario> consulta = sqlCliente.darBuenClienteMes(pm, mes, anio).iterator();
+		while (consulta.hasNext()) {
+			resp += consulta.next().toString() + "\n";
+		}
+		resp += "Buenos clientes por reserva mayor o igual a $100:\n";
+		consulta = sqlCliente.darBuenClientesCosto(pm).iterator();
+		while (consulta.hasNext()) {
+			resp += consulta.next().toString() + "\n";
+		}
+		resp += "Buenos clientes por reserva a suite:\n";
+		consulta = sqlCliente.darBuenClienteSuite(pm).iterator();
+		while (consulta.hasNext()) {
+			resp += consulta.next().toString() + "\n";
+		}
+		return resp;
 	}
 
 }

@@ -1,12 +1,15 @@
 package uniandes.isis2304.alohandes.persistencia;
 
+import java.math.BigDecimal;
 import java.sql.Date;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import javax.jdo.PersistenceManager;
 import javax.jdo.Query;
 
 import uniandes.isis2304.alohandes.negocio.Alojamiento;
+import uniandes.isis2304.alohandes.negocio.Usuario;
 
 public class SQLAlojamiento {
 
@@ -43,10 +46,12 @@ public class SQLAlojamiento {
 	 * @return El número de tuplas insertadas
 	 */
 	public long adicionarAlojamiento(PersistenceManager pm, String idAlojamiento, String capacidad, String tipo,
-			String idoperador, String registrocam, String registrosup, String ubicacion, String descripcion, String ultimaReserva, int habilitado) {
+			String idoperador, String registrocam, String registrosup, String ubicacion, String descripcion,
+			String ultimaReserva, int habilitado) {
 		Query q = pm.newQuery(SQL, "INSERT INTO " + pa.darTablaAlojamiento()
 				+ "(id, capacidad, tipo, operador_id, registro_cam, registro_sup, ubicacion, descripcion, ultima_reserva, habilitado) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
-		q.setParameters(idAlojamiento, capacidad, tipo, idoperador, registrocam, registrosup, ubicacion, descripcion, ultimaReserva, habilitado);
+		q.setParameters(idAlojamiento, capacidad, tipo, idoperador, registrocam, registrosup, ubicacion, descripcion,
+				ultimaReserva, habilitado);
 		return (long) q.executeUnique();
 	}
 
@@ -117,30 +122,73 @@ public class SQLAlojamiento {
 		return (List<Alojamiento>) q.executeList();
 
 	}
-	
+
 	public void deshabilitarAlojamientoPorId(PersistenceManager pm, Long alojamientoId) {
-		Query q = pm.newQuery(SQL, "UPDATE " + pa.darTablaAlojamiento()+" SET HABILITADO = 0 WHERE ID = ?");
+		Query q = pm.newQuery(SQL, "UPDATE " + pa.darTablaAlojamiento() + " SET HABILITADO = 0 WHERE ID = ?");
 		q.setParameters(alojamientoId);
 		q.executeUnique();
 	}
-	
+
 	public void habilitarAlojamientoPorId(PersistenceManager pm, Long alojamientoId) {
-		Query q = pm.newQuery(SQL, "UPDATE " + pa.darTablaAlojamiento()+" SET HABILITADO = 1 WHERE ID = ?");
+		Query q = pm.newQuery(SQL, "UPDATE " + pa.darTablaAlojamiento() + " SET HABILITADO = 1 WHERE ID = ?");
 		q.setParameters(alojamientoId);
 		q.executeUnique();
 	}
-	
-	public List<Alojamiento> buscarAlojamientosPorCapacidad(PersistenceManager pm, Integer capacidad){
+
+	public List<Alojamiento> buscarAlojamientosPorCapacidad(PersistenceManager pm, Integer capacidad) {
 		Query q = pm.newQuery(SQL, "SELECT * FROM " + pa.darTablaAlojamiento() + " WHERE capacidad = ?");
 		q.setParameters(capacidad);
 		q.setResultClass(Alojamiento.class);
 		return (List<Alojamiento>) q.executeList();
 	}
-	
+
 	public List<Alojamiento> darAlojamientosPorUserIdNoHabilitados(PersistenceManager pm, String idUsuario) {
-		Query q = pm.newQuery(SQL, "SELECT * FROM " + pa.darTablaAlojamiento() + " WHERE operador_id = ? AND habilitado = 0");
+		Query q = pm.newQuery(SQL,
+				"SELECT * FROM " + pa.darTablaAlojamiento() + " WHERE operador_id = ? AND habilitado = 0");
 		q.setParameters(idUsuario);
 		q.setResultClass(Alojamiento.class);
 		return (List<Alojamiento>) q.executeList();
 	}
+
+	public long darAlojamientoMayorPorSemana(PersistenceManager pm, int semana, int anio) {
+		Query q = pm.newQuery(SQL,
+				"SELECT * FROM( " + 
+				"SELECT OFER.ALOJAMIENTO_ID AS ALOJAMIENTO " + 
+				"FROM ALOJAMIENTO ALO " + 
+				"FULL OUTER JOIN OFERTA OFER ON OFER.ALOJAMIENTO_ID = ALO.ID " + 
+				"FULL OUTER JOIN RESERVA RES ON RES.ID = OFER.RESERVA_ID " + 
+				"WHERE OFER.DIA>=TO_DATE('"+anio+"-01-01','YYYY-MM-DD') " + 
+				"AND OFER.DIA<TO_DATE('"+(anio+1)+"-01-01','YYYY-MM-DD') " + 
+				"AND TO_CHAR(DIA - 7/24,'IW') LIKE '"+semana+"' " +
+				"GROUP BY OFER.ALOJAMIENTO_ID, TO_CHAR(DIA - 7/24,'IW') " + 
+				"ORDER BY COUNT(RES.ID) DESC) " + 
+				"WHERE ROWNUM = 1");
+		Object ret = q.executeUnique();
+		if(ret==null) {
+			return -1;
+		}
+		return ((BigDecimal) ret).longValue();
+	}
+	
+	public long darAlojamientoMenorPorSemana(PersistenceManager pm, int semana, int anio) {
+		Query q = pm.newQuery(SQL,
+				"SELECT * FROM( " + 
+				"SELECT OFER.ALOJAMIENTO_ID AS ALOJAMIENTO " + 
+				"FROM ALOJAMIENTO ALO " + 
+				"FULL OUTER JOIN OFERTA OFER ON OFER.ALOJAMIENTO_ID = ALO.ID " + 
+				"FULL OUTER JOIN RESERVA RES ON RES.ID = OFER.RESERVA_ID " + 
+				"WHERE OFER.DIA>=TO_DATE('"+anio+"-01-01','YYYY-MM-DD') " + 
+				"AND OFER.DIA<TO_DATE('"+(anio+1)+"-01-01','YYYY-MM-DD') " + 
+				"AND TO_CHAR(DIA - 7/24,'IW') LIKE '"+semana+"' " +
+				"GROUP BY OFER.ALOJAMIENTO_ID, TO_CHAR(DIA - 7/24,'IW') " + 
+				"ORDER BY COUNT(RES.ID) ASC) " + 
+				"WHERE ROWNUM = 1");
+		Object ret = q.executeUnique();
+		if(ret==null) {
+			return -1;
+		}
+		return ((BigDecimal) ret).longValue();
+	}
+	
+	
 }
