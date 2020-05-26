@@ -848,7 +848,7 @@ public class PersistenciaAlohAndes {
 	public Operador darOperadorPorId(String idUsuario) {
 		Long duration = System.currentTimeMillis();
 		Operador resp = sqlOperador.darOperadorPorId(pmf.getPersistenceManager(), idUsuario);
-		System.out.println(System.currentTimeMillis() - duration);
+		System.out.println("Tiempo darOpid: "+(System.currentTimeMillis() - duration));
 		return resp;
 	}
 
@@ -1231,7 +1231,7 @@ public class PersistenciaAlohAndes {
 		Long duration = System.currentTimeMillis();
 		PersistenceManager pm = pmf.getPersistenceManager();
 		Usuario user = sqlUsuario.darUsuarioPorUsuario(pm, idUsuario);
-		System.out.println(System.currentTimeMillis() - duration);
+		System.out.println("Tiempo login: " +(System.currentTimeMillis() - duration));
 		return user;
 
 	}
@@ -1307,6 +1307,7 @@ public class PersistenciaAlohAndes {
 	}
 	
 	public String consultarConsumo2(long alid,Date fi, Date ff) {
+		Long duration = System.currentTimeMillis();
 		String resp = "Consumo de alojamiento con id: " + alid + " entre el "+ fi +" y el "+ ff +" \n";
 		PersistenceManager pm = pmf.getPersistenceManager();
 		Timestamp fechasqlI = new Timestamp(fi.getTime());
@@ -1315,12 +1316,14 @@ public class PersistenciaAlohAndes {
 		for(Usuario us:listaUsuarios) {
 			resp += us.toString() + "\n";
 		}
+		System.out.println(System.currentTimeMillis() - duration);
 		
 		return resp;
 		
 	}
 
 	public String consultarConsumo1(long alid,Date fi, Date ff) {
+		Long duration = System.currentTimeMillis();
 		String resp = "Consumo de alojamiento con id: " + alid + " entre el "+ fi.toString()+" y el "+ ff.toString() +" \n";
 		PersistenceManager pm = pmf.getPersistenceManager();
 		Timestamp fechasqlI = new Timestamp(fi.getTime());
@@ -1329,7 +1332,7 @@ public class PersistenciaAlohAndes {
 		for(Usuario us:listaUsuarios) {
 			resp += us.toString() + "\n";
 		}
-		
+		System.out.println(System.currentTimeMillis() - duration);
 		return resp;
 	}
 

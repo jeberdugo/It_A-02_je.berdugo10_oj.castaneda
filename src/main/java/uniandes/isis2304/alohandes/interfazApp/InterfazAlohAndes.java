@@ -310,7 +310,7 @@ public class InterfazAlohAndes extends JFrame implements ActionListener {
 						String alooid = (String) JOptionPane.showInputDialog(null, "Seleccione Un Alojamiento",
 								"Alojamientos", JOptionPane.QUESTION_MESSAGE, null, listaId.toArray(), "Seleccione");
 						long alojamientoId = Long.parseLong(alooid);
-						System.out.println("" + alojamientoId);
+					
 
 						Properties p = new Properties();
 						p.put("text.today", "Today");
@@ -322,11 +322,11 @@ public class InterfazAlohAndes extends JFrame implements ActionListener {
 						Object[] params = { message, datePanel };
 						JOptionPane.showInputDialog(this, params, "Start date", JOptionPane.PLAIN_MESSAGE);
 						String fecha = model.getDay() + "-" + model.getMonth() + "-" + model.getYear();
-						System.out.print(fecha);
+						
 						String precio = JOptionPane.showInputDialog(this, "Precio", "Final",
 								JOptionPane.QUESTION_MESSAGE);
 
-						System.out.print(precio);
+						
 
 						System.out.print(alohandes.adicionarOferta(fecha, Integer.parseInt(precio), alojamientoId));
 					}
@@ -479,7 +479,7 @@ public class InterfazAlohAndes extends JFrame implements ActionListener {
 									"Ofertas", JOptionPane.QUESTION_MESSAGE, null, listaO.toArray(), "Seleccione");
 							long ofertaId = ofid.longValue();
 							Oferta of = alohandes.darOferta(ofertaId);
-							System.out.println(of);
+							
 							listaOfertasFinal.add(of);
 							listaOfertas.remove(ofid);
 
@@ -651,7 +651,7 @@ public class InterfazAlohAndes extends JFrame implements ActionListener {
 			 Object[] params = {message,datePanel};
 			 JOptionPane.showInputDialog(this,params,"Start date", JOptionPane.PLAIN_MESSAGE);
 			 String fecha =model.getDay()+"-"+model.getMonth()+"-"+model.getYear();
-			 System.out.print(fecha);
+			
 			 String cap = JOptionPane.showInputDialog(this, "Capacidad Solicitada", "Capacidad",
 						JOptionPane.QUESTION_MESSAGE);
 			 
@@ -839,10 +839,10 @@ public void cancelarReservaColectiva() {
 					Object[] params = { message, datePanel };
 					JOptionPane.showInputDialog(this, params, "Fecha Inicial", JOptionPane.PLAIN_MESSAGE);
 					String fechaI = model.getDay() + "-" + model.getMonth() + "-" + model.getYear();
-					System.out.print(fechaI);
+					
 					JOptionPane.showInputDialog(this, params, "Fecha Final", JOptionPane.PLAIN_MESSAGE);
 					String fechaF = model.getDay() + "-" + model.getMonth() + "-" + model.getYear();
-					System.out.print(fechaF);
+					
 					
 					SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
 					Date fechaIn = null;
@@ -895,10 +895,10 @@ public void cancelarReservaColectiva() {
 					Object[] params = { message, datePanel };
 					JOptionPane.showInputDialog(this, params, "Fecha Inicial", JOptionPane.PLAIN_MESSAGE);
 					String fechaI = model.getDay() + "-" + model.getMonth() + "-" + model.getYear();
-					System.out.print(fechaI);
+					
 					JOptionPane.showInputDialog(this, params, "Fecha Final", JOptionPane.PLAIN_MESSAGE);
 					String fechaF = model.getDay() + "-" + model.getMonth() + "-" + model.getYear();
-					System.out.print(fechaF);
+					
 					
 					SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
 					Date fechaIn = null;
@@ -959,10 +959,10 @@ public void cancelarReservaColectiva() {
 					Object[] params = { message, datePanel };
 					JOptionPane.showInputDialog(this, params, "Fecha Inicial", JOptionPane.PLAIN_MESSAGE);
 					String fechaI = model.getDay() + "-" + model.getMonth() + "-" + model.getYear();
-					System.out.print(fechaI);
+					
 					JOptionPane.showInputDialog(this, params, "Fecha Final", JOptionPane.PLAIN_MESSAGE);
 					String fechaF = model.getDay() + "-" + model.getMonth() + "-" + model.getYear();
-					System.out.print(fechaF);
+					
 					
 					SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
 					Date fechaIn = null;
@@ -1016,10 +1016,10 @@ public void cancelarReservaColectiva() {
 					Object[] params = { message, datePanel };
 					JOptionPane.showInputDialog(this, params, "Fecha Inicial", JOptionPane.PLAIN_MESSAGE);
 					String fechaI = model.getDay() + "-" + model.getMonth() + "-" + model.getYear();
-					System.out.print(fechaI);
+					
 					JOptionPane.showInputDialog(this, params, "Fecha Final", JOptionPane.PLAIN_MESSAGE);
 					String fechaF = model.getDay() + "-" + model.getMonth() + "-" + model.getYear();
-					System.out.print(fechaF);
+					
 					
 					SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
 					Date fechaIn = null;

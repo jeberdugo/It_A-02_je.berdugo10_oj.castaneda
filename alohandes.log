@@ -93,3 +93,13 @@
 01:11:02,264 (main) INFO  [uniandes.isis2304.alohandes.interfazApp.InterfazAlohAndes] - Se encontró un archivo de configuración válido: Tablas BD
 01:11:02,278 (main) INFO  [uniandes.isis2304.alohandes.persistencia.PersistenciaAlohAndes] - Accediendo unidad de persistencia: AlohAndes
 01:11:11,305 (AWT-EventQueue-0) INFO  [uniandes.isis2304.alohandes.negocio.AlohAndes] - Intento de login de usuario: admin
+01:18:28,841 (main) INFO  [uniandes.isis2304.alohandes.interfazApp.InterfazAlohAndes] - Se encontró un archivo de configuración válido: Interfaz
+01:18:28,843 (main) INFO  [uniandes.isis2304.alohandes.interfazApp.InterfazAlohAndes] - Se aplica configuración indicada en el archivo de configuración
+01:18:28,869 (main) INFO  [uniandes.isis2304.alohandes.interfazApp.InterfazAlohAndes] - Se encontró un archivo de configuración válido: Tablas BD
+01:18:28,880 (main) INFO  [uniandes.isis2304.alohandes.persistencia.PersistenciaAlohAndes] - Accediendo unidad de persistencia: AlohAndes
+01:18:37,789 (AWT-EventQueue-0) INFO  [uniandes.isis2304.alohandes.negocio.AlohAndes] - Intento de login de usuario: admin
+01:20:23,739 (main) INFO  [uniandes.isis2304.alohandes.interfazApp.InterfazAlohAndes] - Se encontró un archivo de configuración válido: Interfaz
+01:20:23,740 (main) INFO  [uniandes.isis2304.alohandes.interfazApp.InterfazAlohAndes] - Se aplica configuración indicada en el archivo de configuración
+01:20:23,763 (main) INFO  [uniandes.isis2304.alohandes.interfazApp.InterfazAlohAndes] - Se encontró un archivo de configuración válido: Tablas BD
+01:20:23,775 (main) INFO  [uniandes.isis2304.alohandes.persistencia.PersistenciaAlohAndes] - Accediendo unidad de persistencia: AlohAndes
+01:20:36,127 (AWT-EventQueue-0) INFO  [uniandes.isis2304.alohandes.negocio.AlohAndes] - Intento de login de usuario: admin
