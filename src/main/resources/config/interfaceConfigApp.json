@@ -111,6 +111,14 @@
 				{
 					"label": "RFC9 Ofertas con poca Demanda",
 					"event": "ofertasPocaDemanda"
+				},
+				{
+					"label": "RFC12 Consultar funcionamiento",
+					"event": "consultarFuncionamiento"
+				},
+				{
+					"label": "RFC13 Consultar los buenos clientes",
+					"event": "consultarLosBuenosClientes"
 				}
 			]
 		},

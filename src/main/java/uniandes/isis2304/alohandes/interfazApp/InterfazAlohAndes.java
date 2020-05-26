@@ -830,6 +830,14 @@ public void cancelarReservaColectiva() {
 		
 
 	}
+	
+	public void consultarFuncionamiento() {
+		panelDatos.actualizarInterfaz(alohandes.consultarFuncionamiento());
+	}
+	
+	public void consultarLosBuenosClientes() {
+		panelDatos.actualizarInterfaz(alohandes.consultarLosBuenosClientes());
+	}
 
 	public void ofertasPocaDemanda() {
 		
