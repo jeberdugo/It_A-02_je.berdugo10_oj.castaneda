@@ -155,7 +155,6 @@ public class PersistenciaAlohAndes {
 	private PersistenciaAlohAndes(JsonObject tableConfig) {
 		crearClasesSQL();
 		tablas = leerNombresTablas(tableConfig);
-
 		String unidadPersistencia = tableConfig.get("unidadPersistencia").getAsString();
 		log.info("Accediendo unidad de persistencia: " + unidadPersistencia);
 		pmf = JDOHelper.getPersistenceManagerFactory(unidadPersistencia);
@@ -411,6 +410,7 @@ public class PersistenciaAlohAndes {
 	}
 
 	public Usuario buscarUsuarioPorUsuario(String usuario) {
+		Long duration = System.currentTimeMillis();
 		PersistenceManager pm = pmf.getPersistenceManager();
 		Transaction tx = pm.currentTransaction();
 		try {
@@ -427,11 +427,13 @@ public class PersistenciaAlohAndes {
 				tx.rollback();
 			}
 			pm.close();
+			System.out.println(System.currentTimeMillis() - duration);
 		}
 	}
 
 	public Usuario adicionarUsuario(String nombreUsuario, String correo, String contrasena, int numeroDocumento,
 			int tipoDocumento) throws Exception {
+		Long duration = System.currentTimeMillis();
 		PersistenceManager pm = pmf.getPersistenceManager();
 		Transaction tx = pm.currentTransaction();
 		try {
@@ -451,10 +453,12 @@ public class PersistenciaAlohAndes {
 				tx.rollback();
 			}
 			pm.close();
+			System.out.println(System.currentTimeMillis() - duration);
 		}
 	}
 
 	public Cliente adicionarCliente(long idCliente, String nombre, int rol) throws Exception {
+		Long duration = System.currentTimeMillis();
 		PersistenceManager pm = pmf.getPersistenceManager();
 		Transaction tx = pm.currentTransaction();
 		try {
@@ -472,10 +476,12 @@ public class PersistenciaAlohAndes {
 				tx.rollback();
 			}
 			pm.close();
+			System.out.println(System.currentTimeMillis() - duration);
 		}
 	}
 
 	public Oferta adicionarOferta(String dia, int precio, long alojamientoid) throws Exception {
+		Long duration = System.currentTimeMillis();
 		PersistenceManager pm = pmf.getPersistenceManager();
 		Transaction tx = pm.currentTransaction();
 		try {
@@ -499,11 +505,13 @@ public class PersistenciaAlohAndes {
 				tx.rollback();
 			}
 			pm.close();
+			System.out.println(System.currentTimeMillis() - duration);
 		}
 	}
 
 	public Alojamiento adicionarAlojamiento(int capacidad, int tipo, long idOperador, long registrocam,
 			long registrosup, String ubicacion, String descripcion) throws Exception {
+		Long duration = System.currentTimeMillis();
 		PersistenceManager pm = pmf.getPersistenceManager();
 		Transaction tx = pm.currentTransaction();
 		try {
@@ -525,16 +533,17 @@ public class PersistenciaAlohAndes {
 				tx.rollback();
 			}
 			pm.close();
+			System.out.println(System.currentTimeMillis() - duration);
 		}
 	}
 
 	public Reserva adicionarReserva(boolean estado, long clienteid, List<Oferta> ofertasid, String idResColectiva)
 			throws Exception {
+		Long duration = System.currentTimeMillis();
 		PersistenceManager pm = pmf.getPersistenceManager();
 		Transaction tx = pm.currentTransaction();
 		try {
 			tx.begin();
-			
 			long idOferta = nextval();
 			int valorTotal = 0;
 			for (Oferta o : ofertasid) {
@@ -568,10 +577,12 @@ public class PersistenciaAlohAndes {
 				tx.rollback();
 			}
 			pm.close();
+			System.out.println(System.currentTimeMillis() - duration);
 		}
 	}
 
 	public Operador adicionarOperador(long idOperador, int tipo) throws Exception {
+		Long duration = System.currentTimeMillis();
 		PersistenceManager pm = pmf.getPersistenceManager();
 		Transaction tx = pm.currentTransaction();
 		try {
@@ -591,11 +602,13 @@ public class PersistenciaAlohAndes {
 				tx.rollback();
 			}
 			pm.close();
+			System.out.println(System.currentTimeMillis() - duration);
 		}
 	}
 
 	public Habitacion adicionarHabitacion(long idHabitacion, int capacidad, int tipo, long alojamientoId)
 			throws Exception {
+		Long duration = System.currentTimeMillis();
 		PersistenceManager pm = pmf.getPersistenceManager();
 		Transaction tx = pm.currentTransaction();
 		try {
@@ -615,11 +628,13 @@ public class PersistenciaAlohAndes {
 				tx.rollback();
 			}
 			pm.close();
+			System.out.println(System.currentTimeMillis() - duration);
 		}
 	}
 
 	public Horario adicionarHorario(long idHorario, java.sql.Date horaInicio, java.sql.Date horaFin, String diasSemana)
 			throws Exception {
+		Long duration = System.currentTimeMillis();
 		PersistenceManager pm = pmf.getPersistenceManager();
 		Transaction tx = pm.currentTransaction();
 		try {
@@ -640,11 +655,13 @@ public class PersistenciaAlohAndes {
 				tx.rollback();
 			}
 			pm.close();
+			System.out.println(System.currentTimeMillis() - duration);
 		}
 	}
 
 	public Menaje adicionarMenaje(long idMenaje, String descripcion, int disponibilidad, long alojamientoId)
 			throws Exception {
+		Long duration = System.currentTimeMillis();
 		PersistenceManager pm = pmf.getPersistenceManager();
 		Transaction tx = pm.currentTransaction();
 		try {
@@ -670,10 +687,12 @@ public class PersistenciaAlohAndes {
 				tx.rollback();
 			}
 			pm.close();
+			System.out.println(System.currentTimeMillis() - duration);
 		}
 	}
 
 	public Regla adicionarRegla(long idRegla, String descripcion, long alojamientoId) throws Exception {
+		Long duration = System.currentTimeMillis();
 		PersistenceManager pm = pmf.getPersistenceManager();
 		Transaction tx = pm.currentTransaction();
 		try {
@@ -692,11 +711,13 @@ public class PersistenciaAlohAndes {
 				tx.rollback();
 			}
 			pm.close();
+			System.out.println(System.currentTimeMillis() - duration);
 		}
 	}
 
 	public Servicio adicionarServicio(long idServicio, String descripcion, double costo, long idHorario,
 			long alojamientoId) throws Exception {
+		Long duration = System.currentTimeMillis();
 		PersistenceManager pm = pmf.getPersistenceManager();
 		Transaction tx = pm.currentTransaction();
 		try {
@@ -717,11 +738,13 @@ public class PersistenciaAlohAndes {
 				tx.rollback();
 			}
 			pm.close();
+			System.out.println(System.currentTimeMillis() - duration);
 		}
 	}
 
 	public Seguro adicionarSeguro(long idSeguro, String caracteristicas, double costo, java.sql.Date vigencia,
 			long alojamientoId) throws Exception {
+		Long duration = System.currentTimeMillis();
 		PersistenceManager pm = pmf.getPersistenceManager();
 		Transaction tx = pm.currentTransaction();
 		try {
@@ -741,6 +764,7 @@ public class PersistenciaAlohAndes {
 				tx.rollback();
 			}
 			pm.close();
+			System.out.println(System.currentTimeMillis() - duration);
 		}
 	}
 
@@ -751,7 +775,10 @@ public class PersistenciaAlohAndes {
 	 *         la tabla TIPOBEBIDA
 	 */
 	public List<Alojamiento> darAlojamientosPorUserId(String idUsuario) {
-		return sqlAlojamiento.darAlojamientosPorUserId(pmf.getPersistenceManager(), idUsuario);
+		Long duration = System.currentTimeMillis();
+		List<Alojamiento> resp = sqlAlojamiento.darAlojamientosPorUserId(pmf.getPersistenceManager(), idUsuario);
+		System.out.println(System.currentTimeMillis() - duration);
+		return resp;
 	}
 
 	/**
@@ -761,7 +788,10 @@ public class PersistenciaAlohAndes {
 	 *         la tabla TIPOBEBIDA
 	 */
 	public List darReservasPorCliente(long idUsuario) {
-		return sqlReserva.darReservasPorCliente(pmf.getPersistenceManager(), idUsuario);
+		Long duration = System.currentTimeMillis();
+		List resp = sqlReserva.darReservasPorCliente(pmf.getPersistenceManager(), idUsuario);
+		System.out.println(System.currentTimeMillis() - duration);
+		return resp;
 	}
 
 	/**
@@ -771,7 +801,10 @@ public class PersistenciaAlohAndes {
 	 *         la tabla TIPOBEBIDA
 	 */
 	public Alojamiento darAlojamientoPorId(String idUsuario) {
-		return sqlAlojamiento.buscarAlojamientoPorId(pmf.getPersistenceManager(), idUsuario);
+		Long duration = System.currentTimeMillis();
+		Alojamiento resp = sqlAlojamiento.buscarAlojamientoPorId(pmf.getPersistenceManager(), idUsuario);
+		System.out.println(System.currentTimeMillis() - duration);
+		return resp;
 	}
 
 	/**
@@ -783,7 +816,10 @@ public class PersistenciaAlohAndes {
 	 *         TIPOBEBIDA con el identificador dado
 	 */
 	public Usuario darUsuarioPorId(String idUsuario) {
-		return sqlUsuario.darUsuarioPorId(pmf.getPersistenceManager(), idUsuario);
+		Long duration = System.currentTimeMillis();
+		Usuario resp = sqlUsuario.darUsuarioPorId(pmf.getPersistenceManager(), idUsuario);
+		System.out.println(System.currentTimeMillis() - duration);
+		return resp;
 	}
 
 	/**
@@ -795,7 +831,10 @@ public class PersistenciaAlohAndes {
 	 *         TIPOBEBIDA con el identificador dado
 	 */
 	public Cliente darClientePorId(String idUsuario) {
-		return sqlCliente.darClientePorId(pmf.getPersistenceManager(), idUsuario);
+		Long duration = System.currentTimeMillis();
+		Cliente resp = sqlCliente.darClientePorId(pmf.getPersistenceManager(), idUsuario);
+		System.out.println(System.currentTimeMillis() - duration);
+		return resp;
 	}
 
 	/**
@@ -807,71 +846,119 @@ public class PersistenciaAlohAndes {
 	 *         TIPOBEBIDA con el identificador dado
 	 */
 	public Operador darOperadorPorId(String idUsuario) {
-		return sqlOperador.darOperadorPorId(pmf.getPersistenceManager(), idUsuario);
+		Long duration = System.currentTimeMillis();
+		Operador resp = sqlOperador.darOperadorPorId(pmf.getPersistenceManager(), idUsuario);
+		System.out.println(System.currentTimeMillis() - duration);
+		return resp;
 	}
 
 	public Oferta darOferta(long idOferta) {
-		return sqlOferta.darOfertaPorId(pmf.getPersistenceManager(), idOferta);
+		Long duration = System.currentTimeMillis();
+		Oferta resp = sqlOferta.darOfertaPorId(pmf.getPersistenceManager(), idOferta);
+		System.out.println(System.currentTimeMillis() - duration);
+		return resp;
 	}
 
 	public List<Alojamiento> darAlojamientos() {
-		return sqlAlojamiento.darAlojamientos(pmf.getPersistenceManager());
+		Long duration = System.currentTimeMillis();
+		List<Alojamiento> resp = sqlAlojamiento.darAlojamientos(pmf.getPersistenceManager());
+		System.out.println(System.currentTimeMillis() - duration);
+		return resp;
 	}
 
 	public List<Oferta> darOfertas() {
-		return sqlOferta.darOfertas(pmf.getPersistenceManager());
+		Long duration = System.currentTimeMillis();
+		List<Oferta> resp = sqlOferta.darOfertas(pmf.getPersistenceManager());
+		System.out.println(System.currentTimeMillis() - duration);
+		return resp;
 	}
 
 	public List<Operador> darOperadores() {
-		return sqlOperador.darOperadores(pmf.getPersistenceManager());
+		Long duration = System.currentTimeMillis();
+		List<Operador> resp = sqlOperador.darOperadores(pmf.getPersistenceManager());
+		System.out.println(System.currentTimeMillis() - duration);
+		return resp;
 	}
 
 	public List<Cliente> darClientes() {
-		return sqlCliente.darClientes(pmf.getPersistenceManager());
+		Long duration = System.currentTimeMillis();
+		List<Cliente> resp = sqlCliente.darClientes(pmf.getPersistenceManager());
+		System.out.println(System.currentTimeMillis() - duration);
+		return resp;
 	}
 
 	public List<Usuario> darUsuarios() {
-		return sqlUsuario.darUsuarios(pmf.getPersistenceManager());
+		Long duration = System.currentTimeMillis();
+		List<Usuario> resp = sqlUsuario.darUsuarios(pmf.getPersistenceManager());
+		System.out.println(System.currentTimeMillis() - duration);
+		return resp;
 	}
 
 	public List<Reserva> darReservas() {
-		return sqlReserva.darReservas(pmf.getPersistenceManager());
+		Long duration = System.currentTimeMillis();
+		List<Reserva> resp = sqlReserva.darReservas(pmf.getPersistenceManager());
+		System.out.println(System.currentTimeMillis() - duration);
+		return resp;
 	}
 
 	public List<Habitacion> darHabitaciones() {
-		return sqlHabitacion.darHabitaciones(pmf.getPersistenceManager());
+		Long duration = System.currentTimeMillis();
+		List<Habitacion> resp = sqlHabitacion.darHabitaciones(pmf.getPersistenceManager());
+		System.out.println(System.currentTimeMillis() - duration);
+		return resp;
 	}
 
 	public List<Regla> darReglas() {
-		return sqlRegla.darReglas(pmf.getPersistenceManager());
+		Long duration = System.currentTimeMillis();
+		List<Regla> resp = sqlRegla.darReglas(pmf.getPersistenceManager());
+		System.out.println(System.currentTimeMillis() - duration);
+		return resp;
 	}
 
 	public List<Menaje> darMenajeList() {
-		return sqlMenaje.darMenajeList(pmf.getPersistenceManager());
+		Long duration = System.currentTimeMillis();
+		List<Menaje> resp = sqlMenaje.darMenajeList(pmf.getPersistenceManager());
+		System.out.println(System.currentTimeMillis() - duration);
+		return resp;
 	}
 
 	public List<Horario> darHorarios() {
-		return sqlHorario.darHorarios(pmf.getPersistenceManager());
+		Long duration = System.currentTimeMillis();
+		List<Horario> resp = sqlHorario.darHorarios(pmf.getPersistenceManager());
+		System.out.println(System.currentTimeMillis() - duration);
+		return resp;
 	}
 
 	public List<Servicio> darServicios() {
-		return sqlServicio.darServicios(pmf.getPersistenceManager());
+		Long duration = System.currentTimeMillis();
+		List<Servicio> resp = sqlServicio.darServicios(pmf.getPersistenceManager());
+		System.out.println(System.currentTimeMillis() - duration);
+		return resp;
 	}
 
 	public List<Seguro> darSeguros() {
-		return sqlSeguro.darSeguros(pmf.getPersistenceManager());
+		Long duration = System.currentTimeMillis();
+		List<Seguro> resp = sqlSeguro.darSeguros(pmf.getPersistenceManager());
+		System.out.println(System.currentTimeMillis() - duration);
+		return resp;
 	}
 
 	public List darOfertasPorAlojamiento(long idUsuario) {
-		return sqlOferta.darOfertasPorAlojamiento(pmf.getPersistenceManager(), idUsuario);
+		Long duration = System.currentTimeMillis();
+		List resp = sqlOferta.darOfertasPorAlojamiento(pmf.getPersistenceManager(), idUsuario);
+		System.out.println(System.currentTimeMillis() - duration);
+		return resp;
 	}
 
 	public List<Oferta> darOfertasPorFecha(String fecha) {
-		return sqlOferta.darOfertasPorFecha(pmf.getPersistenceManager(), fecha);
+		Long duration = System.currentTimeMillis();
+		List<Oferta> resp = sqlOferta.darOfertasPorFecha(pmf.getPersistenceManager(), fecha);
+		System.out.println(System.currentTimeMillis() - duration);
+		return resp;
 	}
 
 	public List<Oferta> darOfertasCapacidad(int capacidad, String dia) throws ParseException {
-
+		Long duration = System.currentTimeMillis();
 		List<Oferta> ofertas = darOfertasPorFecha(dia);
 		ArrayList<Oferta> ofCap = new ArrayList<Oferta>();
 		int capAsignada = 0;
@@ -885,15 +972,15 @@ public class PersistenciaAlohAndes {
 		if (capAsignada <= capacidad) {
 			ofCap = null;
 		}
+		System.out.println(System.currentTimeMillis() - duration);
 		return ofCap;
 	}
 
 	public String registrarReservaColectiva(long clienteid, int capacidad, String dia) {
-
+		Long duration = System.currentTimeMillis();
 		PersistenceManager pm = pmf.getPersistenceManager();
 		Transaction tx = pm.currentTransaction();
 		String resp = " Error";
-		System.out.println("inciio");
 		try {
 			tx.begin();
 			System.out.println("incio2");
@@ -925,6 +1012,7 @@ public class PersistenciaAlohAndes {
 				tx.rollback();
 			}
 			pm.close();
+			System.out.println(System.currentTimeMillis() - duration);
 		}
 
 	}
@@ -937,6 +1025,7 @@ public class PersistenciaAlohAndes {
 	 * @return El número de tuplas eliminadas. -1 si ocurre alguna Excepción
 	 */
 	public long eliminarReservaPorId(long idBebedor) {
+		Long duration = System.currentTimeMillis();
 		PersistenceManager pm = pmf.getPersistenceManager();
 		Transaction tx = pm.currentTransaction();
 		try {
@@ -954,60 +1043,65 @@ public class PersistenciaAlohAndes {
 				tx.rollback();
 			}
 			pm.close();
+			System.out.println(System.currentTimeMillis() - duration);
 		}
 	}
 
 	public String dar20mas() {
-		String veinti = "";
-		veinti += sqlOferta.dar20AlojamientosMasPopulares(pmf.getPersistenceManager());
-
+		Long duration = System.currentTimeMillis();
+		String veinti = sqlOferta.dar20AlojamientosMasPopulares(pmf.getPersistenceManager());
+		System.out.println(System.currentTimeMillis() - duration);
 		return veinti;
 	}
 
 	public String indiceOcupacion() {
-		String veinti = "";
-		veinti += sqlOferta.indiceOcupacion(pmf.getPersistenceManager());
-
+		Long duration = System.currentTimeMillis();
+		String veinti = sqlOferta.indiceOcupacion(pmf.getPersistenceManager());
+		System.out.println(System.currentTimeMillis() - duration);
 		return veinti;
 	}
 
 	public String analisisOperacion() {
-		String veinti = "";
-		veinti += sqlOferta.indiceOcupacion(pmf.getPersistenceManager());
-
+		Long duration = System.currentTimeMillis();
+		String veinti = sqlOferta.indiceOcupacion(pmf.getPersistenceManager());
+		System.out.println(System.currentTimeMillis() - duration);
 		return veinti;
 	}
 
 	public String pocaOferta() {
-		String veinti = "";
-		veinti += sqlOferta.pocaOferta(pmf.getPersistenceManager());
-
+		Long duration = System.currentTimeMillis();
+		String veinti = sqlOferta.pocaOferta(pmf.getPersistenceManager());
+		System.out.println(System.currentTimeMillis() - duration);
 		return veinti;
 	}
 
 	public String clientesFrecuentes(String idAlojamiento) {
-		String veinti = "";
-		veinti += sqlOferta.clientesFrecuentes(pmf.getPersistenceManager(), idAlojamiento);
-
+		Long duration = System.currentTimeMillis();
+		String veinti = sqlOferta.clientesFrecuentes(pmf.getPersistenceManager(), idAlojamiento);
+		System.out.println(System.currentTimeMillis() - duration);
 		return veinti;
 	}
 
 	public String analisisOperacion(String tipo) {
-		String veinti = "";
-		veinti += sqlOferta.analisisOperacion(pmf.getPersistenceManager(), tipo);
-
+		Long duration = System.currentTimeMillis();
+		String veinti = sqlOferta.analisisOperacion(pmf.getPersistenceManager(), tipo);
+		System.out.println(System.currentTimeMillis() - duration);
 		return veinti;
 	}
 
 	public String ingresosPorOperador() {
-		String veinti = "";
-		veinti += sqlOferta.ingresosPorOperador(pmf.getPersistenceManager());
-
+		Long duration = System.currentTimeMillis();
+		String veinti = sqlOferta.ingresosPorOperador(pmf.getPersistenceManager());
+		System.out.println(System.currentTimeMillis() - duration);
 		return veinti;
 	}
 
 	public List<Alojamiento> darAlojamientosPorDotacion(List<String> dotacion, String inicio, String fin, int size) {
-		return sqlAlojamiento.darAlojamientoPorDotacion(pmf.getPersistenceManager(), dotacion, inicio, fin, size);
+		Long duration = System.currentTimeMillis();
+		List<Alojamiento> resp = sqlAlojamiento.darAlojamientoPorDotacion(pmf.getPersistenceManager(), dotacion, inicio,
+				fin, size);
+		System.out.println(System.currentTimeMillis() - duration);
+		return resp;
 	}
 
 	/**
@@ -1019,6 +1113,7 @@ public class PersistenciaAlohAndes {
 	 * @throws Exception
 	 */
 	public long eliminarAlojamientoPorId(long Alojamiento) throws Exception {
+		Long duration = System.currentTimeMillis();
 		PersistenceManager pm = pmf.getPersistenceManager();
 		Transaction tx = pm.currentTransaction();
 
@@ -1036,10 +1131,12 @@ public class PersistenciaAlohAndes {
 				tx.rollback();
 			}
 			pm.close();
+			System.out.println(System.currentTimeMillis() - duration);
 		}
 	}
 
 	public String deshabilitarAlojamiento(Alojamiento alojamiento) {
+		Long duration = System.currentTimeMillis();
 		PersistenceManager pm = pmf.getPersistenceManager();
 		Transaction tx = pm.currentTransaction();
 		try {
@@ -1089,11 +1186,13 @@ public class PersistenciaAlohAndes {
 				tx.rollback();
 			}
 			pm.close();
+			System.out.println(System.currentTimeMillis() - duration);
 		}
 
 	}
 
 	public void habilitarAlojamiento(Long alojamientoId) {
+		Long duration = System.currentTimeMillis();
 		PersistenceManager pm = pmf.getPersistenceManager();
 		Transaction tx = pm.currentTransaction();
 		try {
@@ -1107,12 +1206,17 @@ public class PersistenciaAlohAndes {
 				tx.rollback();
 			}
 			pm.close();
+			System.out.println(System.currentTimeMillis() - duration);
 		}
 
 	}
 
 	public List<Alojamiento> darAlojamientosPorUserIdNoHabilitados(Long userId) {
-		return sqlAlojamiento.darAlojamientosPorUserIdNoHabilitados(pmf.getPersistenceManager(), userId + "");
+		Long duration = System.currentTimeMillis();
+		List<Alojamiento> resp = sqlAlojamiento.darAlojamientosPorUserIdNoHabilitados(pmf.getPersistenceManager(),
+				userId + "");
+		System.out.println(System.currentTimeMillis() - duration);
+		return resp;
 	}
 
 	/**
@@ -1124,50 +1228,64 @@ public class PersistenciaAlohAndes {
 	 *         TIPOBEBIDA con el identificador dado
 	 */
 	public Usuario login(String idUsuario, String contra) {
+		Long duration = System.currentTimeMillis();
 		PersistenceManager pm = pmf.getPersistenceManager();
 		Usuario user = sqlUsuario.darUsuarioPorUsuario(pm, idUsuario);
-
+		System.out.println(System.currentTimeMillis() - duration);
 		return user;
 
 	}
 
 	public String darAlojamientoMenorPorSemana(int semana, int anio) {
+		Long duration = System.currentTimeMillis();
 		PersistenceManager pm = pmf.getPersistenceManager();
 		Long consulta = sqlAlojamiento.darAlojamientoMenorPorSemana(pm, semana, anio);
 		if (consulta != -1) {
+			System.out.println(System.currentTimeMillis() - duration);
 			return "Peor alojamiento: " + sqlAlojamiento.buscarAlojamientoPorId(pm, consulta + "").toString() + "\n";
 		}
+		System.out.println(System.currentTimeMillis() - duration);
 		return "No hay peor alojamiento\n";
 	}
 
 	public String darAlojamientoMayorPorSemana(int semana, int anio) {
+		Long duration = System.currentTimeMillis();
 		PersistenceManager pm = pmf.getPersistenceManager();
 		Long consulta = sqlAlojamiento.darAlojamientoMayorPorSemana(pm, semana, anio);
 		if (consulta != -1) {
+			System.out.println(System.currentTimeMillis() - duration);
 			return "Mejor alojamiento: " + sqlAlojamiento.buscarAlojamientoPorId(pm, consulta + "").toString() + "\n";
 		}
+		System.out.println(System.currentTimeMillis() - duration);
 		return "No hay mejor alojamiento\n";
 	}
 
 	public String darOperadorMayorPorSemana(int semana, int anio) {
+		Long duration = System.currentTimeMillis();
 		PersistenceManager pm = pmf.getPersistenceManager();
 		Long consulta = sqlOperador.darOperadorMayorPorSemana(pm, semana, anio);
 		if (consulta != -1) {
+			System.out.println(System.currentTimeMillis() - duration);
 			return "Mejor operador: " + sqlUsuario.darUsuarioPorId(pm, consulta + "").toString() + "\n";
 		}
+		System.out.println(System.currentTimeMillis() - duration);
 		return "No hay mejor operador\n";
 	}
 
 	public String darOperadorMenorPorSemana(int semana, int anio) {
+		Long duration = System.currentTimeMillis();
 		PersistenceManager pm = pmf.getPersistenceManager();
 		Long consulta = sqlOperador.darOperadorMenorPorSemana(pm, semana, anio);
 		if (consulta != -1) {
+			System.out.println(System.currentTimeMillis() - duration);
 			return "Mejor operador: " + sqlUsuario.darUsuarioPorId(pm, consulta + "").toString() + "\n";
 		}
+		System.out.println(System.currentTimeMillis() - duration);
 		return "No hay mejor operador\n";
 	}
 
 	public String darBuenosClientes(int mes, int anio) {
+		Long duration = System.currentTimeMillis();
 		String resp = "Buenos clientes por reserva mensual:\n";
 		PersistenceManager pm = pmf.getPersistenceManager();
 		Iterator<Usuario> consulta = sqlCliente.darBuenClienteMes(pm, mes, anio).iterator();
@@ -1184,6 +1302,7 @@ public class PersistenciaAlohAndes {
 		while (consulta.hasNext()) {
 			resp += consulta.next().toString() + "\n";
 		}
+		System.out.println(System.currentTimeMillis() - duration);
 		return resp;
 	}
 
