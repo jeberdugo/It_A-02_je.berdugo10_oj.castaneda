@@ -1186,5 +1186,28 @@ public class PersistenciaAlohAndes {
 		}
 		return resp;
 	}
+	
+	public String consultarConsumo2() {
+		String resp = "Consumo:\n";
+		PersistenceManager pm = pmf.getPersistenceManager();
+		List<Usuario> listaUsuarios=sqlOferta.consultarConsumo2(pm);
+		for(Usuario us:listaUsuarios) {
+			resp += us.toString() + "\n";
+		}
+		
+		return resp;
+		
+	}
+
+	public String consultarConsumo1() {
+		String resp = "Consumo:\n";
+		PersistenceManager pm = pmf.getPersistenceManager();
+		List<Usuario> listaUsuarios=sqlOferta.consultarConsumo1(pm);
+		for(Usuario us:listaUsuarios) {
+			resp += us.toString() + "\n";
+		}
+		
+		return resp;
+	}
 
 }

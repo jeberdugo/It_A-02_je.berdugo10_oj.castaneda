@@ -7,6 +7,7 @@ import javax.jdo.PersistenceManager;
 import javax.jdo.Query;
 
 import uniandes.isis2304.alohandes.negocio.Oferta;
+import uniandes.isis2304.alohandes.negocio.Usuario;
 
 public class SQLOferta {
 
@@ -306,6 +307,32 @@ public class SQLOferta {
 		q.setParameters(idAlojamiento);
 		
 		return (List) q.executeList();
+	}
+	
+	public List<Usuario> consultarConsumo2(PersistenceManager pm){
+		Query q = pm.newQuery(SQL,
+				"SELECT * FROM USUARIO NATURAL JOIN (\r\n" + 
+				"SELECT ID FROM CLIENTE WHERE CLIENTE.id NOT IN(\r\n" + 
+				"SELECT res.cliente_id FROM OFERTA ofe \r\n" + 
+				"JOIN ALOJAMIENTO al ON ofe.alojamiento_id=al.id\r\n" + 
+				"JOIN RESERVA res ON ofe.reserva_id=res.id \r\n" + 
+				"WHERE ofe.alojamiento_id=10 \r\n" + 
+				"GROUP BY res.cliente_id))");
+		q.setResultClass(Usuario.class);
+		return (List<Usuario>) q.executeList();
+	}
+	
+	public List<Usuario> consultarConsumo1(PersistenceManager pm){
+		Query q = pm.newQuery(SQL,
+				"SELECT * FROM USUARIO NATURAL JOIN (\r\n" + 
+				"SELECT ID FROM CLIENTE WHERE CLIENTE.id IN(\r\n" + 
+				"SELECT res.cliente_id FROM OFERTA ofe \r\n" + 
+				"JOIN ALOJAMIENTO al ON ofe.alojamiento_id=al.id\r\n" + 
+				"JOIN RESERVA res ON ofe.reserva_id=res.id \r\n" + 
+				"WHERE ofe.alojamiento_id=10 \r\n" + 
+				"GROUP BY res.cliente_id))");
+		q.setResultClass(Usuario.class);
+		return (List<Usuario>) q.executeList();
 	}
 	
 	public List<Oferta> darOfertasConReservaPorAlojamiento(PersistenceManager pm, long idAlojamiento) {

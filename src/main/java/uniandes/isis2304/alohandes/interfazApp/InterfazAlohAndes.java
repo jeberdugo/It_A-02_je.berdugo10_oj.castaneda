@@ -798,10 +798,10 @@ public void cancelarReservaColectiva() {
 	}
 	
 	public void consultarConsumo1() {
-
+		panelDatos.actualizarInterfaz(alohandes.consultarConsumo1());
 	}
 	public void consultarConsumo2() {
-
+		panelDatos.actualizarInterfaz(alohandes.consultarConsumo2());
 	}
 	
 	public void analisisOperacion() {
@@ -845,6 +845,7 @@ public void cancelarReservaColectiva() {
 	public void consultarLosBuenosClientes() {
 		panelDatos.actualizarInterfaz(alohandes.consultarLosBuenosClientes());
 	}
+	
 
 	public void ofertasPocaDemanda() {
 		

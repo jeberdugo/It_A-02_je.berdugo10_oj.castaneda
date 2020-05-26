@@ -253,6 +253,11 @@ public class AlohAndes
 		LocalDateTime now = LocalDateTime.now();
 		return pp.darBuenosClientes(now.getMonthValue(), now.getYear());
 	}
+	
+	
+	public String consultarConsumo2() {
+		return pp.consultarConsumo2();
+	}
 	/* ****************************************************************
 	 * 			Métodos para administración
 	 *****************************************************************/
@@ -268,5 +273,9 @@ public class AlohAndes
         long [] borrrados = pp.limpiarAlohAndes();	
         log.info ("Limpiando la BD de AlohAndes: Listo!");
         return borrrados;
+	}
+
+	public String consultarConsumo1() {
+		return pp.consultarConsumo1();
 	}
 }
