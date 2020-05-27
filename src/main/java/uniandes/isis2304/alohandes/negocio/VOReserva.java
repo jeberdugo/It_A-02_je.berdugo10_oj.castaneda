@@ -44,5 +44,6 @@ public interface VOReserva {
 	/**
 	 * @return Una cadena de caracteres con todos los atributos de la reserva
 	 */
+	@Override
 	public String toString();
 }

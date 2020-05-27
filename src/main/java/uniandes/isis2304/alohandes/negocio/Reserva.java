@@ -61,6 +61,7 @@ public class Reserva implements VOReserva {
 	/**
 	 * @return El id del horario
 	 */
+	@Override
 	public long getId() {
 		return id;
 	}
@@ -68,6 +69,7 @@ public class Reserva implements VOReserva {
 	/**
 	 * @param id - El nuevo id de la reserva
 	 */
+	@Override
 	public void setId(long id) {
 		this.id = id;
 	}
@@ -75,6 +77,7 @@ public class Reserva implements VOReserva {
 	/**
 	 * @return El estado de la reserva
 	 */
+	@Override
 	public int getEstado() {
 		return estado;
 	}
@@ -82,6 +85,7 @@ public class Reserva implements VOReserva {
 	/**
 	 * @param estado - El nuevo estado de la reserva
 	 */
+	@Override
 	public void setEstado(int estado) {
 		this.estado = estado;
 	}
@@ -89,6 +93,7 @@ public class Reserva implements VOReserva {
 	/**
 	 * @return El valor total de la reserva
 	 */
+	@Override
 	public double getValor_total() {
 		return valor_total;
 	}
@@ -96,6 +101,7 @@ public class Reserva implements VOReserva {
 	/**
 	 * @param valorTotal - El nuevo valor total de la reserva
 	 */
+	@Override
 	public void setValor_total(double valor_total) {
 		this.valor_total = valor_total;
 	}
@@ -131,6 +137,7 @@ public class Reserva implements VOReserva {
 	/**
 	 * @return El cliente propietario de la reserva
 	 */
+	@Override
 	public long getCliente_id() {
 		return cliente_id;
 	}
@@ -138,6 +145,7 @@ public class Reserva implements VOReserva {
 	/**
 	 * @param cliente_id - El nuevo cliente propietario de la reserva
 	 */
+	@Override
 	public void setCliente_id(long cliente_id) {
 		this.cliente_id = cliente_id;
 	}

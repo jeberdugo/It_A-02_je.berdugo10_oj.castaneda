@@ -44,5 +44,6 @@ public interface VOServicio {
 	/**
 	 * @return Una cadena de caracteres con todos los atributos del servicio
 	 */
+	@Override
 	public String toString();
 }

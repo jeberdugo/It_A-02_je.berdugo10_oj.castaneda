@@ -49,6 +49,7 @@ public class Servicio implements VOServicio {
 	/**
 	 * @return El id del servicio
 	 */
+	@Override
 	public long getId() {
 		return id;
 	}
@@ -56,6 +57,7 @@ public class Servicio implements VOServicio {
 	/**
 	 * @param id - El nuevo id del servicio
 	 */
+	@Override
 	public void setId(long id) {
 		this.id = id;
 	}
@@ -63,6 +65,7 @@ public class Servicio implements VOServicio {
 	/**
 	 * @return La descripcion del servicio
 	 */
+	@Override
 	public String getDescripcion() {
 		return descripcion;
 	}
@@ -70,6 +73,7 @@ public class Servicio implements VOServicio {
 	/**
 	 * @param descripcion - La nueva descripcion del servicio
 	 */
+	@Override
 	public void setDescripcion(String descripcion) {
 		this.descripcion = descripcion;
 	}
@@ -77,6 +81,7 @@ public class Servicio implements VOServicio {
 	/**
 	 * @return El costo del servicio
 	 */
+	@Override
 	public double getCosto() {
 		return costo;
 	}
@@ -84,6 +89,7 @@ public class Servicio implements VOServicio {
 	/**
 	 * @param costo - El nuevo costo del servicio
 	 */
+	@Override
 	public void setCosto(double costo) {
 		this.costo = costo;
 	}
@@ -91,6 +97,7 @@ public class Servicio implements VOServicio {
 	/**
 	 * @return El horario del servicio
 	 */
+	@Override
 	public long getHorario_id() {
 		return horario_id;
 	}
@@ -98,6 +105,7 @@ public class Servicio implements VOServicio {
 	/**
 	 * @param horario_id - El nuevo horario del servicio
 	 */
+	@Override
 	public void setHorario_id(long horario_id) {
 		this.horario_id = horario_id;
 	}
@@ -105,6 +113,7 @@ public class Servicio implements VOServicio {
 	/**
 	 * @return Una cadena de caracteres con todos los atributos del servicio
 	 */
+	@Override
 	public String toString() {
 		return "Servicio [id=" + id + ", descripcion=" + descripcion + ", costo=" + costo + ", horario_id=" + horario_id
 				+ "]";

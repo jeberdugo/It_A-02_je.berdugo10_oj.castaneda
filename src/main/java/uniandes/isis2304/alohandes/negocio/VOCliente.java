@@ -34,5 +34,6 @@ public interface VOCliente {
 	/**
 	 * @return Una cadena de caracteres con todos los atributos del cliente
 	 */
+	@Override
 	public String toString();
 }

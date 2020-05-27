@@ -60,6 +60,7 @@ public class Oferta implements VOOferta {
 	/**
 	 * @return El id de la oferta
 	 */
+	@Override
 	public long getId() {
 		return this.id;
 	}
@@ -67,6 +68,7 @@ public class Oferta implements VOOferta {
 	/**
 	 * @param id - El nuevo id de la oferta
 	 */
+	@Override
 	public void setId(long id) {
 		this.id = id;
 	}
@@ -74,6 +76,7 @@ public class Oferta implements VOOferta {
 	/**
 	 * @return El precio de la oferta
 	 */
+	@Override
 	public int getPrecio() {
 		return this.precio;
 	}
@@ -81,6 +84,7 @@ public class Oferta implements VOOferta {
 	/**
 	 * @param precio - El nuevo precio de la oferta
 	 */
+	@Override
 	public void setPrecio(int precio) {
 		this.precio = precio;
 	}
@@ -88,6 +92,7 @@ public class Oferta implements VOOferta {
 	/**
 	 * @return El dia de la oferta
 	 */
+	@Override
 	public Date getDia() {
 		return this.dia;
 	}
@@ -95,23 +100,28 @@ public class Oferta implements VOOferta {
 	/**
 	 * @param dia - El nuevo dia de la oferta
 	 */
+	@Override
 	public void setDia(Date dia) {
 		this.dia = dia;
 
 	}
 
+	@Override
 	public long getReserva_id() {
 		return reserva_id;
 	}
 
+	@Override
 	public void setReserva_id(long reserva_id) {
 		this.reserva_id = reserva_id;
 	}
 
+	@Override
 	public long getAlojamiento_id() {
 		return alojamiento_id;
 	}
 
+	@Override
 	public void setAlojamiento_id(long alojamiento_id) {
 		this.alojamiento_id = alojamiento_id;
 	}
@@ -119,6 +129,7 @@ public class Oferta implements VOOferta {
 	/**
 	 * @return Una cadena de caracteres con todos los atributos de la oferta
 	 */
+	@Override
 	public String toString() {
 		return "Oferta [id=" + id + ", dia=" + dia + ", precio=" + precio + ", reserva_id=" + reserva_id
 				+ ", alojamiento_id=" + alojamiento_id + "]";

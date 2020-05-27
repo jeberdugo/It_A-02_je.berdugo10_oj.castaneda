@@ -32,6 +32,7 @@ public class Reserva_Colectiva {
 		this.valor_total = valor_total;
 	}
 
+	@Override
 	public String toString() {
 		return "Reserva_Colectiva [id=" + id + ", valor_total=" + valor_total + "]";
 	}

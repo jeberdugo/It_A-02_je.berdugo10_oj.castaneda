@@ -44,5 +44,6 @@ public interface VOMenaje {
 	/**
 	 * @return Una cadena de caracteres con todos los atributos del menaje
 	 */
+	@Override
 	public String toString();
 }

@@ -86,6 +86,7 @@ public interface VOAlojamiento {
 	/**
 	 * @return Una cadena de caracteres con todos los atributos del alojamiento
 	 */
+	@Override
 	public String toString();
 
 }

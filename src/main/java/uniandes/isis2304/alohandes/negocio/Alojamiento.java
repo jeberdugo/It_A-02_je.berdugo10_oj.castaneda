@@ -94,6 +94,7 @@ public class Alojamiento implements VOAlojamiento {
 	/**
 	 * @return El id del alojamiento
 	 */
+	@Override
 	public long getId() {
 		return this.id;
 	}
@@ -101,6 +102,7 @@ public class Alojamiento implements VOAlojamiento {
 	/**
 	 * @param id - El nuevo id del alojamiento
 	 */
+	@Override
 	public void setId(long id) {
 		this.id = id;
 	}
@@ -108,6 +110,7 @@ public class Alojamiento implements VOAlojamiento {
 	/**
 	 * @return La capacidad del alojamiento
 	 */
+	@Override
 	public int getCapacidad() {
 		return this.capacidad;
 	}
@@ -115,6 +118,7 @@ public class Alojamiento implements VOAlojamiento {
 	/**
 	 * @param capacidad - La nueva capacidad del alojamiento
 	 */
+	@Override
 	public void setCapacidad(int capacidad) {
 		this.capacidad = capacidad;
 
@@ -123,6 +127,7 @@ public class Alojamiento implements VOAlojamiento {
 	/**
 	 * @return La ubicacion del alojamiento
 	 */
+	@Override
 	public String getUbicacion() {
 		return this.ubicacion;
 	}
@@ -130,6 +135,7 @@ public class Alojamiento implements VOAlojamiento {
 	/**
 	 * @param ubicacion - La nueva ubicacion del alojamiento
 	 */
+	@Override
 	public void setUbicacion(String ubicacion) {
 		this.ubicacion = ubicacion;
 	}
@@ -137,6 +143,7 @@ public class Alojamiento implements VOAlojamiento {
 	/**
 	 * @return La descipcion del alojamiento
 	 */
+	@Override
 	public String getDescripcion() {
 		return this.descripcion;
 	}
@@ -144,6 +151,7 @@ public class Alojamiento implements VOAlojamiento {
 	/**
 	 * @param descripcion - La nueva descipcion del alojamiento
 	 */
+	@Override
 	public void setDescripcion(String descripcion) {
 		this.descripcion = descripcion;
 	}
@@ -151,6 +159,7 @@ public class Alojamiento implements VOAlojamiento {
 	/**
 	 * @return El tipo del alojamiento
 	 */
+	@Override
 	public int getTipo() {
 		return this.tipo;
 	}
@@ -158,22 +167,27 @@ public class Alojamiento implements VOAlojamiento {
 	/**
 	 * @param tipo - El nuevo tipo del alojamiento
 	 */
+	@Override
 	public void setTipo(int tipo) {
 		this.tipo = tipo;
 	}
 
+	@Override
 	public String getRegistro_cam() {
 		return registro_cam;
 	}
 
+	@Override
 	public void setRegistro_cam(String registro_cam) {
 		this.registro_cam = registro_cam;
 	}
 
+	@Override
 	public String getRegistro_sup() {
 		return registro_sup;
 	}
 
+	@Override
 	public void setRegistro_sup(String registro_sup) {
 		this.registro_sup = registro_sup;
 	}
@@ -194,10 +208,12 @@ public class Alojamiento implements VOAlojamiento {
 		this.ultima_reserva = ultima_reserva;
 	}
 
+	@Override
 	public long getOperador_id() {
 		return operador_id;
 	}
 
+	@Override
 	public void setOperador_id(long operador_id) {
 		this.operador_id = operador_id;
 	}
@@ -205,6 +221,7 @@ public class Alojamiento implements VOAlojamiento {
 	/**
 	 * @return Una cadena de caracteres con todos los atributos del alojamiento
 	 */
+	@Override
 	public String toString() {
 		return "Alojamiento [id=" + id + ", capacidad=" + capacidad + ", ubicacion=" + ubicacion + ", descripcion="
 				+ descripcion + ", tipo=" + tipo + ", registro_cam=" + registro_cam + ", registro_sup=" + registro_sup

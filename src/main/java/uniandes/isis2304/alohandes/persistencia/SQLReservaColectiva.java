@@ -33,6 +33,6 @@ public class SQLReservaColectiva {
 	public List<Reserva> darReservasColectivas(PersistenceManager pm) {
 		Query q = pm.newQuery(SQL, "SELECT * FROM " + pa.darTablaReserva());
 		q.setResultClass(Reserva.class);
-		return (List<Reserva>) q.executeList();
+		return q.executeList();
 	}
 }

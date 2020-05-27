@@ -1,7 +1,5 @@
 package uniandes.isis2304.alohandes.negocio;
 
-import java.util.List;
-
 public interface VOOperador {
 	/**
 	 * @return El id del operador
@@ -26,5 +24,6 @@ public interface VOOperador {
 	/**
 	 * @return Una cadena de caracteres con todos los atributos del operador
 	 */
+	@Override
 	public String toString();
 }

@@ -21,7 +21,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -1276,9 +1275,7 @@ public class PersistenciaAlohAndes {
 		PersistenceManager pm = pmf.getPersistenceManager();
 		ArrayList<List<Cliente>> resp = new ArrayList<List<Cliente>>();
 		resp.add( sqlCliente.darBuenClienteMes(pm, mes, anio));
-		System.out.println(2);
 		resp.add( sqlCliente.darBuenClientesCosto(pm));
-		System.out.println(2);
 		resp.add(sqlCliente.darBuenClienteSuite(pm));
 		System.out.println(System.currentTimeMillis() - duration);
 		return resp;

@@ -47,5 +47,6 @@ public interface VOHorario {
 	/**
 	 * @return Una cadena de caracteres con todos los atributos del horario
 	 */
+	@Override
 	public String toString();
 }

@@ -1,6 +1,5 @@
 package uniandes.isis2304.alohandes.persistencia;
 
-import java.math.BigDecimal;
 import java.util.List;
 
 import javax.jdo.PersistenceManager;
@@ -69,7 +68,7 @@ public class SQLOperador {
 	public List<Operador> darOperadores(PersistenceManager pm) {
 		Query q = pm.newQuery(SQL, "SELECT * FROM " + pa.darTablaOperador());
 		q.setResultClass(Operador.class);
-		return (List<Operador>) q.executeList();
+		return q.executeList();
 	}
 
 	public Operador darOperadorPorId(PersistenceManager pm, String idUsuario) {

@@ -51,6 +51,7 @@ public class Horario implements VOHorario {
 	/**
 	 * @return El id del horario
 	 */
+	@Override
 	public long getId() {
 		return id;
 	}
@@ -58,6 +59,7 @@ public class Horario implements VOHorario {
 	/**
 	 * @param id - El nuevo id del horario
 	 */
+	@Override
 	public void setId(long id) {
 		this.id = id;
 	}
@@ -65,6 +67,7 @@ public class Horario implements VOHorario {
 	/**
 	 * @return La hora de inicio del horario
 	 */
+	@Override
 	public Date getHora_inicio() {
 		return hora_inicio;
 	}
@@ -72,6 +75,7 @@ public class Horario implements VOHorario {
 	/**
 	 * @param hora_inicio - La nueva hora de inicio del horario
 	 */
+	@Override
 	public void setHora_inicio(Date hora_inicio) {
 		this.hora_inicio = hora_inicio;
 	}
@@ -79,6 +83,7 @@ public class Horario implements VOHorario {
 	/**
 	 * @return La hora de finalizacion del horario
 	 */
+	@Override
 	public Date getHora_fin() {
 		return hora_fin;
 	}
@@ -86,6 +91,7 @@ public class Horario implements VOHorario {
 	/**
 	 * @param hora_fin - La nueva hora de finalizacion del horario
 	 */
+	@Override
 	public void setHora_fin(Date hora_fin) {
 		this.hora_fin = hora_fin;
 	}
@@ -93,6 +99,7 @@ public class Horario implements VOHorario {
 	/**
 	 * @return Los dias de la semana en donde se efectua el horario
 	 */
+	@Override
 	public String getDias_semana() {
 		return dias_semana;
 	}
@@ -101,6 +108,7 @@ public class Horario implements VOHorario {
 	 * @param dias_semana - Los nuevos dias de la semana en donde se efectua el
 	 *                    horario
 	 */
+	@Override
 	public void setDias_semana(String dias_semana) {
 		this.dias_semana = dias_semana;
 	}
@@ -108,6 +116,7 @@ public class Horario implements VOHorario {
 	/**
 	 * @return Una cadena de caracteres con todos los atributos del horario
 	 */
+	@Override
 	public String toString() {
 		return "Horario [id=" + id + ", hora_inicio=" + hora_inicio + ", hora_fin=" + hora_fin + ", dias_semana="
 				+ dias_semana + "]";

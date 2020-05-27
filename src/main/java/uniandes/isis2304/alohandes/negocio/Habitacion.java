@@ -49,6 +49,7 @@ public class Habitacion implements VOHabitacion {
 	/**
 	 * @return El id de la habitacion
 	 */
+	@Override
 	public long getId() {
 		return id;
 	}
@@ -56,6 +57,7 @@ public class Habitacion implements VOHabitacion {
 	/**
 	 * @param id - El nuevo id de la habitacion
 	 */
+	@Override
 	public void setId(long id) {
 		this.id = id;
 	}
@@ -63,6 +65,7 @@ public class Habitacion implements VOHabitacion {
 	/**
 	 * @return La capacidad de la habitacion
 	 */
+	@Override
 	public int getCapacidad() {
 		return capacidad;
 	}
@@ -70,6 +73,7 @@ public class Habitacion implements VOHabitacion {
 	/**
 	 * @param capacidad - La nueva capacidad de la habitacion
 	 */
+	@Override
 	public void setCapacidad(int capacidad) {
 		this.capacidad = capacidad;
 	}
@@ -77,6 +81,7 @@ public class Habitacion implements VOHabitacion {
 	/**
 	 * @return El tipo de la habitacion
 	 */
+	@Override
 	public int getTipo() {
 		return tipo;
 	}
@@ -84,6 +89,7 @@ public class Habitacion implements VOHabitacion {
 	/**
 	 * @param tipo - El nuevo tipo de la habitacion
 	 */
+	@Override
 	public void setTipo(int tipo) {
 		this.tipo = tipo;
 	}
@@ -91,6 +97,7 @@ public class Habitacion implements VOHabitacion {
 	/**
 	 * @return El alojamiento al que pertenece la habitacion
 	 */
+	@Override
 	public long getAlojamiento_id() {
 		return alojamiento_id;
 	}
@@ -98,6 +105,7 @@ public class Habitacion implements VOHabitacion {
 	/**
 	 * @param alojamiento_id - El nuevo alojamiento al que pertenece la habitacion
 	 */
+	@Override
 	public void setAlojamiento_id(long alojamiento_id) {
 		this.alojamiento_id = alojamiento_id;
 	}
@@ -105,6 +113,7 @@ public class Habitacion implements VOHabitacion {
 	/**
 	 * @return Una cadena de caracteres con todos los atributos de la habitacion
 	 */
+	@Override
 	public String toString() {
 		return "Habitacion [id=" + id + ", capacidad=" + capacidad + ", tipo=" + tipo + ", alojamiento_id=" + alojamiento_id
 				+ "]";

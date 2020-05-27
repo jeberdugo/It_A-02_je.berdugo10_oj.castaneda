@@ -46,6 +46,6 @@ public class SQLHorario {
 	public List<Horario> darHorarios(PersistenceManager pm) {
 		Query q = pm.newQuery(SQL, "SELECT * FROM " + pa.darTablaHorario());
 		q.setResultClass(Horario.class);
-		return (List<Horario>) q.executeList();
+		return q.executeList();
 	}
 }

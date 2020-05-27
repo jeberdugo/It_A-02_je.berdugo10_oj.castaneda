@@ -1,13 +1,11 @@
 package uniandes.isis2304.alohandes.persistencia;
 
-import java.math.BigDecimal;
 import java.util.List;
 
 import javax.jdo.PersistenceManager;
 import javax.jdo.Query;
 
 import uniandes.isis2304.alohandes.negocio.Cliente;
-import uniandes.isis2304.alohandes.negocio.Usuario;
 
 public class SQLCliente {
 	/**
@@ -72,7 +70,7 @@ public class SQLCliente {
 	public List<Cliente> darClientes(PersistenceManager pm) {
 		Query q = pm.newQuery(SQL, "SELECT * FROM " + pa.darTablaCliente());
 		q.setResultClass(Cliente.class);
-		return (List<Cliente>) q.executeList();
+		return q.executeList();
 	}
 
 	public Cliente darClientePorId(PersistenceManager pm, String idUsuario) {
@@ -88,7 +86,7 @@ public class SQLCliente {
 						+ "INNER JOIN OFERTA OFE ON RES.ID = OFE.RESERVA_ID "
 						+ "WHERE OFE.PRECIO >= 10000 AND ROWNUM < 100");
 		q.setResultClass(Cliente.class);
-		return (List<Cliente>) q.executeList();
+		return q.executeList();
 	}
 
 	public List<Cliente> darBuenClienteSuite(PersistenceManager pm) {
@@ -98,7 +96,7 @@ public class SQLCliente {
 						+ "INNER JOIN ALOJAMIENTO AL ON OFE.ALOJAMIENTO_ID = AL.ID "
 						+ "WHERE AL.TIPO = 0 AND ROWNUM < 100");
 		q.setResultClass(Cliente.class);
-		return (List<Cliente>) q.executeList();
+		return q.executeList();
 	}
 
 	public List<Cliente> darBuenClienteMes(PersistenceManager pm, int mes, int anio) {
@@ -111,6 +109,6 @@ public class SQLCliente {
 						+ "WHERE TO_CHAR(RES.FECHA_REALIZACION,'YYYY-MM') LIKE '" + anio + "-" + inicio
 						+ "' AND ROWNUM < 100");
 		q.setResultClass(Cliente.class);
-		return (List<Cliente>) q.executeList();
+		return q.executeList();
 	}
 }

@@ -40,7 +40,6 @@ import javax.jdo.JDODataStoreException;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JList;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
@@ -49,7 +48,6 @@ import javax.swing.JPasswordField;
 import javax.swing.UIManager;
 
 import org.apache.log4j.Logger;
-import org.jdatepicker.JDatePicker;
 import org.jdatepicker.impl.JDatePanelImpl;
 import org.jdatepicker.impl.UtilDateModel;
 
@@ -63,9 +61,7 @@ import uniandes.isis2304.alohandes.negocio.AlohAndes;
 import uniandes.isis2304.alohandes.negocio.Alojamiento;
 import uniandes.isis2304.alohandes.negocio.Cliente;
 import uniandes.isis2304.alohandes.negocio.Oferta;
-import uniandes.isis2304.alohandes.negocio.Reserva;
 import uniandes.isis2304.alohandes.negocio.Usuario;
-import uniandes.isis2304.alohandes.persistencia.SQLAlojamiento;
 
 /**
  * Clase principal de la interfaz

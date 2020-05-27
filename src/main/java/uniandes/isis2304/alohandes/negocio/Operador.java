@@ -33,6 +33,7 @@ public class Operador implements VOOperador {
 	/**
 	 * @return El id del operador
 	 */
+	@Override
 	public long getId() {
 		return id;
 	}
@@ -40,6 +41,7 @@ public class Operador implements VOOperador {
 	/**
 	 * @param id - El nuevo id del operador
 	 */
+	@Override
 	public void setId(long id) {
 		this.id = id;
 	}
@@ -47,6 +49,7 @@ public class Operador implements VOOperador {
 	/**
 	 * @return El tipo del operador
 	 */
+	@Override
 	public int getTipo() {
 		return tipo;
 	}
@@ -54,6 +57,7 @@ public class Operador implements VOOperador {
 	/**
 	 * @param tipo - El nuevo tipo del operador
 	 */
+	@Override
 	public void setTipo(int tipo) {
 		this.tipo = tipo;
 	}
@@ -61,6 +65,7 @@ public class Operador implements VOOperador {
 	/**
 	 * @return Una cadena de caracteres con todos los atributos del operador
 	 */
+	@Override
 	public String toString() {
 		return "Operador [id=" + id + ", tipo=" + tipo + "]";
 	}

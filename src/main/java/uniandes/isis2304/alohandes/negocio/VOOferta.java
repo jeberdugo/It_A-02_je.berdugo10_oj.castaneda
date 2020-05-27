@@ -56,6 +56,7 @@ public interface VOOferta {
 	/**
 	 * @return Una cadena de caracteres con todos los atributos de la oferta
 	 */
+	@Override
 	public String toString();
 
 }

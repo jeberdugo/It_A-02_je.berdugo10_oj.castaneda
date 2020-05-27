@@ -43,6 +43,7 @@ public class Cliente implements VOCliente {
 	/**
 	 * @return El id del cliente
 	 */
+	@Override
 	public long getId() {
 		return id;
 	}
@@ -50,6 +51,7 @@ public class Cliente implements VOCliente {
 	/**
 	 * @param id - El nuevo id del cliente
 	 */
+	@Override
 	public void setId(long id) {
 		this.id = id;
 	}
@@ -57,6 +59,7 @@ public class Cliente implements VOCliente {
 	/**
 	 * @return El nombre del cliente
 	 */
+	@Override
 	public String getNombre() {
 		return nombre;
 	}
@@ -64,6 +67,7 @@ public class Cliente implements VOCliente {
 	/**
 	 * @param nombre - El nuevo nombre del cliente
 	 */
+	@Override
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
@@ -71,6 +75,7 @@ public class Cliente implements VOCliente {
 	/**
 	 * @return El rol del cliente
 	 */
+	@Override
 	public int getRol() {
 		return rol;
 	}
@@ -78,6 +83,7 @@ public class Cliente implements VOCliente {
 	/**
 	 * @param rol - El nuevo rol del cliente
 	 */
+	@Override
 	public void setRol(int rol) {
 		this.rol = rol;
 	}
@@ -85,6 +91,7 @@ public class Cliente implements VOCliente {
 	/**
 	 * @return Una cadena de caracteres con todos los atributos del cliente
 	 */
+	@Override
 	public String toString() {
 		return "Cliente [id=" + id + ", nombre=" + nombre + ", rol=" + rol + "]";
 	}

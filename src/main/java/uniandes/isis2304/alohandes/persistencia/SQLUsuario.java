@@ -73,7 +73,7 @@ public class SQLUsuario {
 	public List<Usuario> darUsuarios(PersistenceManager pm) {
 		Query q = pm.newQuery(SQL, "SELECT * FROM " + pa.darTablaUsuario());
 		q.setResultClass(Usuario.class);
-		return (List<Usuario>) q.executeList();
+		return q.executeList();
 	}
 
 	public Usuario darUsuarioPorUsuario(PersistenceManager pm, String idUsuario) {

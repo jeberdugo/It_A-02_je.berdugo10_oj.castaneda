@@ -44,5 +44,6 @@ public interface VOHabitacion {
 	/**
 	 * @return Una cadena de caracteres con todos los atributos de la habitacion
 	 */
+	@Override
 	public String toString();
 }

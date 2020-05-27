@@ -73,7 +73,7 @@ public class SQLReserva {
 	public List<Reserva> darReservas(PersistenceManager pm) {
 		Query q = pm.newQuery(SQL, "SELECT * FROM " + pa.darTablaReserva());
 		q.setResultClass(Reserva.class);
-		return (List<Reserva>) q.executeList();
+		return q.executeList();
 	}
 
 	/**
@@ -88,7 +88,7 @@ public class SQLReserva {
 
 		q.setParameters(idUsuario);
 
-		List tipoServicio = (List) q.executeList();
+		List tipoServicio = q.executeList();
 		return tipoServicio;
 	}
 

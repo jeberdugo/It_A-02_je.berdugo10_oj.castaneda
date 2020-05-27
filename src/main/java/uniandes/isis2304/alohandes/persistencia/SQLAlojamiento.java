@@ -1,15 +1,11 @@
 package uniandes.isis2304.alohandes.persistencia;
 
-import java.math.BigDecimal;
-import java.sql.Date;
-import java.time.LocalDateTime;
 import java.util.List;
 
 import javax.jdo.PersistenceManager;
 import javax.jdo.Query;
 
 import uniandes.isis2304.alohandes.negocio.Alojamiento;
-import uniandes.isis2304.alohandes.negocio.Usuario;
 
 public class SQLAlojamiento {
 
@@ -87,7 +83,7 @@ public class SQLAlojamiento {
 		Query q = pm.newQuery(SQL, "SELECT * FROM " + pa.darTablaAlojamiento() + " WHERE operador_id = ?");
 		q.setParameters(idUsuario);
 		q.setResultClass(Alojamiento.class);
-		return (List<Alojamiento>) q.executeList();
+		return q.executeList();
 	}
 
 	/**
@@ -100,7 +96,7 @@ public class SQLAlojamiento {
 	public List<Alojamiento> darAlojamientos(PersistenceManager pm) {
 		Query q = pm.newQuery(SQL, "SELECT * FROM " + pa.darTablaAlojamiento());
 		q.setResultClass(Alojamiento.class);
-		return (List<Alojamiento>) q.executeList();
+		return q.executeList();
 	}
 
 	public List<Alojamiento> darAlojamientoPorDotacion(PersistenceManager pm, List<String> dotacion, String inicio,
@@ -119,7 +115,7 @@ public class SQLAlojamiento {
 		System.out.println(peticion);
 		Query q = pm.newQuery(SQL, peticion);
 		q.setResultClass(Alojamiento.class);
-		return (List<Alojamiento>) q.executeList();
+		return q.executeList();
 
 	}
 
@@ -139,7 +135,7 @@ public class SQLAlojamiento {
 		Query q = pm.newQuery(SQL, "SELECT * FROM " + pa.darTablaAlojamiento() + " WHERE capacidad = ?");
 		q.setParameters(capacidad);
 		q.setResultClass(Alojamiento.class);
-		return (List<Alojamiento>) q.executeList();
+		return q.executeList();
 	}
 
 	public List<Alojamiento> darAlojamientosPorUserIdNoHabilitados(PersistenceManager pm, String idUsuario) {
@@ -147,7 +143,7 @@ public class SQLAlojamiento {
 				"SELECT * FROM " + pa.darTablaAlojamiento() + " WHERE operador_id = ? AND habilitado = 0");
 		q.setParameters(idUsuario);
 		q.setResultClass(Alojamiento.class);
-		return (List<Alojamiento>) q.executeList();
+		return q.executeList();
 	}
 
 	public Alojamiento darAlojamientoMayorPorSemana(PersistenceManager pm, String semana, int anio) {

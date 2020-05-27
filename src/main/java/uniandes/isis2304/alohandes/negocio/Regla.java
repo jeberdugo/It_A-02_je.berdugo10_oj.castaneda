@@ -42,6 +42,7 @@ public class Regla implements VORegla{
 	/**
 	 * @return El id de la regla
 	 */
+	@Override
 	public long getId() {
 		return id;
 	}
@@ -49,6 +50,7 @@ public class Regla implements VORegla{
 	/**
 	 * @param id - El nuevo id de la regla
 	 */
+	@Override
 	public void setId(long id) {
 		this.id = id;
 	}
@@ -56,6 +58,7 @@ public class Regla implements VORegla{
 	/**
 	 * @return  La descripcion de la regla
 	 */
+	@Override
 	public String getDescripcion() {
 		return descripcion;
 	}
@@ -63,6 +66,7 @@ public class Regla implements VORegla{
 	/**
 	 * @param descripcion -  La nueva descripcion de la regla
 	 */
+	@Override
 	public void setDescripcion(String descripcion) {
 		this.descripcion = descripcion;
 	}
@@ -70,6 +74,7 @@ public class Regla implements VORegla{
 	/**
 	 * @return El alojamiento al que pertenece la regla
 	 */
+	@Override
 	public long getAlojamiento_id() {
 		return alojamiento_id;
 	}
@@ -77,6 +82,7 @@ public class Regla implements VORegla{
 	/**
 	 * @param alojamiento_id - El nuevo alojamiento al que pertenece la regla
 	 */
+	@Override
 	public void setAlojamiento_id(long alojamiento_id) {
 		this.alojamiento_id = alojamiento_id;
 	}
@@ -84,6 +90,7 @@ public class Regla implements VORegla{
 	/**
 	 * @return Una cadena de caracteres con todos los atributos de la regla
 	 */
+	@Override
 	public String toString() {
 		return "Regla [id=" + id + ", descripcion=" + descripcion + ", alojamiento_id=" + alojamiento_id + "]";
 	}

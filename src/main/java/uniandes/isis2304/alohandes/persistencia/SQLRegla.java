@@ -45,6 +45,6 @@ public class SQLRegla {
 	public List<Regla> darReglas(PersistenceManager pm) {
 		Query q = pm.newQuery(SQL, "SELECT * FROM " + pa.darTablaRegla());
 		q.setResultClass(Regla.class);
-		return (List<Regla>) q.executeList();
+		return q.executeList();
 	}
 }

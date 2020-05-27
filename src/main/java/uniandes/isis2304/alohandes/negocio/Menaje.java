@@ -49,6 +49,7 @@ public class Menaje implements VOMenaje {
 	/**
 	 * @return El id del menaje
 	 */
+	@Override
 	public long getId() {
 		return id;
 	}
@@ -56,6 +57,7 @@ public class Menaje implements VOMenaje {
 	/**
 	 * @param id - El nuevo id del menaje
 	 */
+	@Override
 	public void setId(long id) {
 		this.id = id;
 	}
@@ -63,6 +65,7 @@ public class Menaje implements VOMenaje {
 	/**
 	 * @return La descripcion del menaje
 	 */
+	@Override
 	public String getDescripcion() {
 		return descripcion;
 	}
@@ -70,6 +73,7 @@ public class Menaje implements VOMenaje {
 	/**
 	 * @param descripcion - La nueva descripcion del menaje
 	 */
+	@Override
 	public void setDescripcion(String descripcion) {
 		this.descripcion = descripcion;
 	}
@@ -77,6 +81,7 @@ public class Menaje implements VOMenaje {
 	/**
 	 * @return La disponibilidad del menaje
 	 */
+	@Override
 	public boolean isDisponibilidad() {
 		return disponibilidad;
 	}
@@ -84,6 +89,7 @@ public class Menaje implements VOMenaje {
 	/**
 	 * @param disponibilidad - La nueva disponibilidad del menaje
 	 */
+	@Override
 	public void setDisponibilidad(boolean disponibilidad) {
 		this.disponibilidad = disponibilidad;
 	}
@@ -91,6 +97,7 @@ public class Menaje implements VOMenaje {
 	/**
 	 * @return El alojamiento al que pertenece del menaje
 	 */
+	@Override
 	public long getAlojamiento_id() {
 		return alojamiento_id;
 	}
@@ -98,6 +105,7 @@ public class Menaje implements VOMenaje {
 	/**
 	 * @param alojamiento_id - El nuevo alojamiento al que pertenece del menaje
 	 */
+	@Override
 	public void setAlojamiento_id(long alojamiento_id) {
 		this.alojamiento_id = alojamiento_id;
 	}
@@ -105,6 +113,7 @@ public class Menaje implements VOMenaje {
 	/**
 	 * @return Una cadena de caracteres con todos los atributos del menaje
 	 */
+	@Override
 	public String toString() {
 		return "Menaje [id=" + id + ", descripcion=" + descripcion + ", disponibilidad=" + disponibilidad
 				+ ", alojamiento_id=" + alojamiento_id + "]";

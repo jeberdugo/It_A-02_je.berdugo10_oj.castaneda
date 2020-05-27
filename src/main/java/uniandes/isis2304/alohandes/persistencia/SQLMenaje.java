@@ -46,6 +46,6 @@ public class SQLMenaje {
 	public List<Menaje> darMenajeList(PersistenceManager pm) {
 		Query q = pm.newQuery(SQL, "SELECT * FROM " + pa.darTablaMenaje());
 		q.setResultClass(Menaje.class);
-		return (List<Menaje>) q.executeList();
+		return q.executeList();
 	}
 }

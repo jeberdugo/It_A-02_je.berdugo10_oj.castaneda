@@ -92,7 +92,7 @@ public class SQLOferta {
 	public List<Oferta> darOfertas(PersistenceManager pm) {
 		Query q = pm.newQuery(SQL, "SELECT * FROM " + pa.darTablaOferta());
 		q.setResultClass(Oferta.class);
-		return (List<Oferta>) q.executeList();
+		return q.executeList();
 	}
 
 	public Oferta darOfertaPorId(PersistenceManager pm, long idReserva) {
@@ -108,7 +108,7 @@ public class SQLOferta {
 		Query q = pm.newQuery(SQL,
 				"SELECT * FROM (select CONCAT(alojamiento_id,CONCAT('-', count(*))) from oferta where Reserva_id is not null group by alojamiento_id order by Count(*) DESC) WHERE rownum <= 20");
 
-		List tipoServicio = (List) q.executeList();
+		List tipoServicio = q.executeList();
 
 		for (int i = 0; i < tipoServicio.size(); i++) {
 			String temp = "";
@@ -126,7 +126,7 @@ public class SQLOferta {
 		Query q = pm.newQuery(SQL,
 				"SELECT CONCAT(CONCAT(id,'-'),ultima_reserva) FROM ALOJAMIENTO al WHERE al.ultima_reserva<(SYSDATE-30)");
 
-		List tipoServicio = (List) q.executeList();
+		List tipoServicio = q.executeList();
 
 		if(tipoServicio.isEmpty()) {
 			veinte="No hay ningun alojamiento con poca demanda";
@@ -153,7 +153,7 @@ public class SQLOferta {
 				"HAVING count(res.cliente_id)>=1");
 		q.setParameters(idAlojamiento);
 
-		List tipoServicio = (List) q.executeList();
+		List tipoServicio = q.executeList();
 
 		if(tipoServicio.isEmpty()) {
 			veinte="No hay ningun cliente frecuente";
@@ -206,9 +206,9 @@ public class SQLOferta {
 				" ORDER BY COUNT(o.dia) ASC) WHERE ROWNUM<=5");
 		menorOcu.setParameters(tipo);
 
-		List listaMayorDemanda = (List) mayorDemanda.executeList();
-		List listaMayorIngreso = (List) mayorIngreso.executeList();
-		List listaMenorOcu = (List) menorOcu.executeList();
+		List listaMayorDemanda = mayorDemanda.executeList();
+		List listaMayorIngreso = mayorIngreso.executeList();
+		List listaMenorOcu = menorOcu.executeList();
 
 		veinte += "Fechas con mayor demanda: \n";
 		if(listaMayorDemanda.isEmpty()) {
@@ -256,7 +256,7 @@ public class SQLOferta {
 
 		Query q = pm.newQuery(SQL, peticion);
 
-		List tipoServicio = (List) q.executeList();
+		List tipoServicio = q.executeList();
 
 		for (int i = 0; i < tipoServicio.size(); i++) {
 			String temp = "";
@@ -277,7 +277,7 @@ public class SQLOferta {
 
 		Query q = pm.newQuery(SQL, peticion);
 
-		List tipoServicio = (List) q.executeList();
+		List tipoServicio = q.executeList();
 
 		for (int i = 0; i < tipoServicio.size(); i++) {
 			String temp = "";
@@ -306,7 +306,7 @@ public class SQLOferta {
 		Query q = pm.newQuery(SQL, "SELECT id FROM " + pa.darTablaOferta() + " WHERE alojamiento_id = ?");
 		q.setParameters(idAlojamiento);
 		
-		return (List) q.executeList();
+		return q.executeList();
 	}
 	
 	public List<Usuario> consultarConsumo2(PersistenceManager pm, long alid, Timestamp fechaI, Timestamp fechaF){
@@ -320,7 +320,7 @@ public class SQLOferta {
 				"GROUP BY res.cliente_id))");
 		q.setParameters(alid,fechaI,fechaF);
 		q.setResultClass(Usuario.class);
-		return (List<Usuario>) q.executeList();
+		return q.executeList();
 	}
 	
 	public List<Usuario> consultarConsumo1(PersistenceManager pm, long alid,Timestamp fechaI, Timestamp fechaF){
@@ -336,7 +336,7 @@ public class SQLOferta {
 		q.setParameters(alid,fechaI,fechaF);
 		q.setResultClass(Usuario.class);
 		
-		return (List<Usuario>) q.executeList();
+		return q.executeList();
 	}
 	
 	public List<Oferta> darOfertasConReservaPorAlojamiento(PersistenceManager pm, long idAlojamiento) {
@@ -344,7 +344,7 @@ public class SQLOferta {
 				"SELECT * FROM " + pa.darTablaOferta() + " WHERE alojamiento_id = ? AND reserva_id IS NOT NULL");
 		q.setResultClass(Oferta.class);
 		q.setParameters(idAlojamiento);
-		return (List<Oferta>) q.executeList();
+		return q.executeList();
 	}
 
 	public List<Oferta> darOfertasSinReservaPorAlojamientoYFecha(PersistenceManager pm, long idAlojamiento, String fecha) {
@@ -352,7 +352,7 @@ public class SQLOferta {
 				+ " WHERE alojamiento_id = ? AND reserva_id IS NULL AND DIA=TO_DATE(\'"+fecha.split(" ")[0]+"\',\'YYYY-MM-DD\')");
 		q.setResultClass(Oferta.class);
 		q.setParameters(idAlojamiento);
-		return (List<Oferta>) q.executeList();
+		return q.executeList();
 	}
 	
 	public void eliminarReservasAlojamiento(PersistenceManager pm, long alojamientoId) {
@@ -366,7 +366,7 @@ public class SQLOferta {
 		q.setParameters(fecha);
 		q.setResultClass(Oferta.class);
 		
-		return (List<Oferta>) q.executeList();
+		return q.executeList();
 		// TODO Auto-generated method stub
 		
 	}

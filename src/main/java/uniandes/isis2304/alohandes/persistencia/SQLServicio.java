@@ -53,6 +53,6 @@ public class SQLServicio {
 	public List<Servicio> darServicios(PersistenceManager pm) {
 		Query q = pm.newQuery(SQL, "SELECT * FROM " + pa.darTablaServicio());
 		q.setResultClass(Servicio.class);
-		return (List<Servicio>) q.executeList();
+		return q.executeList();
 	}
 }

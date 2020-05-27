@@ -66,6 +66,7 @@ public class Usuario implements VOUsuario {
 	/**
 	 * @return El id del usuario
 	 */
+	@Override
 	public long getId() {
 		return id;
 	}
@@ -73,6 +74,7 @@ public class Usuario implements VOUsuario {
 	/**
 	 * @param id - El nuevo id del usuario
 	 */
+	@Override
 	public void setId(long id) {
 		this.id = id;
 	}
@@ -80,6 +82,7 @@ public class Usuario implements VOUsuario {
 	/**
 	 * @return El correo del usuario
 	 */
+	@Override
 	public String getCorreo() {
 		return correo;
 	}
@@ -87,6 +90,7 @@ public class Usuario implements VOUsuario {
 	/**
 	 * @param correo - El nuevo correo del usuario
 	 */
+	@Override
 	public void setCorreo(String correo) {
 		this.correo = correo;
 	}
@@ -94,6 +98,7 @@ public class Usuario implements VOUsuario {
 	/**
 	 * @return La contraseña del usuario
 	 */
+	@Override
 	public String getContrasena() {
 		return contrasena;
 	}
@@ -101,6 +106,7 @@ public class Usuario implements VOUsuario {
 	/**
 	 * @param contrasena - La nueva contraseña del usuario
 	 */
+	@Override
 	public void setContrasena(String contrasena) {
 		this.contrasena = contrasena;
 	}
@@ -108,6 +114,7 @@ public class Usuario implements VOUsuario {
 	/**
 	 * @return El nombre de usuario del usuario
 	 */
+	@Override
 	public String getUsuario() {
 		return usuario;
 	}
@@ -115,6 +122,7 @@ public class Usuario implements VOUsuario {
 	/**
 	 * @param usuario - El nuevo nombre de usuario del usuario
 	 */
+	@Override
 	public void setUsuario(String usuario) {
 		this.usuario = usuario;
 	}
@@ -122,6 +130,7 @@ public class Usuario implements VOUsuario {
 	/**
 	 * @return El tipo de documento del usuario (0: CC, 1: NIT, 2: CE)
 	 */
+	@Override
 	public int getTipo_Documento() {
 		return tipo_Documento;
 	}
@@ -130,6 +139,7 @@ public class Usuario implements VOUsuario {
 	 * @param tipo_Documento - El nuevo tipo de documento del usuario (0: CC, 1:
 	 *                       NIT, 2: CE)
 	 */
+	@Override
 	public void setTipo_Documento(int tipo_Documento) {
 		this.tipo_Documento = tipo_Documento;
 	}
@@ -137,6 +147,7 @@ public class Usuario implements VOUsuario {
 	/**
 	 * @return El numero de documento del usuario
 	 */
+	@Override
 	public int getNumero_Documento() {
 		return numero_Documento;
 	}
@@ -144,6 +155,7 @@ public class Usuario implements VOUsuario {
 	/**
 	 * @param numero_Documento - El nuevo numero de documento del usuario
 	 */
+	@Override
 	public void setNumero_Documento(int numero_Documento) {
 		this.numero_Documento = numero_Documento;
 	}
@@ -151,6 +163,7 @@ public class Usuario implements VOUsuario {
 	/**
 	 * @return Una cadena de caracteres con todos los atributos del usuario
 	 */
+	@Override
 	public String toString() {
 		return "Usuario [id=" + id + ", nombreUsuario=" + usuario + ", correo=" + correo 
 				+ ", numeroDocumento=" + numero_Documento + ", tipoDocumento=" + tipo_Documento + "]";
