@@ -31,6 +31,7 @@ import java.math.BigDecimal;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 import java.util.Properties;
@@ -60,6 +61,7 @@ import com.google.gson.stream.JsonReader;
 
 import uniandes.isis2304.alohandes.negocio.AlohAndes;
 import uniandes.isis2304.alohandes.negocio.Alojamiento;
+import uniandes.isis2304.alohandes.negocio.Cliente;
 import uniandes.isis2304.alohandes.negocio.Oferta;
 import uniandes.isis2304.alohandes.negocio.Reserva;
 import uniandes.isis2304.alohandes.negocio.Usuario;
@@ -843,7 +845,14 @@ public void cancelarReservaColectiva() {
 	}
 	
 	public void consultarLosBuenosClientes() {
-		panelDatos.actualizarInterfaz(alohandes.consultarLosBuenosClientes());
+		String resp="Buenos clientes por reserva mensual:\n";
+		ArrayList<List<Cliente>> res =alohandes.consultarLosBuenosClientes();
+		resp +=Arrays.toString(res.get(0).toArray()); 
+		resp +="Buenos clientes por reserva mayor o igual a $10000:\n"; 
+		resp +=Arrays.toString(res.get(1).toArray()); 
+		resp +="Buenos clientes por reserva a suite:\n"; 
+		resp +=Arrays.toString(res.get(2).toArray()); 
+		panelDatos.actualizarInterfaz(resp);
 	}
 	
 

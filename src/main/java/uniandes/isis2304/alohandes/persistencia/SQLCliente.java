@@ -81,53 +81,36 @@ public class SQLCliente {
 		q.setParameters(idUsuario);
 		return (Cliente) q.executeUnique();
 	}
-	
-	public List<Usuario> darBuenClientesCosto(PersistenceManager pm) {
+
+	public List<Cliente> darBuenClientesCosto(PersistenceManager pm) {
 		Query q = pm.newQuery(SQL,
-				"SELECT * FROM USUARIO USUA " + 
-				"NATURAL JOIN ( " + 
-				"SELECT USU.ID FROM USUARIO USU " + 
-				"LEFT JOIN RESERVA RES ON USU.ID = RES.CLIENTE_ID " + 
-				"LEFT JOIN OFERTA OFE ON RES.ID = OFE.RESERVA_ID " + 
-				"WHERE OFE.PRECIO >= 150 " + 
-				"GROUP BY USU.ID)");
-		q.setResultClass(Usuario.class);
-		return (List<Usuario>) q.executeList();
+				"SELECT CLI.* FROM CLIENTE CLI " + "INNER JOIN RESERVA RES ON CLI.ID = RES.CLIENTE_ID "
+						+ "INNER JOIN OFERTA OFE ON RES.ID = OFE.RESERVA_ID "
+						+ "WHERE OFE.PRECIO >= 10000 AND ROWNUM < 100");
+		q.setResultClass(Cliente.class);
+		return (List<Cliente>) q.executeList();
 	}
-	public List<Usuario> darBuenClienteSuite(PersistenceManager pm) {
+
+	public List<Cliente> darBuenClienteSuite(PersistenceManager pm) {
 		Query q = pm.newQuery(SQL,
-				"SELECT * FROM USUARIO USUA " + 
-				"NATURAL JOIN ( " + 
-				"SELECT USU.ID FROM USUARIO USU " + 
-				"LEFT JOIN RESERVA RES ON USU.ID = RES.CLIENTE_ID " + 
-				"LEFT JOIN OFERTA OFE ON RES.ID = OFE.RESERVA_ID " + 
-				"LEFT JOIN ALOJAMIENTO AL ON OFE.ALOJAMIENTO_ID = AL.ID " + 
-				"WHERE AL.TIPO = 0 " + 
-				"GROUP BY USU.ID)");
-		q.setResultClass(Usuario.class);
-		return (List<Usuario>) q.executeList();
+				"SELECT CLI.* FROM CLIENTE CLI " + "INNER JOIN RESERVA RES ON CLI.ID = RES.CLIENTE_ID "
+						+ "INNER JOIN OFERTA OFE ON RES.ID = OFE.RESERVA_ID "
+						+ "INNER JOIN ALOJAMIENTO AL ON OFE.ALOJAMIENTO_ID = AL.ID "
+						+ "WHERE AL.TIPO = 0 AND ROWNUM < 100");
+		q.setResultClass(Cliente.class);
+		return (List<Cliente>) q.executeList();
 	}
-	
-	public List<Usuario> darBuenClienteMes(PersistenceManager pm, int mes, int anio) {
-		String inicio = mes+"";
-		if(mes<10) {
-			inicio= "0"+mes;
-		}
-		String fin =(anio+1)+"";
-		if(mes>=12) {
-			fin = "01";
+
+	public List<Cliente> darBuenClienteMes(PersistenceManager pm, int mes, int anio) {
+		String inicio = mes + "";
+		if (mes < 10) {
+			inicio = "0" + mes;
 		}
 		Query q = pm.newQuery(SQL,
-				"SELECT * FROM USUARIO USUA " + 
-				"NATURAL JOIN ( " + 
-				"SELECT USU.ID FROM USUARIO USU " + 
-				"LEFT JOIN RESERVA RES ON USU.ID = RES.CLIENTE_ID " + 
-				"LEFT JOIN OFERTA OFE ON RES.ID = OFE.RESERVA_ID " + 
-				"LEFT JOIN ALOJAMIENTO AL ON OFE.ALOJAMIENTO_ID = AL.ID " + 
-				"WHERE RES.FECHA_REALIZACION >= TO_DATE('"+inicio+"-"+mes+"-01', 'YYYY-MM-DD')" + 
-				"AND RES.FECHA_REALIZACION < TO_DATE('"+fin+"-"+mes+"-01', 'YYYY-MM-DD')" + 
-				"GROUP BY USU.ID)");
-		q.setResultClass(Usuario.class);
-		return (List<Usuario>) q.executeList();
+				"SELECT CLI.* FROM CLIENTE CLI " + "INNER JOIN RESERVA RES ON CLI.ID = RES.CLIENTE_ID "
+						+ "WHERE TO_CHAR(RES.FECHA_REALIZACION,'YYYY-MM') LIKE '" + anio + "-" + inicio
+						+ "' AND ROWNUM < 100");
+		q.setResultClass(Cliente.class);
+		return (List<Cliente>) q.executeList();
 	}
 }

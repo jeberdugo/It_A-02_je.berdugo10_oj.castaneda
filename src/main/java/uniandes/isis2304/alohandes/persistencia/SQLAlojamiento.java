@@ -150,45 +150,38 @@ public class SQLAlojamiento {
 		return (List<Alojamiento>) q.executeList();
 	}
 
-	public long darAlojamientoMayorPorSemana(PersistenceManager pm, int semana, int anio) {
+	public Alojamiento darAlojamientoMayorPorSemana(PersistenceManager pm, String semana, int anio) {
 		Query q = pm.newQuery(SQL,
-				"SELECT * FROM( " + 
-				"SELECT OFER.ALOJAMIENTO_ID AS ALOJAMIENTO " + 
-				"FROM ALOJAMIENTO ALO " + 
-				"FULL OUTER JOIN OFERTA OFER ON OFER.ALOJAMIENTO_ID = ALO.ID " + 
-				"FULL OUTER JOIN RESERVA RES ON RES.ID = OFER.RESERVA_ID " + 
-				"WHERE OFER.DIA>=TO_DATE('"+anio+"-01-01','YYYY-MM-DD') " + 
-				"AND OFER.DIA<TO_DATE('"+(anio+1)+"-01-01','YYYY-MM-DD') " + 
-				"AND TO_CHAR(DIA - 7/24,'IW') LIKE '"+semana+"' " +
-				"GROUP BY OFER.ALOJAMIENTO_ID, TO_CHAR(DIA - 7/24,'IW') " + 
-				"ORDER BY COUNT(RES.ID) DESC) " + 
-				"WHERE ROWNUM = 1");
-		Object ret = q.executeUnique();
-		if(ret==null) {
-			return -1;
+				"SELECT * FROM ALOJAMIENTO AL WHERE AL.ID = ( " + "SELECT * FROM("
+						+ "SELECT OFER.ALOJAMIENTO_ID AS ALOJAMIENTO " + "FROM ALOJAMIENTO ALO "
+						+ "FULL OUTER JOIN OFERTA OFER ON OFER.ALOJAMIENTO_ID = ALO.ID "
+						+ "FULL OUTER JOIN RESERVA RES ON RES.ID = OFER.RESERVA_ID "
+						+ "WHERE TO_CHAR(OFER.DIA,'YYYY') LIKE '" + anio + "' " + "AND TO_CHAR(DIA - 7/24,'IW') LIKE '"
+						+ semana + "' " + "GROUP BY OFER.ALOJAMIENTO_ID, TO_CHAR(DIA - 7/24,'IW') "
+						+ "ORDER BY COUNT(RES.ID) DESC) " + "WHERE ROWNUM = 1)");
+		q.setResultClass(Alojamiento.class);
+		Object resp = q.executeUnique();
+		if (resp == null) {
+			return null;
 		}
-		return ((BigDecimal) ret).longValue();
+		return (Alojamiento) resp;
 	}
-	
-	public long darAlojamientoMenorPorSemana(PersistenceManager pm, int semana, int anio) {
+
+	public Alojamiento darAlojamientoMenorPorSemana(PersistenceManager pm, String semana, int anio) {
 		Query q = pm.newQuery(SQL,
-				"SELECT * FROM( " + 
-				"SELECT OFER.ALOJAMIENTO_ID AS ALOJAMIENTO " + 
-				"FROM ALOJAMIENTO ALO " + 
-				"FULL OUTER JOIN OFERTA OFER ON OFER.ALOJAMIENTO_ID = ALO.ID " + 
-				"FULL OUTER JOIN RESERVA RES ON RES.ID = OFER.RESERVA_ID " + 
-				"WHERE OFER.DIA>=TO_DATE('"+anio+"-01-01','YYYY-MM-DD') " + 
-				"AND OFER.DIA<TO_DATE('"+(anio+1)+"-01-01','YYYY-MM-DD') " + 
-				"AND TO_CHAR(DIA - 7/24,'IW') LIKE '"+semana+"' " +
-				"GROUP BY OFER.ALOJAMIENTO_ID, TO_CHAR(DIA - 7/24,'IW') " + 
-				"ORDER BY COUNT(RES.ID) ASC) " + 
-				"WHERE ROWNUM = 1");
-		Object ret = q.executeUnique();
-		if(ret==null) {
-			return -1;
+				"SELECT * FROM ALOJAMIENTO AL WHERE AL.ID = ( " + "SELECT * FROM("
+						+ "SELECT OFER.ALOJAMIENTO_ID AS ALOJAMIENTO " + "FROM ALOJAMIENTO ALO "
+						+ "FULL OUTER JOIN OFERTA OFER ON OFER.ALOJAMIENTO_ID = ALO.ID "
+						+ "FULL OUTER JOIN RESERVA RES ON RES.ID = OFER.RESERVA_ID "
+						+ "WHERE TO_CHAR(OFER.DIA,'YYYY') LIKE '" + anio + "' " + "AND TO_CHAR(DIA - 7/24,'IW') LIKE '"
+						+ semana + "' " + "GROUP BY OFER.ALOJAMIENTO_ID, TO_CHAR(DIA - 7/24,'IW') "
+						+ "ORDER BY COUNT(RES.ID) ASC) " + "WHERE ROWNUM = 1)");
+		q.setResultClass(Alojamiento.class);
+		Object resp = q.executeUnique();
+		if (resp == null) {
+			return null;
 		}
-		return ((BigDecimal) ret).longValue();
+		return (Alojamiento) resp;
 	}
-	
-	
+
 }

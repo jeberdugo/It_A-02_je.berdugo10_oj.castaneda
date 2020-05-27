@@ -17,6 +17,7 @@ package uniandes.isis2304.alohandes.negocio;
 
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
@@ -240,23 +241,24 @@ public class AlohAndes
 
 		int now = LocalDateTime.now().getYear();
 		String resp ="";
+		Long duration = System.currentTimeMillis();
 		for(int i=0; i < 53;i++) {
+			String inicio = i+"";
+			if(i<10) {
+				inicio= "0"+i;
+			}
 			resp+="Semana "+i+": \n";
-			resp+=pp.darAlojamientoMayorPorSemana(i, now);
-			resp+=pp.darAlojamientoMenorPorSemana(i, now);
-			resp+=pp.darOperadorMayorPorSemana(i, now);
-			resp+=pp.darOperadorMenorPorSemana(i, now);
+			resp+=pp.darAlojamientoMayorPorSemana(inicio, now);
+			resp+=pp.darAlojamientoMenorPorSemana(inicio, now);
+			resp+=pp.darOperadorMayorPorSemana(inicio, now);
+			resp+=pp.darOperadorMenorPorSemana(inicio, now);
 		}
+		System.out.println(System.currentTimeMillis() - duration);
 		return resp;
 	}
-	public String consultarLosBuenosClientes() {
+	public ArrayList<List<Cliente>> consultarLosBuenosClientes() {
 		LocalDateTime now = LocalDateTime.now();
 		return pp.darBuenosClientes(now.getMonthValue(), now.getYear());
-	}
-	
-	
-	public String consultarConsumo2() {
-		return pp.consultarConsumo2();
 	}
 	/* ****************************************************************
 	 * 			Métodos para administración

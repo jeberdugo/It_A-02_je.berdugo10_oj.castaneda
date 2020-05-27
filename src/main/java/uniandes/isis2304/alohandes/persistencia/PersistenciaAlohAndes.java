@@ -1228,80 +1228,59 @@ public class PersistenciaAlohAndes {
 	 *         TIPOBEBIDA con el identificador dado
 	 */
 	public Usuario login(String idUsuario, String contra) {
-		Long duration = System.currentTimeMillis();
+		
 		PersistenceManager pm = pmf.getPersistenceManager();
 		Usuario user = sqlUsuario.darUsuarioPorUsuario(pm, idUsuario);
-		System.out.println(System.currentTimeMillis() - duration);
 		return user;
 
 	}
 
-	public String darAlojamientoMenorPorSemana(int semana, int anio) {
-		Long duration = System.currentTimeMillis();
+	public String darAlojamientoMenorPorSemana(String semana, int anio) {
 		PersistenceManager pm = pmf.getPersistenceManager();
-		Long consulta = sqlAlojamiento.darAlojamientoMenorPorSemana(pm, semana, anio);
-		if (consulta != -1) {
-			System.out.println(System.currentTimeMillis() - duration);
-			return "Peor alojamiento: " + sqlAlojamiento.buscarAlojamientoPorId(pm, consulta + "").toString() + "\n";
+		Alojamiento consulta = sqlAlojamiento.darAlojamientoMenorPorSemana(pm, semana, anio);
+		if (consulta != null) {
+			return "Peor alojamiento: " + consulta.toString() + "\n";
 		}
-		System.out.println(System.currentTimeMillis() - duration);
 		return "No hay peor alojamiento\n";
 	}
 
-	public String darAlojamientoMayorPorSemana(int semana, int anio) {
+	public String darAlojamientoMayorPorSemana(String semana, int anio) {
 		Long duration = System.currentTimeMillis();
 		PersistenceManager pm = pmf.getPersistenceManager();
-		Long consulta = sqlAlojamiento.darAlojamientoMayorPorSemana(pm, semana, anio);
-		if (consulta != -1) {
-			System.out.println(System.currentTimeMillis() - duration);
-			return "Mejor alojamiento: " + sqlAlojamiento.buscarAlojamientoPorId(pm, consulta + "").toString() + "\n";
+		Alojamiento consulta = sqlAlojamiento.darAlojamientoMayorPorSemana(pm, semana, anio);
+		if (consulta != null) {
+			return "Mejor alojamiento: " + consulta.toString() + "\n";
 		}
-		System.out.println(System.currentTimeMillis() - duration);
 		return "No hay mejor alojamiento\n";
 	}
 
-	public String darOperadorMayorPorSemana(int semana, int anio) {
-		Long duration = System.currentTimeMillis();
+	public String darOperadorMayorPorSemana(String semana, int anio) {
 		PersistenceManager pm = pmf.getPersistenceManager();
-		Long consulta = sqlOperador.darOperadorMayorPorSemana(pm, semana, anio);
-		if (consulta != -1) {
-			System.out.println(System.currentTimeMillis() - duration);
-			return "Mejor operador: " + sqlUsuario.darUsuarioPorId(pm, consulta + "").toString() + "\n";
+		Operador consulta = sqlOperador.darOperadorMayorPorSemana(pm, semana, anio);
+		if (consulta != null) {
+			return "Mejor operador: " + consulta.toString() + "\n";
 		}
-		System.out.println(System.currentTimeMillis() - duration);
 		return "No hay mejor operador\n";
 	}
 
-	public String darOperadorMenorPorSemana(int semana, int anio) {
-		Long duration = System.currentTimeMillis();
+	public String darOperadorMenorPorSemana(String semana, int anio) {
 		PersistenceManager pm = pmf.getPersistenceManager();
-		Long consulta = sqlOperador.darOperadorMenorPorSemana(pm, semana, anio);
-		if (consulta != -1) {
-			System.out.println(System.currentTimeMillis() - duration);
-			return "Mejor operador: " + sqlUsuario.darUsuarioPorId(pm, consulta + "").toString() + "\n";
+		Operador consulta = sqlOperador.darOperadorMenorPorSemana(pm, semana, anio);
+		if (consulta != null) {
+			return "Mejor operador: " + consulta.toString() + "\n";
 		}
-		System.out.println(System.currentTimeMillis() - duration);
 		return "No hay mejor operador\n";
 	}
 
-	public String darBuenosClientes(int mes, int anio) {
+	public ArrayList<List<Cliente>> darBuenosClientes(int mes, int anio) {
 		Long duration = System.currentTimeMillis();
-		String resp = "Buenos clientes por reserva mensual:\n";
 		PersistenceManager pm = pmf.getPersistenceManager();
-		Iterator<Usuario> consulta = sqlCliente.darBuenClienteMes(pm, mes, anio).iterator();
-		while (consulta.hasNext()) {
-			resp += consulta.next().toString() + "\n";
-		}
-		resp += "Buenos clientes por reserva mayor o igual a $100:\n";
-		consulta = sqlCliente.darBuenClientesCosto(pm).iterator();
-		while (consulta.hasNext()) {
-			resp += consulta.next().toString() + "\n";
-		}
-		resp += "Buenos clientes por reserva a suite:\n";
-		consulta = sqlCliente.darBuenClienteSuite(pm).iterator();
-		while (consulta.hasNext()) {
-			resp += consulta.next().toString() + "\n";
-		}
+		ArrayList<List<Cliente>> resp = new ArrayList<List<Cliente>>();
+		resp.add( sqlCliente.darBuenClienteMes(pm, mes, anio));
+		System.out.println(2);
+		resp.add( sqlCliente.darBuenClientesCosto(pm));
+		System.out.println(2);
+		resp.add(sqlCliente.darBuenClienteSuite(pm));
 		System.out.println(System.currentTimeMillis() - duration);
 		return resp;
 	}
