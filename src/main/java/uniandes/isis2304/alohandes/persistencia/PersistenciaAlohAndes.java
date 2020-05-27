@@ -848,7 +848,7 @@ public class PersistenciaAlohAndes {
 	public Operador darOperadorPorId(String idUsuario) {
 		Long duration = System.currentTimeMillis();
 		Operador resp = sqlOperador.darOperadorPorId(pmf.getPersistenceManager(), idUsuario);
-		System.out.println(System.currentTimeMillis() - duration);
+		System.out.println("Tiempo darOpid: "+(System.currentTimeMillis() - duration));
 		return resp;
 	}
 
@@ -1228,7 +1228,6 @@ public class PersistenciaAlohAndes {
 	 *         TIPOBEBIDA con el identificador dado
 	 */
 	public Usuario login(String idUsuario, String contra) {
-		
 		PersistenceManager pm = pmf.getPersistenceManager();
 		Usuario user = sqlUsuario.darUsuarioPorUsuario(pm, idUsuario);
 		return user;
@@ -1285,26 +1284,33 @@ public class PersistenciaAlohAndes {
 		return resp;
 	}
 	
-	public String consultarConsumo2() {
-		String resp = "Consumo:\n";
+	public String consultarConsumo2(long alid,Date fi, Date ff) {
+		Long duration = System.currentTimeMillis();
+		String resp = "Consumo de alojamiento con id: " + alid + " entre el "+ fi +" y el "+ ff +" \n";
 		PersistenceManager pm = pmf.getPersistenceManager();
-		List<Usuario> listaUsuarios=sqlOferta.consultarConsumo2(pm);
+		Timestamp fechasqlI = new Timestamp(fi.getTime());
+		Timestamp fechasqlF = new Timestamp(ff.getTime());
+		List<Usuario> listaUsuarios=sqlOferta.consultarConsumo2(pm, alid,fechasqlI,fechasqlF);
 		for(Usuario us:listaUsuarios) {
 			resp += us.toString() + "\n";
 		}
+		System.out.println(System.currentTimeMillis() - duration);
 		
 		return resp;
 		
 	}
 
-	public String consultarConsumo1() {
-		String resp = "Consumo:\n";
+	public String consultarConsumo1(long alid,Date fi, Date ff) {
+		Long duration = System.currentTimeMillis();
+		String resp = "Consumo de alojamiento con id: " + alid + " entre el "+ fi.toString()+" y el "+ ff.toString() +" \n";
 		PersistenceManager pm = pmf.getPersistenceManager();
-		List<Usuario> listaUsuarios=sqlOferta.consultarConsumo1(pm);
+		Timestamp fechasqlI = new Timestamp(fi.getTime());
+		Timestamp fechasqlF = new Timestamp(ff.getTime());
+		List<Usuario> listaUsuarios=sqlOferta.consultarConsumo1(pm, alid,fechasqlI,fechasqlF);
 		for(Usuario us:listaUsuarios) {
 			resp += us.toString() + "\n";
 		}
-		
+		System.out.println(System.currentTimeMillis() - duration);
 		return resp;
 	}
 

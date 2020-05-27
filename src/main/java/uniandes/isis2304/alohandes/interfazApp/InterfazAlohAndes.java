@@ -312,7 +312,7 @@ public class InterfazAlohAndes extends JFrame implements ActionListener {
 						String alooid = (String) JOptionPane.showInputDialog(null, "Seleccione Un Alojamiento",
 								"Alojamientos", JOptionPane.QUESTION_MESSAGE, null, listaId.toArray(), "Seleccione");
 						long alojamientoId = Long.parseLong(alooid);
-						System.out.println("" + alojamientoId);
+					
 
 						Properties p = new Properties();
 						p.put("text.today", "Today");
@@ -324,11 +324,11 @@ public class InterfazAlohAndes extends JFrame implements ActionListener {
 						Object[] params = { message, datePanel };
 						JOptionPane.showInputDialog(this, params, "Start date", JOptionPane.PLAIN_MESSAGE);
 						String fecha = model.getDay() + "-" + model.getMonth() + "-" + model.getYear();
-						System.out.print(fecha);
+						
 						String precio = JOptionPane.showInputDialog(this, "Precio", "Final",
 								JOptionPane.QUESTION_MESSAGE);
 
-						System.out.print(precio);
+						
 
 						System.out.print(alohandes.adicionarOferta(fecha, Integer.parseInt(precio), alojamientoId));
 					}
@@ -481,7 +481,7 @@ public class InterfazAlohAndes extends JFrame implements ActionListener {
 									"Ofertas", JOptionPane.QUESTION_MESSAGE, null, listaO.toArray(), "Seleccione");
 							long ofertaId = ofid.longValue();
 							Oferta of = alohandes.darOferta(ofertaId);
-							System.out.println(of);
+							
 							listaOfertasFinal.add(of);
 							listaOfertas.remove(ofid);
 
@@ -594,10 +594,15 @@ public class InterfazAlohAndes extends JFrame implements ActionListener {
 
 					}
 				}
+				else
+					alojamientos = "no hay";
+			}
+			if (tipoActivo == 3) {
+				tipo = "ADMINISTRADOR";
+
 			}
 
-			else
-				alojamientos = "no hay";
+			
 
 			Usuario user = alohandes.buscarUsuarioPorId("" + usuarioActivo);
 			if (user != null) {
@@ -607,12 +612,22 @@ public class InterfazAlohAndes extends JFrame implements ActionListener {
 									+ user.getCorreo() + "\nDocumento: " + user.getTipo_Documento() + " "
 									+ user.getNumero_Documento(),
 							"Informacion Usuario", JOptionPane.INFORMATION_MESSAGE);
-				} else
+				} 
+				if(tipoActivo == 2) {
 					JOptionPane.showMessageDialog(this,
 							"ID: " + user.getId() + "\nUsuario: " + user.getUsuario() + "\nTipo: " + tipo + "\nCorreo: "
 									+ user.getCorreo() + "\nDocumento: " + user.getTipo_Documento() + " "
 									+ user.getNumero_Documento() + "\nReservas: \n" + alojamientos,
 							"Informacion Usuario", JOptionPane.INFORMATION_MESSAGE);
+				}
+				
+				if(tipoActivo == 3) {
+					JOptionPane.showMessageDialog(this,
+							"ID: " + user.getId() + "\nUsuario: " + user.getUsuario() + "\nTipo: " + tipo + "\nCorreo: "
+									+ user.getCorreo() + "\nDocumento: " + user.getTipo_Documento() + " "
+									+ user.getNumero_Documento(),
+							"Informacion Usuario", JOptionPane.INFORMATION_MESSAGE);
+				}
 
 			}
 
@@ -638,7 +653,7 @@ public class InterfazAlohAndes extends JFrame implements ActionListener {
 			 Object[] params = {message,datePanel};
 			 JOptionPane.showInputDialog(this,params,"Start date", JOptionPane.PLAIN_MESSAGE);
 			 String fecha =model.getDay()+"-"+model.getMonth()+"-"+model.getYear();
-			 System.out.print(fecha);
+			
 			 String cap = JOptionPane.showInputDialog(this, "Capacidad Solicitada", "Capacidad",
 						JOptionPane.QUESTION_MESSAGE);
 			 
@@ -702,9 +717,12 @@ public void cancelarReservaColectiva() {
 					if (alohandes.buscarOperadorPorId("" + usuarioActivo) != null) {
 						tipoActivo = 1;
 					}
-					if (alohandes.buscarClientePorId("" + usuarioActivo) != null) {
+					else if (alohandes.buscarClientePorId("" + usuarioActivo) != null) {
 						tipoActivo = 2;
 					}
+					else
+						tipoActivo = 3;
+					
 				}
 
 				String resultado = " Login de usuario: " + user + " es " + invalido;
@@ -800,10 +818,244 @@ public void cancelarReservaColectiva() {
 	}
 	
 	public void consultarConsumo1() {
-		panelDatos.actualizarInterfaz(alohandes.consultarConsumo1());
+		if (usuarioActivo != -1) {
+			if (tipoActivo == 1) {
+				List<Alojamiento> lista = alohandes.darAlojamientosPorUserId("" + usuarioActivo);
+				List<String> listaId = new ArrayList<String>();
+				if (lista != null) {
+					for (Alojamiento a : lista) {
+						listaId.add("" + a.getId());
+					}
+
+					String alooid = (String) JOptionPane.showInputDialog(null, "Seleccione Un Alojamiento",
+							"Alojamientos", JOptionPane.QUESTION_MESSAGE, null, listaId.toArray(), "Seleccione");
+					long alojamientoId = Long.parseLong(alooid);
+					
+					Properties p = new Properties();
+					p.put("text.today", "Today");
+					p.put("text.month", "Month");
+					p.put("text.year", "Year");
+					UtilDateModel model = new UtilDateModel();
+					JDatePanelImpl datePanel = new JDatePanelImpl(model, p);
+					String message = "Choose start date:\n";
+					Object[] params = { message, datePanel };
+					JOptionPane.showInputDialog(this, params, "Fecha Inicial", JOptionPane.PLAIN_MESSAGE);
+					String fechaI = model.getDay() + "-" + model.getMonth() + "-" + model.getYear();
+					
+					JOptionPane.showInputDialog(this, params, "Fecha Final", JOptionPane.PLAIN_MESSAGE);
+					String fechaF = model.getDay() + "-" + model.getMonth() + "-" + model.getYear();
+					
+					
+					SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+					Date fechaIn = null;
+					Date fechaFin = null;
+					try {
+						fechaIn = sdf.parse(fechaI);
+						fechaFin = sdf.parse(fechaF);
+					} catch (ParseException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					
+					
+						
+					
+					
+					if(fechaIn.before(fechaFin)) {
+						panelDatos.actualizarInterfaz(alohandes.consultarConsumo1(alojamientoId, fechaIn,fechaFin));
+						
+					}
+					else
+						JOptionPane.showMessageDialog(this, "La fecha inicial debe ser menor a la incial", "Error fecha",
+								JOptionPane.ERROR_MESSAGE);
+					
+
+					
+
+					
+				}
+
+			} else if (tipoActivo == 3) {
+				List<Alojamiento> lista = alohandes.darAlojamientos();
+				List<String> listaId = new ArrayList<String>();
+				if (lista != null) {
+					for (Alojamiento a : lista) {
+						listaId.add("" + a.getId());
+					}
+
+					String alooid = (String) JOptionPane.showInputDialog(null, "Seleccione Un Alojamiento",
+							"Alojamientos", JOptionPane.QUESTION_MESSAGE, null, listaId.toArray(), "Seleccione");
+					long alojamientoId = Long.parseLong(alooid);
+					
+					Properties p = new Properties();
+					p.put("text.today", "Today");
+					p.put("text.month", "Month");
+					p.put("text.year", "Year");
+					UtilDateModel model = new UtilDateModel();
+					JDatePanelImpl datePanel = new JDatePanelImpl(model, p);
+					String message = "Choose start date:\n";
+					Object[] params = { message, datePanel };
+					JOptionPane.showInputDialog(this, params, "Fecha Inicial", JOptionPane.PLAIN_MESSAGE);
+					String fechaI = model.getDay() + "-" + model.getMonth() + "-" + model.getYear();
+					
+					JOptionPane.showInputDialog(this, params, "Fecha Final", JOptionPane.PLAIN_MESSAGE);
+					String fechaF = model.getDay() + "-" + model.getMonth() + "-" + model.getYear();
+					
+					
+					SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+					Date fechaIn = null;
+					Date fechaFin = null;
+					try {
+						fechaIn = sdf.parse(fechaI);
+						fechaFin = sdf.parse(fechaF);
+					} catch (ParseException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					
+					
+						
+					
+					
+					if(fechaIn.before(fechaFin)) {
+						panelDatos.actualizarInterfaz(alohandes.consultarConsumo1(alojamientoId, fechaIn,fechaFin));
+						
+					}
+					else
+						JOptionPane.showMessageDialog(this, "La fecha inicial debe ser menor a la incial", "Error fecha",
+								JOptionPane.ERROR_MESSAGE);
+
+					
+				}
+
+			}
+			
+			else
+				JOptionPane.showMessageDialog(this, "Debe loguearse como operador", "Debe loguearse",
+						JOptionPane.ERROR_MESSAGE);
+		} else
+			JOptionPane.showMessageDialog(this, "No esta logueado", "Debe loguearse", JOptionPane.ERROR_MESSAGE);
+		
 	}
 	public void consultarConsumo2() {
-		panelDatos.actualizarInterfaz(alohandes.consultarConsumo2());
+		if (usuarioActivo != -1) {
+			if (tipoActivo == 1) {
+				List<Alojamiento> lista = alohandes.darAlojamientosPorUserId("" + usuarioActivo);
+				List<String> listaId = new ArrayList<String>();
+				if (lista != null) {
+					for (Alojamiento a : lista) {
+						listaId.add("" + a.getId());
+					}
+
+					String alooid = (String) JOptionPane.showInputDialog(null, "Seleccione Un Alojamiento",
+							"Alojamientos", JOptionPane.QUESTION_MESSAGE, null, listaId.toArray(), "Seleccione");
+					long alojamientoId = Long.parseLong(alooid);
+					
+					Properties p = new Properties();
+					p.put("text.today", "Today");
+					p.put("text.month", "Month");
+					p.put("text.year", "Year");
+					UtilDateModel model = new UtilDateModel();
+					JDatePanelImpl datePanel = new JDatePanelImpl(model, p);
+					String message = "Choose start date:\n";
+					Object[] params = { message, datePanel };
+					JOptionPane.showInputDialog(this, params, "Fecha Inicial", JOptionPane.PLAIN_MESSAGE);
+					String fechaI = model.getDay() + "-" + model.getMonth() + "-" + model.getYear();
+					
+					JOptionPane.showInputDialog(this, params, "Fecha Final", JOptionPane.PLAIN_MESSAGE);
+					String fechaF = model.getDay() + "-" + model.getMonth() + "-" + model.getYear();
+					
+					
+					SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+					Date fechaIn = null;
+					Date fechaFin = null;
+					try {
+						fechaIn = sdf.parse(fechaI);
+						fechaFin = sdf.parse(fechaF);
+					} catch (ParseException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					
+					
+						
+					
+					
+					if(fechaIn.before(fechaFin)) {
+						panelDatos.actualizarInterfaz(alohandes.consultarConsumo2(alojamientoId,fechaIn,fechaFin));
+						
+					}
+					else
+						JOptionPane.showMessageDialog(this, "La fecha inicial debe ser menor a la incial", "Error fecha",
+								JOptionPane.ERROR_MESSAGE);
+					
+
+					
+
+					
+				}
+
+			} else if (tipoActivo == 3) {
+				List<Alojamiento> lista = alohandes.darAlojamientos();
+				List<String> listaId = new ArrayList<String>();
+				if (lista != null) {
+					for (Alojamiento a : lista) {
+						listaId.add("" + a.getId());
+					}
+
+					String alooid = (String) JOptionPane.showInputDialog(null, "Seleccione Un Alojamiento",
+							"Alojamientos", JOptionPane.QUESTION_MESSAGE, null, listaId.toArray(), "Seleccione");
+					long alojamientoId = Long.parseLong(alooid);
+					
+
+					Properties p = new Properties();
+					p.put("text.today", "Today");
+					p.put("text.month", "Month");
+					p.put("text.year", "Year");
+					UtilDateModel model = new UtilDateModel();
+					JDatePanelImpl datePanel = new JDatePanelImpl(model, p);
+					String message = "Choose start date:\n";
+					Object[] params = { message, datePanel };
+					JOptionPane.showInputDialog(this, params, "Fecha Inicial", JOptionPane.PLAIN_MESSAGE);
+					String fechaI = model.getDay() + "-" + model.getMonth() + "-" + model.getYear();
+					
+					JOptionPane.showInputDialog(this, params, "Fecha Final", JOptionPane.PLAIN_MESSAGE);
+					String fechaF = model.getDay() + "-" + model.getMonth() + "-" + model.getYear();
+					
+					
+					SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+					Date fechaIn = null;
+					Date fechaFin = null;
+					try {
+						fechaIn = sdf.parse(fechaI);
+						fechaFin = sdf.parse(fechaF);
+					} catch (ParseException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					
+					
+						
+					
+					
+					if(fechaIn.before(fechaFin)) {
+						panelDatos.actualizarInterfaz(alohandes.consultarConsumo2(alojamientoId,fechaIn,fechaFin));
+						
+					}
+					else
+						JOptionPane.showMessageDialog(this, "La fecha inicial debe ser menor a la incial", "Error fecha",
+								JOptionPane.ERROR_MESSAGE);
+
+					
+				}
+
+			}
+			
+			else
+				JOptionPane.showMessageDialog(this, "Debe loguearse como operador", "Debe loguearse",
+						JOptionPane.ERROR_MESSAGE);
+		} else
+			JOptionPane.showMessageDialog(this, "No esta logueado", "Debe loguearse", JOptionPane.ERROR_MESSAGE);
 	}
 	
 	public void analisisOperacion() {
